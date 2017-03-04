@@ -1,6 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Game1.Components;
+using Game1.Entities;
+using Game1.Managers;
+using Game1.Services;
+using Game1.Systems;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace Game1
 {
@@ -9,13 +15,21 @@ namespace Game1
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager _graphics;
+        private SpriteBatch _spriteBatch;
+
+        private IEntityFactory _entityFactory;
+        private DrawingSystem _drawingSystem;
+        private ConfigurationService _configurationService;
+
+        private List<Entity> _entities = new List<Entity>();
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            
         }
 
         /// <summary>
@@ -26,7 +40,9 @@ namespace Game1
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            _entityFactory = new EntityFactory();
+            _drawingSystem = new DrawingSystem(_entityFactory);
+            _configurationService = new ConfigurationService();
 
             base.Initialize();
         }
@@ -38,7 +54,9 @@ namespace Game1
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            var tiles = new StageBuildingService(_configurationService, Content, _entityFactory).Build(1);
 
             // TODO: use this.Content to load your game content here
         }
@@ -64,6 +82,8 @@ namespace Game1
 
             // TODO: Add your update logic here
 
+
+
             base.Update(gameTime);
         }
 
@@ -75,7 +95,10 @@ namespace Game1
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            _spriteBatch.Begin();
+            _drawingSystem.Draw(_spriteBatch);
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
