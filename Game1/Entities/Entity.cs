@@ -21,9 +21,10 @@ namespace Game1.Entities
             return (TComponent)_components.FirstOrDefault(x => x is TComponent);
         }
 
-        public void AddComponent(ComponentBase component)
+        public ComponentBase AddComponent(ComponentBase component)
         {
             _components.Add(component);
+            return component;
         }
     }
 }

@@ -15,45 +15,57 @@ namespace Game1.Systems
     {
         private readonly IEntityManager _entityManager;
         private readonly IInputMappingService _inputMappingService;
+        private readonly IConfigurationService _configurationService;
+        private readonly Point _tileSize;
 
-        public InputHandlingSystem(IEntityManager entityManager, IInputMappingService inputMappingService)
+        public InputHandlingSystem(IEntityManager entityManager, IInputMappingService inputMappingService, IConfigurationService configurationService)
         {
             _entityManager = entityManager;
             _inputMappingService = inputMappingService;
+            _configurationService = configurationService;
+            _tileSize = _configurationService.GetTileSizeInPixels();
         }
 
         public void Update()
         {
             var intent = _inputMappingService.GetIntents();
 
-            var entities = _entityManager.GetEntities().Where(x => x.HasComponent<IntentMapComponent>() && x.HasComponent<MovementComponent>());
+            var entities = _entityManager.GetEntities().Where(x => x.HasComponent<IntentMapComponent>() && x.HasComponent<MoveToComponent>());
 
             foreach (var entity in entities)
             {
                 var intentComponent = entity.GetComponent<IntentMapComponent>();
-                var velocity = Vector2.Zero;
+                var direction = Vector2.Zero;
 
                 if ((intentComponent.Intent & intent) == Intent.MoveDown)
                 {
-                    velocity += new Vector2(0, 1);
+                    direction += new Vector2(0, 1);
                 }
 
                 if ((intentComponent.Intent & intent) == Intent.MoveUp)
                 {
-                    velocity += new Vector2(0, -1);
+                    direction += new Vector2(0, -1);
                 }
 
                 if ((intentComponent.Intent & intent) == Intent.MoveLeft)
                 {
-                    velocity += new Vector2(-1, 0);
+                    direction += new Vector2(-1, 0);
                 }
 
                 if ((intentComponent.Intent & intent) == Intent.MoveRight)
                 {
-                    velocity += new Vector2(1, 0);
+                    direction += new Vector2(1, 0);
                 }
 
-                entity.GetComponent<MovementComponent>().Velocity = velocity;             
+                if (direction != Vector2.Zero)
+                {
+                    var moveTo = entity.GetComponent<MoveToComponent>();
+                    if (!moveTo.Active)
+                    {
+                        moveTo.Target = entity.GetComponent<TransformComponent>().Position + direction * _tileSize.ToVector2();
+                        moveTo.Active = true;
+                    }                    
+                }
             }
         }
     }

@@ -23,18 +23,36 @@ namespace Game1.Systems
 
         public void Update()
         {
-            var entities = _entityManager.GetEntities().Where(x => x.HasComponent<MovementComponent>() && x.HasComponent<TransformComponent>());
+            var entities = _entityManager.GetEntities().Where(x => x.HasComponent<MoveToComponent>() && x.HasComponent<TransformComponent>());
             var tileSize = _configurationService.GetTileSizeInPixels();
 
             foreach (var entity in entities)
             {
-                var movement = entity.GetComponent<MovementComponent>();
-                var velocity = movement.Velocity;
+                var moveTo = entity.GetComponent<MoveToComponent>();
 
-                var transform = entity.GetComponent<TransformComponent>();
-                transform.Position += new Vector2(velocity.X * tileSize.X, velocity.Y * tileSize.Y);
+                if (moveTo.Active)
+                {
+                    var transform = entity.GetComponent<TransformComponent>();
 
-                movement.Velocity = Vector2.Zero;
+                    if ((transform.Position - moveTo.Target).LengthSquared() > 0.01f)
+                    {
+                        var direction = moveTo.Target - transform.Position;
+                        direction.Normalize();
+
+                        var distancePlanned = (direction * moveTo.Speed).LengthSquared();
+                        var distanceLeft = (transform.Position - moveTo.Target).LengthSquared();
+
+                        if (distancePlanned >= distanceLeft)
+                        {
+                            transform.Position = moveTo.Target;
+                            moveTo.Active = false;
+                        }
+                        else
+                        {
+                            transform.Position += direction * moveTo.Speed;
+                        }
+                    }
+                }                
             }
         }
     }

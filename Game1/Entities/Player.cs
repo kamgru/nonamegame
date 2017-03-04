@@ -14,10 +14,12 @@ namespace Game1.Entities
     {
         public Player(Vector2 position, Texture2D texture)
         {
-            AddComponent(new TransformComponent { Position = position });
+            var transform = AddComponent(new TransformComponent { Position = position }) as TransformComponent;
             AddComponent(new SpriteComponent { Texture2D = texture });
-            AddComponent(new MovementComponent());
+            var moveTo = AddComponent(new MoveToComponent { Speed = 5f }) as MoveToComponent;
             AddComponent(new IntentMapComponent { Intent = Intent.MoveUp | Intent.MoveRight | Intent.MoveLeft | Intent.MoveDown});
+
+            moveTo.Active = false;
         }
     }
 }

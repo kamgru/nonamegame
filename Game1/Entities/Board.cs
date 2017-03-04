@@ -21,6 +21,7 @@ namespace Game1.Entities
             }
 
             player.GetComponent<TransformComponent>().SetParent(transform);
+            
         }
                 
     }

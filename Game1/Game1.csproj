@@ -45,6 +45,7 @@
     <Compile Include="Components\ComponentBase.cs" />
     <Compile Include="Components\IntentMapComponent.cs" />
     <Compile Include="Components\MovementComponent.cs" />
+    <Compile Include="Components\MoveToComponent.cs" />
     <Compile Include="Components\TileComponent.cs" />
     <Compile Include="Components\TransformComponent.cs" />
     <Compile Include="Components\SpriteComponent.cs" />
