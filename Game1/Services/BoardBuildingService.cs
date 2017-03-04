@@ -1,19 +1,21 @@
-﻿using Game1.Entities;
+﻿using Game1.Components;
+using Game1.Entities;
 using Game1.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Game1.Services
 {
-    public class StageBuildingService : IStageBuildingService
+    public class BoardBuildingService : IBoardBuildingService
     {
         private IConfigurationService _configurationService;
         private ContentManager _contentManager;
         private IEntityFactory _entityFactory;
         
-        public StageBuildingService(IConfigurationService configurationService, ContentManager contentManager, IEntityFactory entityFactory)
+        public BoardBuildingService(IConfigurationService configurationService, ContentManager contentManager, IEntityFactory entityFactory)
         {
             _contentManager = contentManager;
             _entityFactory = entityFactory;

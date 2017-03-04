@@ -9,18 +9,19 @@ namespace Game1.Managers
 {
     public class EntityFactory : IEntityFactory
     {
-        private List<Entity> _entities = new List<Entity>();
+        private IEntityManager _entityManager;
+
+        public EntityFactory(IEntityManager entityManager)
+        {
+            _entityManager = entityManager;
+        }
 
         public TEntity Create<TEntity>(params object[] args) where TEntity : Entity
-        {
+        {            
             var entity = (TEntity)Activator.CreateInstance(typeof(TEntity), args);
-            _entities.Add(entity);
+            _entityManager.RegisterEntity(entity);
             return entity;
         }
 
-        public IEnumerable<Entity> GetEntities()
-        {
-            return _entities.ToList();
-        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Game1.Components;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,18 @@ namespace Game1.Entities
 {
     public class Board : Entity
     {
-        private IEnumerable<Tile> _tiles;
-
-        public Point Size { get; private set; }
-        public Point Position { get; set; }
-
-        public Board(IEnumerable<Tile> tiles)
+        public Board(IEnumerable<Tile> tiles, Player player)
         {
+            var transform = new TransformComponent();
+            AddComponent(transform);
+            
+            foreach(var tile in tiles)
+            {
+                tile.GetComponent<TransformComponent>().SetParent(transform);
+            }
 
+            player.GetComponent<TransformComponent>().SetParent(transform);
         }
-
-        
+                
     }
 }

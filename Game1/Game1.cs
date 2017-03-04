@@ -18,8 +18,14 @@ namespace Game1
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        private IEntityManager _entityManager;
         private IEntityFactory _entityFactory;
         private DrawingSystem _drawingSystem;
+
+        private InputHandlingSystem _inputHandlingSystem;
+        private MovementSystem _movementSystem;
+
+        private InputMappingService _inputMappingService;
         private ConfigurationService _configurationService;
 
         private List<Entity> _entities = new List<Entity>();
@@ -28,53 +34,45 @@ namespace Game1
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
-            
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
         protected override void Initialize()
         {
-            _entityFactory = new EntityFactory();
-            _drawingSystem = new DrawingSystem(_entityFactory);
             _configurationService = new ConfigurationService();
+            _inputMappingService = new InputMappingService();
+
+            _entityManager = new EntityManager();
+            _entityFactory = new EntityFactory(_entityManager);
+            _drawingSystem = new DrawingSystem(_entityManager);
+          
+            _inputHandlingSystem = new InputHandlingSystem(_entityManager, _inputMappingService);
+            _movementSystem = new MovementSystem(_entityManager, _configurationService);
+
 
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            var tiles = new StageBuildingService(_configurationService, Content, _entityFactory).Build(1);
+            var tiles = new BoardBuildingService(_configurationService, Content, _entityFactory).Build(1);
+            
 
-            // TODO: use this.Content to load your game content here
+
+            var player = _entityFactory.Create<Player>(Vector2.Zero, Content.Load<Texture2D>("red_dot"));
+
+            var board = _entityFactory.Create<Board>(tiles, player);
+
+            board.GetComponent<TransformComponent>().Position = new Vector2(100, 100);
+
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
-        /// </summary>
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -82,15 +80,12 @@ namespace Game1
 
             // TODO: Add your update logic here
 
-
+            _inputHandlingSystem.Update();
+            _movementSystem.Update();
 
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);

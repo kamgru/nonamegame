@@ -12,13 +12,11 @@ namespace Game1.Systems
 {
     public class DrawingSystem : ISystem
     {
-        private readonly IEntityFactory _entityFactory;
+        private readonly IEntityManager _entityManager;
 
-
-
-        public DrawingSystem(IEntityFactory entityFactory)
+        public DrawingSystem(IEntityManager entityManager)
         {
-            _entityFactory = entityFactory;
+            _entityManager = entityManager;
         }
 
         public void Update()
@@ -28,7 +26,7 @@ namespace Game1.Systems
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            var entites = _entityFactory.GetEntities().Where(x => x.HasComponent<SpriteComponent>())
+            var entites = _entityManager.GetEntities().Where(x => x.HasComponent<SpriteComponent>())
                 .Select(x => new { Texture2D = x.GetComponent<SpriteComponent>().Texture2D, Position = x.GetComponent<TransformComponent>().Position })
                 .Where(x => x.Texture2D != null);
 

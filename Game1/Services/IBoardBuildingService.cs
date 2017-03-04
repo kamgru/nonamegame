@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Game1.Services
 {
-    public interface IStageBuildingService
+    public interface IBoardBuildingService
     {
         IEnumerable<Tile> Build(int num);
     }

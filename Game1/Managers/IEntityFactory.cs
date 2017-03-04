@@ -10,6 +10,5 @@ namespace Game1.Managers
     public interface IEntityFactory
     {
         TEntity Create<TEntity>(params object[] args) where TEntity : Entity;
-        IEnumerable<Entity> GetEntities();
     }
 }
