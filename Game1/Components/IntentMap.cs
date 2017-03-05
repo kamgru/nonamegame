@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Game1.Components
 {
-    public class IntentMapComponent : ComponentBase
+    public class IntentMap : ComponentBase
     {
         public Intent Intent { get; set; }
     }

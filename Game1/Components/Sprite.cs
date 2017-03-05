@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Game1.Components
 {
-    public class SpriteComponent : ComponentBase
+    public class Sprite : ComponentBase
     {
         public Texture2D Texture2D { get; set; }
     }

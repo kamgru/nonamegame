@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace Game1.Systems
 {
-    public class MovementSystem : ISystem
+    public class TileBasedMovementSystem : ISystem
     {
         private readonly IEntityManager _entityManager;
         private readonly IConfigurationService _configurationService;
 
-        public MovementSystem(IEntityManager entityManager, IConfigurationService configurationService)
+        public TileBasedMovementSystem(IEntityManager entityManager, IConfigurationService configurationService)
         {
             _entityManager = entityManager;
             _configurationService = configurationService;
@@ -23,35 +23,37 @@ namespace Game1.Systems
 
         public void Update()
         {
-            var entities = _entityManager.GetEntities().Where(x => x.HasComponent<MoveToComponent>() && x.HasComponent<TransformComponent>());
+            var entities = _entityManager.GetEntities().Where(x => x.HasComponent<MoveToTarget>() 
+                && x.HasComponent<MoveSpeed>());
+
             var tileSize = _configurationService.GetTileSizeInPixels();
 
             foreach (var entity in entities)
             {
-                var moveTo = entity.GetComponent<MoveToComponent>();
+                var moveTo = entity.GetComponent<MoveToTarget>();
 
-                if (moveTo.Active)
+                var transform = entity.Transform;
+
+                if ((transform.Position - moveTo.Target).LengthSquared() > 0.01f)
                 {
-                    var transform = entity.GetComponent<TransformComponent>();
+                    var speed = entity.GetComponent<MoveSpeed>().Speed;
 
-                    if ((transform.Position - moveTo.Target).LengthSquared() > 0.01f)
+                    var direction = moveTo.Target - transform.Position;
+                    direction.Normalize();
+
+                    var distancePlanned = (direction * speed).LengthSquared();
+                    var distanceLeft = (transform.Position - moveTo.Target).LengthSquared();
+
+                    if (distancePlanned >= distanceLeft)
                     {
-                        var direction = moveTo.Target - transform.Position;
-                        direction.Normalize();
-
-                        var distancePlanned = (direction * moveTo.Speed).LengthSquared();
-                        var distanceLeft = (transform.Position - moveTo.Target).LengthSquared();
-
-                        if (distancePlanned >= distanceLeft)
-                        {
-                            transform.Position = moveTo.Target;
-                            moveTo.Active = false;
-                        }
-                        else
-                        {
-                            transform.Position += direction * moveTo.Speed;
-                        }
+                        transform.Position = moveTo.Target;
+                        entity.RemoveComponent(moveTo);
                     }
+                    else
+                    {
+                        transform.Position += direction * speed;
+                    }
+                
                 }                
             }
         }

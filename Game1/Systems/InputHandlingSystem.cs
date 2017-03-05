@@ -30,11 +30,11 @@ namespace Game1.Systems
         {
             var intent = _inputMappingService.GetIntents();
 
-            var entities = _entityManager.GetEntities().Where(x => x.HasComponent<IntentMapComponent>() && x.HasComponent<MoveToComponent>());
+            var entities = _entityManager.GetEntities().Where(x => x.HasComponent<IntentMap>() && !x.HasComponent<MoveToTarget>());
 
             foreach (var entity in entities)
             {
-                var intentComponent = entity.GetComponent<IntentMapComponent>();
+                var intentComponent = entity.GetComponent<IntentMap>();
                 var direction = Vector2.Zero;
 
                 if ((intentComponent.Intent & intent) == Intent.MoveDown)
@@ -59,12 +59,8 @@ namespace Game1.Systems
 
                 if (direction != Vector2.Zero)
                 {
-                    var moveTo = entity.GetComponent<MoveToComponent>();
-                    if (!moveTo.Active)
-                    {
-                        moveTo.Target = entity.GetComponent<TransformComponent>().Position + direction * _tileSize.ToVector2();
-                        moveTo.Active = true;
-                    }                    
+                    var moveTo = entity.AddComponent(new MoveToTarget()) as MoveToTarget;
+                    moveTo.Target = entity.Transform.Position + direction * _tileSize.ToVector2();
                 }
             }
         }

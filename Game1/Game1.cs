@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Game1
 {
@@ -23,7 +24,7 @@ namespace Game1
         private DrawingSystem _drawingSystem;
 
         private InputHandlingSystem _inputHandlingSystem;
-        private MovementSystem _movementSystem;
+        private TileBasedMovementSystem _movementSystem;
 
         private InputMappingService _inputMappingService;
         private ConfigurationService _configurationService;
@@ -46,7 +47,7 @@ namespace Game1
             _drawingSystem = new DrawingSystem(_entityManager);
           
             _inputHandlingSystem = new InputHandlingSystem(_entityManager, _inputMappingService, _configurationService);
-            _movementSystem = new MovementSystem(_entityManager, _configurationService);
+            _movementSystem = new TileBasedMovementSystem(_entityManager, _configurationService);
 
 
             base.Initialize();
@@ -56,15 +57,16 @@ namespace Game1
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            var tiles = new BoardBuildingService(_configurationService, Content, _entityFactory).Build(1);
-            
+            var board = new BoardBuildingService(_configurationService, Content, _entityFactory).Build(1);
 
+            var size = board.GetBoardSize();
+            var tileSize = _configurationService.GetTileSizeInPixels();
+            var v = size * tileSize;
 
             var player = _entityFactory.Create<Player>(Vector2.Zero, Content.Load<Texture2D>("red_dot"));
+            player.Transform.SetParent(board.Transform);
 
-            var board = _entityFactory.Create<Board>(tiles, player);
-
-            board.GetComponent<TransformComponent>().Position = new Vector2(100, 100);
+            board.Transform.Position = new Vector2((GraphicsDevice.Viewport.Width - v.X) / 2 , (GraphicsDevice.Viewport.Height - v.Y) / 2 );
 
         }
 

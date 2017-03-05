@@ -43,12 +43,12 @@
   <ItemGroup>
     <Compile Include="Common\Intent.cs" />
     <Compile Include="Components\ComponentBase.cs" />
-    <Compile Include="Components\IntentMapComponent.cs" />
-    <Compile Include="Components\MovementComponent.cs" />
-    <Compile Include="Components\MoveToComponent.cs" />
-    <Compile Include="Components\TileComponent.cs" />
-    <Compile Include="Components\TransformComponent.cs" />
-    <Compile Include="Components\SpriteComponent.cs" />
+    <Compile Include="Components\IntentMap.cs" />
+    <Compile Include="Components\MoveSpeed.cs" />
+    <Compile Include="Components\MoveToTarget.cs" />
+    <Compile Include="Components\TileInfo.cs" />
+    <Compile Include="Components\Transform.cs" />
+    <Compile Include="Components\Sprite.cs" />
     <Compile Include="Entities\Board.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Player.cs" />
@@ -69,7 +69,7 @@
     <Compile Include="Systems\DrawingSystem.cs" />
     <Compile Include="Systems\InputHandlingSystem.cs" />
     <Compile Include="Systems\ISystem.cs" />
-    <Compile Include="Systems\MovementSystem.cs" />
+    <Compile Include="Systems\TileBasedMovementSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

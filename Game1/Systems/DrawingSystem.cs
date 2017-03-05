@@ -26,8 +26,8 @@ namespace Game1.Systems
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            var entites = _entityManager.GetEntities().Where(x => x.HasComponent<SpriteComponent>())
-                .Select(x => new { Texture2D = x.GetComponent<SpriteComponent>().Texture2D, Position = x.GetComponent<TransformComponent>().Position })
+            var entites = _entityManager.GetEntities().Where(x => x.HasComponent<Sprite>())
+                .Select(x => new { Texture2D = x.GetComponent<Sprite>().Texture2D, Position = x.GetComponent<Transform>().Position })
                 .Where(x => x.Texture2D != null);
 
             foreach (var entity in entites)

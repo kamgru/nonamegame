@@ -3,9 +3,8 @@
 namespace Game1.Components
 {
 
-    public class MoveToComponent : ComponentBase
+    public class MoveToTarget : ComponentBase
     {
         public Vector2 Target { get; set; }
-        public float Speed { get; set; }
     }
 }

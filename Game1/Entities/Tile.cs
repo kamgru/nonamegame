@@ -11,11 +11,13 @@ namespace Game1.Entities
 {
     public class Tile : Entity
     {
-        public Tile(Point position, Texture2D texture, int tileValue)
+        public TileInfo TileInfo { get; private set; }
+
+        public Tile(Point position, Point size, Texture2D texture, int tileValue)
         {
-            AddComponent(new TransformComponent { Position = position.ToVector2() });
-            AddComponent(new SpriteComponent { Texture2D = texture });
-            AddComponent(new TileComponent { Value = tileValue });
+            Transform.Position = (position * size).ToVector2();
+            AddComponent(new Sprite { Texture2D = texture });
+            TileInfo = AddComponent(new TileInfo { Value = tileValue, Position = position }) as TileInfo;
         }
     }
 }

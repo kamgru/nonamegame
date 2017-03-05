@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,10 @@ namespace Game1.Components
         Start = 2,
     }
 
-    public class TileComponent : ComponentBase
+    public class TileInfo : ComponentBase
     {
         public int Value { get; set; }
         public TileType TileType { get; set; }
+        public Point Position { get; set; }
     }
 }

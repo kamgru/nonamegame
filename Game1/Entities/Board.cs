@@ -10,19 +10,25 @@ namespace Game1.Entities
 {
     public class Board : Entity
     {
-        public Board(IEnumerable<Tile> tiles, Player player)
-        {
-            var transform = new TransformComponent();
-            AddComponent(transform);
-            
-            foreach(var tile in tiles)
-            {
-                tile.GetComponent<TransformComponent>().SetParent(transform);
-            }
+        private IEnumerable<Tile> _tiles;
 
-            player.GetComponent<TransformComponent>().SetParent(transform);
-            
+        public Board(IEnumerable<Tile> tiles)
+        {
+            _tiles = tiles;
+        }
+
+        public TileInfo GetTileInfoAt(Point point)
+        {
+            return _tiles.FirstOrDefault(x => x.TileInfo.Position == point)?.TileInfo;
         }
                 
+        public Point GetBoardSize()
+        {
+            return new Point(
+                _tiles.Max(t => t.TileInfo.Position.X) + 1,
+                _tiles.Max(t => t.TileInfo.Position.Y) + 1
+            );
+        }
+
     }
 }
