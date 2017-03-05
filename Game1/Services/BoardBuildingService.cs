@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using Game1.Api;
 
 namespace Game1.Services
 {
@@ -38,8 +39,14 @@ namespace Game1.Services
                 }
             }
 
-            var board = _entityFactory.Create<Board>(tiles);
+            var board = _entityFactory.Create<Board>();
             tiles.ForEach(x => x.Transform.SetParent(board.Transform));
+
+            board.AddComponent(new BoardInfo
+            {
+                Size = new Point(tiles.Max(t => t.TileInfo.Position.X) + 1, tiles.Max(t => t.TileInfo.Position.Y) + 1),
+                TileInfos = tiles.Select(x => x.TileInfo)
+            });
 
             return board;
         }

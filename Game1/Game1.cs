@@ -1,4 +1,5 @@
-﻿using Game1.Components;
+﻿using Game1.Api;
+using Game1.Components;
 using Game1.Entities;
 using Game1.Managers;
 using Game1.Services;
@@ -62,7 +63,7 @@ namespace Game1
             var tileSize = _configurationService.GetTileSizeInPixels();
             var size = board.BoardInfo.Size * tileSize;
 
-            var player = _entityFactory.Create<Player>(Vector2.Zero, Content.Load<Texture2D>("red_dot"));
+            var player = new PlayerBuildingService(Content, _entityFactory).Build();
             player.Transform.SetParent(board.Transform);
 
             board.Transform.Position = new Vector2((GraphicsDevice.Viewport.Width - size.X) / 2 , (GraphicsDevice.Viewport.Height - size.Y) / 2 );

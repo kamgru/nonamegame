@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Api\IPlayerBuildingService.cs" />
     <Compile Include="Common\Intent.cs" />
     <Compile Include="Components\BoardInfo.cs" />
     <Compile Include="Components\ComponentBase.cs" />
@@ -57,19 +58,20 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Managers\EntityFactory.cs" />
     <Compile Include="Managers\EntityManager.cs" />
-    <Compile Include="Managers\IEntityFactory.cs" />
-    <Compile Include="Managers\IEntityManager.cs" />
+    <Compile Include="Api\IEntityFactory.cs" />
+    <Compile Include="Api\IEntityManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ConfigurationService.cs" />
-    <Compile Include="Services\IConfigurationService.cs" />
-    <Compile Include="Services\IBoardBuildingService.cs" />
+    <Compile Include="Api\IConfigurationService.cs" />
+    <Compile Include="Api\IBoardBuildingService.cs" />
     <Compile Include="Services\BoardBuildingService.cs" />
-    <Compile Include="Services\IInputMappingService.cs" />
+    <Compile Include="Api\IInputMappingService.cs" />
     <Compile Include="Services\InputMappingService.cs" />
+    <Compile Include="Services\PlayerBuildingService.cs" />
     <Compile Include="Systems\DrawingSystem.cs" />
     <Compile Include="Systems\InputHandlingSystem.cs" />
-    <Compile Include="Systems\ISystem.cs" />
+    <Compile Include="Api\ISystem.cs" />
     <Compile Include="Systems\TileBasedMovementSystem.cs" />
   </ItemGroup>
   <ItemGroup>

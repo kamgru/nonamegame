@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.Managers
+namespace Game1.Api
 {
-    public interface IEntityFactory
+    public interface IPlayerBuildingService
     {
-        TEntity Create<TEntity>(params object[] args) where TEntity : Entity;
+        Player Build();
     }
 }
