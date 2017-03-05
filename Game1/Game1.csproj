@@ -44,6 +44,7 @@
     <Compile Include="Api\IPlayerBuildingService.cs" />
     <Compile Include="Common\Intent.cs" />
     <Compile Include="Components\BoardInfo.cs" />
+    <Compile Include="Components\BoardPosition.cs" />
     <Compile Include="Components\ComponentBase.cs" />
     <Compile Include="Components\IntentMap.cs" />
     <Compile Include="Components\MoveSpeed.cs" />
@@ -69,10 +70,11 @@
     <Compile Include="Api\IInputMappingService.cs" />
     <Compile Include="Services\InputMappingService.cs" />
     <Compile Include="Services\PlayerBuildingService.cs" />
+    <Compile Include="Systems\BoardSystem.cs" />
     <Compile Include="Systems\DrawingSystem.cs" />
     <Compile Include="Systems\InputHandlingSystem.cs" />
     <Compile Include="Api\ISystem.cs" />
-    <Compile Include="Systems\TileBasedMovementSystem.cs" />
+    <Compile Include="Systems\MovementSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

@@ -2,6 +2,7 @@
 using Game1.Components;
 using Game1.Managers;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,15 @@ namespace Game1.Systems
     public class DrawingSystem : ISystem
     {
         private readonly IEntityManager _entityManager;
+        private readonly ContentManager _contentManager;
 
-        public DrawingSystem(IEntityManager entityManager)
+        private readonly SpriteFont _debugFont;
+
+        public DrawingSystem(IEntityManager entityManager, ContentManager contentManager)
         {
             _entityManager = entityManager;
+            _contentManager = contentManager;
+            _debugFont = contentManager.Load<SpriteFont>("default");
         }
 
         public void Update()
@@ -34,6 +40,12 @@ namespace Game1.Systems
             foreach (var entity in entites)
             {
                 spriteBatch.Draw(entity.Texture2D, entity.Position, Color.White);
+            }
+
+            var boardPosition = _entityManager.GetEntities().FirstOrDefault(x => x.HasComponent<BoardPosition>())?.GetComponent<BoardPosition>();
+            if (boardPosition != null)
+            {
+                spriteBatch.DrawString(_debugFont, $"c:{boardPosition.Current.X}, {boardPosition.Current.Y}", Vector2.Zero, Color.Red);
             }
         }
     }

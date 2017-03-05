@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace Game1.Systems
 {
-    public class TileBasedMovementSystem : ISystem
+    public class MovementSystem : ISystem
     {
         private readonly IEntityManager _entityManager;
         private readonly IConfigurationService _configurationService;
 
-        public TileBasedMovementSystem(IEntityManager entityManager, IConfigurationService configurationService)
+        public MovementSystem(IEntityManager entityManager, IConfigurationService configurationService)
         {
             _entityManager = entityManager;
             _configurationService = configurationService;
@@ -50,7 +50,17 @@ namespace Game1.Systems
                         transform.Position = moveTo.Target;
                         entity.RemoveComponent(moveTo);
 
+                        var boardPosition = entity.GetComponent<BoardPosition>();
+                        if (boardPosition != null)
+                        {
+                            var boardInfo = _entityManager.GetEntities().FirstOrDefault(x => x.HasComponent<BoardInfo>()).GetComponent<BoardInfo>();
+                            var tileInfo = boardInfo?.GetTileInfoAt(boardPosition.Current);
 
+                            if (tileInfo == null)
+                            {
+                                _entityManager.DestroyEntity(entity);
+                            }
+                        }
                     }
                     else
                     {

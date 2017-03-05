@@ -2,6 +2,7 @@
 using Game1.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace Game1.Managers
 {
@@ -9,6 +10,17 @@ namespace Game1.Managers
     {
 
         private List<Entity> _entities = new List<Entity>();
+
+        public void DestroyEntity(Entity entity)
+        {
+            _entities.Remove(entity);
+            var components = entity.GetComponents().ToArray();
+            for (var i = 0; i < components.Count(); i++)
+            {
+                components[i] = null;
+            }
+            entity = null;
+        }
 
         public IEnumerable<Entity> GetEntities()
         {

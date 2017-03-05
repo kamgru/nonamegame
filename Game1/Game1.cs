@@ -25,7 +25,7 @@ namespace Game1
         private DrawingSystem _drawingSystem;
 
         private InputHandlingSystem _inputHandlingSystem;
-        private TileBasedMovementSystem _movementSystem;
+        private MovementSystem _movementSystem;
 
         private InputMappingService _inputMappingService;
         private ConfigurationService _configurationService;
@@ -45,10 +45,10 @@ namespace Game1
 
             _entityManager = new EntityManager();
             _entityFactory = new EntityFactory(_entityManager);
-            _drawingSystem = new DrawingSystem(_entityManager);
+            _drawingSystem = new DrawingSystem(_entityManager, Content);
           
             _inputHandlingSystem = new InputHandlingSystem(_entityManager, _inputMappingService, _configurationService);
-            _movementSystem = new TileBasedMovementSystem(_entityManager, _configurationService);
+            _movementSystem = new MovementSystem(_entityManager, _configurationService);
 
 
             base.Initialize();
@@ -90,7 +90,7 @@ namespace Game1
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.White);
 
             _spriteBatch.Begin();
             _drawingSystem.Draw(_spriteBatch);

@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Game1.Components;
 using Game1.Common;
+using Microsoft.Xna.Framework;
 
 namespace Game1.Services
 {
@@ -31,6 +32,7 @@ namespace Game1.Services
             player.AddComponent(new Sprite { Texture2D = texture });
             player.AddComponent(new IntentMap { Intent = Intent.MoveDown | Intent.MoveLeft | Intent.MoveRight | Intent.MoveUp });
             player.AddComponent(new MoveSpeed { Speed = 5f });
+            player.AddComponent(new BoardPosition());
 
             return player;
         }

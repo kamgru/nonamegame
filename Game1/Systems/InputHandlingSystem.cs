@@ -31,7 +31,9 @@ namespace Game1.Systems
         {
             var intent = _inputMappingService.GetIntents();
 
-            var entities = _entityManager.GetEntities().Where(x => x.HasComponent<IntentMap>() && !x.HasComponent<MoveToTarget>());
+            var entities = _entityManager.GetEntities().Where(x => x.HasComponent<IntentMap>() 
+                && !x.HasComponent<MoveToTarget>()
+                && x.HasComponent<BoardPosition>());
 
             foreach (var entity in entities)
             {
@@ -62,6 +64,10 @@ namespace Game1.Systems
                 {
                     var moveTo = entity.AddComponent(new MoveToTarget()) as MoveToTarget;
                     moveTo.Target = entity.Transform.Position + direction * _tileSize.ToVector2();
+
+                    var boardPosition = entity.GetComponent<BoardPosition>();
+                    boardPosition.Previous = boardPosition.Current;
+                    boardPosition.Current = boardPosition.Current += direction.ToPoint();
                 }
             }
         }

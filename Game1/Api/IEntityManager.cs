@@ -7,5 +7,6 @@ namespace Game1.Api
     {
         IEnumerable<Entity> GetEntities();
         void RegisterEntity(Entity entity);
+        void DestroyEntity(Entity entity);
     }
 }

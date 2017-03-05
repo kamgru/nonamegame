@@ -45,5 +45,10 @@ namespace Game1.Entities
         {
             _components.Remove(component);
         }
+
+        public IEnumerable<ComponentBase> GetComponents()
+        {
+            return _components.ToList();
+        }
     }
 }
