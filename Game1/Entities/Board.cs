@@ -12,23 +12,29 @@ namespace Game1.Entities
     {
         private IEnumerable<Tile> _tiles;
 
+        public BoardInfo BoardInfo { get; private set; }
         public Board(IEnumerable<Tile> tiles)
         {
+            if (tiles == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (!tiles.Any())
+            {
+                throw new ArgumentException();
+            }
+
             _tiles = tiles;
+            BoardInfo = AddComponent(new BoardInfo
+            {
+                Size = new Point(_tiles.Max(t => t.TileInfo.Position.X) + 1, _tiles.Max(t => t.TileInfo.Position.Y) + 1)
+            }) as BoardInfo;
         }
 
         public TileInfo GetTileInfoAt(Point point)
         {
-            return _tiles.FirstOrDefault(x => x.TileInfo.Position == point)?.TileInfo;
+            return _tiles.FirstOrDefault(x => x.TileInfo.Position == point)?.TileInfo ?? default(TileInfo);
         }
-                
-        public Point GetBoardSize()
-        {
-            return new Point(
-                _tiles.Max(t => t.TileInfo.Position.X) + 1,
-                _tiles.Max(t => t.TileInfo.Position.Y) + 1
-            );
-        }
-
     }
 }

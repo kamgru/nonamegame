@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Common\Intent.cs" />
+    <Compile Include="Components\BoardInfo.cs" />
     <Compile Include="Components\ComponentBase.cs" />
     <Compile Include="Components\IntentMap.cs" />
     <Compile Include="Components\MoveSpeed.cs" />

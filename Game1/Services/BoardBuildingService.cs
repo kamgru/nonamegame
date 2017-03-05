@@ -23,42 +23,23 @@ namespace Game1.Services
             _configurationService = configurationService;
         }
 
-        //public IEnumerable<Tile> Build(int num)
-        //{
-        //    var tex = _contentManager.Load<Texture2D>("grey_tile");
-        //    var size = _configurationService.GetTileSizeInPixels();
-
-        //    var tiles = new List<Tile>();
-
-        //    for (int x = 0; x < 10; x++)
-        //    {
-        //        for (int y = 0; y < 6; y++)
-        //        {
-        //            tiles.Add(_entityFactory.Create<Tile>(new Point(x * size.X, y * size.Y), tex, 1));
-        //        }
-        //    }
-
-        //    return tiles;
-            
-        //}
-
         public Board Build(int num)
         {
             var texture = _contentManager.Load<Texture2D>("grey_tile");
             var size = _configurationService.GetTileSizeInPixels();
 
             var tiles = new List<Tile>();
-            var board = _entityFactory.Create<Board>(tiles);
 
             for (int x = 0; x < 10; x++)
             {
                 for (int y = 0; y < 6; y++)
                 {
-                    var tile = _entityFactory.Create<Tile>(new Point(x, y), size, texture, 1);
-                    tile.Transform.SetParent(board.Transform);
-                    tiles.Add(tile);
+                    tiles.Add(_entityFactory.Create<Tile>(new Point(x, y), size, texture, 1));
                 }
             }
+
+            var board = _entityFactory.Create<Board>(tiles);
+            tiles.ForEach(x => x.Transform.SetParent(board.Transform));
 
             return board;
         }

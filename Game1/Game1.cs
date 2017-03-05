@@ -59,14 +59,13 @@ namespace Game1
 
             var board = new BoardBuildingService(_configurationService, Content, _entityFactory).Build(1);
 
-            var size = board.GetBoardSize();
             var tileSize = _configurationService.GetTileSizeInPixels();
-            var v = size * tileSize;
+            var size = board.BoardInfo.Size * tileSize;
 
             var player = _entityFactory.Create<Player>(Vector2.Zero, Content.Load<Texture2D>("red_dot"));
             player.Transform.SetParent(board.Transform);
 
-            board.Transform.Position = new Vector2((GraphicsDevice.Viewport.Width - v.X) / 2 , (GraphicsDevice.Viewport.Height - v.Y) / 2 );
+            board.Transform.Position = new Vector2((GraphicsDevice.Viewport.Width - size.X) / 2 , (GraphicsDevice.Viewport.Height - size.Y) / 2 );
 
         }
 

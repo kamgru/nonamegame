@@ -48,6 +48,8 @@ namespace Game1.Systems
                     {
                         transform.Position = moveTo.Target;
                         entity.RemoveComponent(moveTo);
+
+
                     }
                     else
                     {
