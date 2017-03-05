@@ -17,7 +17,7 @@ namespace Game1.Managers
             var components = entity.GetComponents().ToArray();
             for (var i = 0; i < components.Count(); i++)
             {
-                components[i] = null;
+                entity.RemoveComponent(components[i]);                
             }
             entity = null;
         }

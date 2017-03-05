@@ -38,12 +38,14 @@ namespace Game1.Entities
         public ComponentBase AddComponent(ComponentBase component)
         {
             _components.Add(component);
+            component.Entity = this;
             return component;
         }
 
         public void RemoveComponent(ComponentBase component)
         {
             _components.Remove(component);
+            component.Entity = null;
         }
 
         public IEnumerable<ComponentBase> GetComponents()

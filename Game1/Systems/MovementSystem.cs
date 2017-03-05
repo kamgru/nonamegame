@@ -54,11 +54,21 @@ namespace Game1.Systems
                         if (boardPosition != null)
                         {
                             var boardInfo = _entityManager.GetEntities().FirstOrDefault(x => x.HasComponent<BoardInfo>()).GetComponent<BoardInfo>();
-                            var tileInfo = boardInfo?.GetTileInfoAt(boardPosition.Current);
+                            var currentTile = boardInfo?.GetTileInfoAt(boardPosition.Current);
 
-                            if (tileInfo == null)
+                            if (currentTile == null)
                             {
                                 _entityManager.DestroyEntity(entity);
+                            }
+
+                            var previousTile = boardInfo?.GetTileInfoAt(boardPosition.Previous);
+                            if (previousTile != null)
+                            {
+                                previousTile.Value--;
+                                if (previousTile.Value <= 0)
+                                {
+                                    _entityManager.DestroyEntity(previousTile.Entity);
+                                }
                             }
                         }
                     }
