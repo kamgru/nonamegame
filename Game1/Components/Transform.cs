@@ -5,8 +5,7 @@ namespace Game1.Components
 {
     public class Transform : ComponentBase
     {
-        private Vector2 _position = new Vector2();
-        private Transform _parent;
+        private Vector2 _position;
 
         public Vector2 Position
         {

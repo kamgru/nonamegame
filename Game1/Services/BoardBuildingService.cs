@@ -45,7 +45,7 @@ namespace Game1.Services
             board.AddComponent(new BoardInfo
             {
                 Size = new Point(tiles.Max(t => t.TileInfo.Position.X) + 1, tiles.Max(t => t.TileInfo.Position.Y) + 1),
-                TileInfos = tiles.Select(x => x.TileInfo)
+                TileInfos = tiles.Select(x => x.TileInfo).ToList()
             });
 
             return board;

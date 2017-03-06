@@ -25,12 +25,11 @@ namespace Game1
         private DrawingSystem _drawingSystem;
 
         private InputHandlingSystem _inputHandlingSystem;
-        private MovementSystem _movementSystem;
+        private MoveToScreenPositionSystem _moveToScreenPositionSystem;
+        private MoveToNewTileSystem _moveToNewTileSystem;
 
         private InputMappingService _inputMappingService;
         private ConfigurationService _configurationService;
-
-        private List<Entity> _entities = new List<Entity>();
 
         public Game1()
         {
@@ -48,8 +47,8 @@ namespace Game1
             _drawingSystem = new DrawingSystem(_entityManager, Content);
           
             _inputHandlingSystem = new InputHandlingSystem(_entityManager, _inputMappingService, _configurationService);
-            _movementSystem = new MovementSystem(_entityManager, _configurationService);
-
+            _moveToScreenPositionSystem = new MoveToScreenPositionSystem(_entityManager);
+            _moveToNewTileSystem = new MoveToNewTileSystem(_entityManager);
 
             base.Initialize();
         }
@@ -80,10 +79,9 @@ namespace Game1
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
-
             _inputHandlingSystem.Update();
-            _movementSystem.Update();
+            _moveToScreenPositionSystem.Update();
+            _moveToNewTileSystem.Update();
 
             base.Update(gameTime);
         }

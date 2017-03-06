@@ -16,58 +16,57 @@ namespace Game1.Systems
     {
         private readonly IEntityManager _entityManager;
         private readonly IInputMappingService _inputMappingService;
-        private readonly IConfigurationService _configurationService;
         private readonly Point _tileSize;
 
         public InputHandlingSystem(IEntityManager entityManager, IInputMappingService inputMappingService, IConfigurationService configurationService)
         {
             _entityManager = entityManager;
             _inputMappingService = inputMappingService;
-            _configurationService = configurationService;
-            _tileSize = _configurationService.GetTileSizeInPixels();
+            _tileSize = configurationService.GetTileSizeInPixels();
         }
 
         public void Update()
         {
-            var intent = _inputMappingService.GetIntents();
+            var intents = _inputMappingService.GetIntents();
 
             var entities = _entityManager.GetEntities().Where(x => x.HasComponent<IntentMap>() 
-                && !x.HasComponent<MoveToTarget>()
+                && !x.HasComponent<TargetScreenPosition>()
                 && x.HasComponent<BoardPosition>());
 
             foreach (var entity in entities)
             {
-                var intentComponent = entity.GetComponent<IntentMap>();
+                var intent = entity.GetComponent<IntentMap>().Intent & intents;
                 var direction = Vector2.Zero;
 
-                if ((intentComponent.Intent & intent) == Intent.MoveDown)
+                if (intent == Intent.MoveDown)
                 {
                     direction += new Vector2(0, 1);
                 }
 
-                if ((intentComponent.Intent & intent) == Intent.MoveUp)
+                if (intent == Intent.MoveUp)
                 {
                     direction += new Vector2(0, -1);
                 }
 
-                if ((intentComponent.Intent & intent) == Intent.MoveLeft)
+                if (intent == Intent.MoveLeft)
                 {
                     direction += new Vector2(-1, 0);
                 }
 
-                if ((intentComponent.Intent & intent) == Intent.MoveRight)
+                if (intent == Intent.MoveRight)
                 {
                     direction += new Vector2(1, 0);
                 }
 
                 if (direction != Vector2.Zero)
                 {
-                    var moveTo = entity.AddComponent(new MoveToTarget()) as MoveToTarget;
-                    moveTo.Target = entity.Transform.Position + direction * _tileSize.ToVector2();
+                    entity.AddComponent(new TargetScreenPosition
+                    {
+                        Target = entity.Transform.Position + direction * new Vector2(_tileSize.X, _tileSize.Y)
+                    });
 
                     var boardPosition = entity.GetComponent<BoardPosition>();
-                    boardPosition.Previous = boardPosition.Current;
-                    boardPosition.Current = boardPosition.Current += direction.ToPoint();
+                    boardPosition.Translate(direction.ToPoint());
                 }
             }
         }

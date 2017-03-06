@@ -3,7 +3,7 @@
 namespace Game1.Components
 {
 
-    public class MoveToTarget : ComponentBase
+    public class TargetScreenPosition : ComponentBase
     {
         public Vector2 Target { get; set; }
     }

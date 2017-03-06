@@ -9,12 +9,27 @@ namespace Game1.Components
 {
     public class BoardInfo : ComponentBase
     {
-        public IEnumerable<TileInfo> TileInfos { get; set; }
+        private ICollection<TileInfo> _tiles;
+
+        public ICollection<TileInfo> TileInfos
+        {
+            get { return _tiles; }
+            set { _tiles = value; }
+        }
         public Point Size { get; set; }
 
-        public TileInfo GetTileInfoAt(Point point)
+        public TileInfo GetTileAt(Point point)
         {
             return TileInfos.FirstOrDefault(x => x.Position == point);
+        }
+
+        public void RemoveTileAt(Point point)
+        {
+            var tile = _tiles.FirstOrDefault(x => x.Position == point);
+            if (tile != null)
+            {
+                _tiles.Remove(tile);
+            }
         }
     }
 }

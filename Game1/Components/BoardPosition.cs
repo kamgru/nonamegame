@@ -11,5 +11,11 @@ namespace Game1.Components
     {
         public Point Current { get; set; }
         public Point Previous { get; set; }
+
+        public void Translate(Point translation)
+        {
+            Previous = Current;
+            Current += translation;
+        }
     }
 }
