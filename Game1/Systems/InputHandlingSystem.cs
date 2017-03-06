@@ -33,7 +33,7 @@ namespace Game1.Systems
             _tileSize = configurationService.GetTileSizeInPixels();
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             var intents = _inputMappingService.GetIntents();
 

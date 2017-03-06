@@ -26,7 +26,7 @@ namespace Game1.Systems
             _debugFont = contentManager.Load<SpriteFont>("default");
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             
         }

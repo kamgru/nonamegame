@@ -20,7 +20,7 @@ namespace Game1.Systems
             _entityManager = entityManager;
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             var entities = _entityManager.GetEntities().Where(x => x.HasComponent<TargetScreenPosition>() 
                 && x.HasComponent<MoveSpeed>());

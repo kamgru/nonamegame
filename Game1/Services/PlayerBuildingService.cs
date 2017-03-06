@@ -34,6 +34,8 @@ namespace Game1.Services
             player.AddComponent(new MoveSpeed { Speed = 5f });
             player.AddComponent(new BoardPosition());
 
+            player.AddComponent(new Animation(_contentManager.Load<Texture2D>("ball"), new Point(32, 32)) { Looped = false });
+
             return player;
         }
     }

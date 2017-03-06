@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Game1.Api;
 using Game1.Components;
+using Microsoft.Xna.Framework;
 
 namespace Game1.Systems
 {
@@ -17,7 +18,7 @@ namespace Game1.Systems
             _entityManager = entityManager;
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             var entity = _entityManager.GetEntitiesByComponent<MovedToNewTile>().SingleOrDefault();
             if (entity == null)

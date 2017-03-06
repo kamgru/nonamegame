@@ -27,6 +27,7 @@ namespace Game1
         private InputHandlingSystem _inputHandlingSystem;
         private MoveToScreenPositionSystem _moveToScreenPositionSystem;
         private MoveToNewTileSystem _moveToNewTileSystem;
+        private AnimationSystem _animationSystem;
 
         private InputMappingService _inputMappingService;
         private ConfigurationService _configurationService;
@@ -45,7 +46,8 @@ namespace Game1
             _entityManager = new EntityManager();
             _entityFactory = new EntityFactory(_entityManager);
             _drawingSystem = new DrawingSystem(_entityManager, Content);
-          
+            _animationSystem = new AnimationSystem(_entityManager);
+
             _inputHandlingSystem = new InputHandlingSystem(_entityManager, _inputMappingService, _configurationService);
             _moveToScreenPositionSystem = new MoveToScreenPositionSystem(_entityManager);
             _moveToNewTileSystem = new MoveToNewTileSystem(_entityManager);
@@ -79,9 +81,10 @@ namespace Game1
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            _inputHandlingSystem.Update();
-            _moveToScreenPositionSystem.Update();
-            _moveToNewTileSystem.Update();
+            _inputHandlingSystem.Update(gameTime);
+            _moveToScreenPositionSystem.Update(gameTime);
+            _moveToNewTileSystem.Update(gameTime);
+            _animationSystem.Update(gameTime);
 
             base.Update(gameTime);
         }
