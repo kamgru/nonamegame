@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.Common
+namespace Game1.Data
 {
     [Flags]
     public enum Intent

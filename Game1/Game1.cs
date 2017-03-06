@@ -46,7 +46,7 @@ namespace Game1
             _entityManager = new EntityManager();
             _entityFactory = new EntityFactory(_entityManager);
             _drawingSystem = new DrawingSystem(_entityManager, Content);
-            _animationSystem = new AnimationSystem(_entityManager);
+            _animationSystem = new AnimationSystem(_entityManager, _configurationService);
 
             _inputHandlingSystem = new InputHandlingSystem(_entityManager, _inputMappingService, _configurationService);
             _moveToScreenPositionSystem = new MoveToScreenPositionSystem(_entityManager);

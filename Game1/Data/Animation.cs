@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.Components
+namespace Game1.Data
 {
-    public class Animation : ComponentBase
+    public class Animation
     {
+        public string Name { get; set; }
         public int CurrentFrame { get; set; }
-        public float Speed { get; set; }
+        public float Speed { get; set; } = 1f;
 
         public float Elapsed { get; set; }
 
@@ -26,7 +27,7 @@ namespace Game1.Components
         public bool Looped { get; set; }
 
         private List<Color[]> _frames = new List<Color[]>();
-        
+
 
         public Animation(Texture2D sheet, Point frameSize)
         {
@@ -48,10 +49,9 @@ namespace Game1.Components
             }
         }
 
-        public Color[] GetFrame(int num)
+        public Color[] GetCurrentFrame()
         {
-            return _frames[num];
+            return _frames[CurrentFrame];
         }
-
     }
 }

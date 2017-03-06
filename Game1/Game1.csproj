@@ -42,8 +42,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Api\IPlayerBuildingService.cs" />
-    <Compile Include="Common\Intent.cs" />
-    <Compile Include="Components\Animation.cs" />
+    <Compile Include="Data\Animation.cs" />
+    <Compile Include="Data\Intent.cs" />
+    <Compile Include="Components\Animator.cs" />
     <Compile Include="Components\BoardInfo.cs" />
     <Compile Include="Components\BoardPosition.cs" />
     <Compile Include="Components\ComponentBase.cs" />

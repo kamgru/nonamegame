@@ -1,5 +1,5 @@
 ﻿using Game1.Api;
-using Game1.Common;
+using Game1.Data;
 using Microsoft.Xna.Framework.Input;
 using System;
 

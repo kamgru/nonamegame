@@ -12,39 +12,45 @@ namespace Game1.Systems
     public class AnimationSystem : ISystem
     {
         private readonly IEntityManager _entityManager;
+        private readonly int _fps;
 
-        public AnimationSystem(IEntityManager entityManager)
+        public AnimationSystem(IEntityManager entityManager, IConfigurationService configurationService)
         {
             _entityManager = entityManager;
+            _fps = configurationService.GetFps();
         }
             
 
         public void Update(GameTime gameTime)
         {
-            var anims = _entityManager.GetEntitiesByComponent<Animation>().Select(x => x.GetComponent<Animation>());
+            var animators = _entityManager.GetEntitiesByComponent<Animator>().Select(x => x.GetComponent<Animator>());
 
-            foreach (var anim in anims)
+            foreach (var animator in animators.Where(x => x.IsPlaying && x.CurrentAnimation != null))
             {
-                var spr = anim.Entity.GetComponent<Sprite>();
-
-                anim.Elapsed += gameTime.ElapsedGameTime.Milliseconds;
-
-                if (anim.Elapsed > 100)
+                var sprite = animator.Entity.GetComponent<Sprite>();
+                if (sprite == null)
                 {
-                    anim.CurrentFrame++;
-                    if (anim.CurrentFrame >= anim.FrameCount)
-                    {                        
-                        if (!anim.Looped)
+                    continue;
+                }
+
+                var animation = animator.CurrentAnimation;
+
+                animation.Elapsed += gameTime.ElapsedGameTime.Milliseconds;
+
+                if (animation.Elapsed > _fps / animation.Speed)
+                {
+                    animation.CurrentFrame++;
+                    if (animation.CurrentFrame >= animation.FrameCount)
+                    {
+                        animation.CurrentFrame = 0;
+                        if (!animation.Looped)
                         {
-                            continue;
+                            animator.IsPlaying = false;                            
+                            continue;                            
                         }
-                        anim.CurrentFrame = 0;
                     }
-                    anim.Elapsed = gameTime.ElapsedGameTime.Milliseconds;
-
-                    var frame = anim.GetFrame(anim.CurrentFrame);
-
-                    spr.Texture2D.SetData(frame);
+                    animation.Elapsed = gameTime.ElapsedGameTime.Milliseconds;
+                    sprite.Texture2D.SetData(animation.GetCurrentFrame());
                 }
                 
             }

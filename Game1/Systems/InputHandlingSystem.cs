@@ -1,5 +1,5 @@
 ﻿using Game1.Api;
-using Game1.Common;
+using Game1.Data;
 using Game1.Components;
 using Game1.Managers;
 using Game1.Services;
@@ -60,6 +60,8 @@ namespace Game1.Systems
 
                     var boardPosition = entity.GetComponent<BoardPosition>();
                     boardPosition.Translate(direction.ToPoint());
+
+                    entity.GetComponent<Animator>().Play("walk");
                 }
             }
         }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Game1.Common;
+using Game1.Data;
 
 namespace Game1.Entities
 {

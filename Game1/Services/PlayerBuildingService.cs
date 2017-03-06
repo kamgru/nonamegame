@@ -8,7 +8,7 @@ using Game1.Entities;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Game1.Components;
-using Game1.Common;
+using Game1.Data;
 using Microsoft.Xna.Framework;
 
 namespace Game1.Services
@@ -31,10 +31,21 @@ namespace Game1.Services
 
             player.AddComponent(new Sprite { Texture2D = texture });
             player.AddComponent(new IntentMap { Intent = Intent.MoveDown | Intent.MoveLeft | Intent.MoveRight | Intent.MoveUp });
-            player.AddComponent(new MoveSpeed { Speed = 5f });
+            player.AddComponent(new MoveSpeed { Speed = 3f });
             player.AddComponent(new BoardPosition());
 
-            player.AddComponent(new Animation(_contentManager.Load<Texture2D>("ball"), new Point(32, 32)) { Looped = false });
+            player.AddComponent(new Animator
+            {
+                Animations = new List<Animation>
+                {
+                    new Animation(_contentManager.Load<Texture2D>("ball"), new Point(32, 32))
+                    {
+                        Looped = false,
+                        Name = "walk",
+                        Speed = 0.5f
+                    }
+                }
+            });
 
             return player;
         }
