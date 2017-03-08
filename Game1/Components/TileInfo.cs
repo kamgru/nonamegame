@@ -18,5 +18,6 @@ namespace Game1.Components
         public int Value { get; set; }
         public TileType TileType { get; set; }
         public Point Position { get; set; }
+        public bool Destroyed { get; set; }
     }
 }

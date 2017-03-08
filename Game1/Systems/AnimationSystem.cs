@@ -1,8 +1,10 @@
 ﻿using Game1.Api;
 using Game1.Components;
+using Game1.Entities;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,12 +47,12 @@ namespace Game1.Systems
                         animation.CurrentFrame = 0;
                         if (!animation.Looped)
                         {
-                            animator.IsPlaying = false;                            
+                            animator.Stop();                    
                             continue;                            
                         }
                     }
                     animation.Elapsed = gameTime.ElapsedGameTime.Milliseconds;
-                    sprite.Texture2D.SetData(animation.GetCurrentFrame());
+                    sprite.Texture2D.SetData(animation.GetCurrentFrame());                    
                 }
                 
             }

@@ -59,7 +59,7 @@ namespace Game1
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            var board = new BoardBuildingService(_configurationService, Content, _entityFactory).Build(1);
+            var board = new BoardBuildingService(_configurationService, Content, _entityFactory, GraphicsDevice).Build(1);
 
             var tileSize = _configurationService.GetTileSizeInPixels();
             var size = board.BoardInfo.Size * tileSize;

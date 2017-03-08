@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using Game1.Api;
+using Game1.Data;
 
 namespace Game1.Services
 {
@@ -16,31 +17,49 @@ namespace Game1.Services
         private IConfigurationService _configurationService;
         private ContentManager _contentManager;
         private IEntityFactory _entityFactory;
+        private GraphicsDevice _graphicsDevice;
         
-        public BoardBuildingService(IConfigurationService configurationService, ContentManager contentManager, IEntityFactory entityFactory)
+        public BoardBuildingService(IConfigurationService configurationService,
+            ContentManager contentManager, 
+            IEntityFactory entityFactory,
+            GraphicsDevice graphicsDevice)
         {
             _contentManager = contentManager;
             _entityFactory = entityFactory;
             _configurationService = configurationService;
+            _graphicsDevice = graphicsDevice;
         }
 
         public Board Build(int num)
         {
             var texture = _contentManager.Load<Texture2D>("grey_tile");
             var size = _configurationService.GetTileSizeInPixels();
-
+            //var tileSpriteSheet = _contentManager.Load<Texture2D>("tile_break");
             var tiles = new List<Tile>();
 
             for (int x = 0; x < 10; x++)
             {
                 for (int y = 0; y < 6; y++)
                 {
-                    tiles.Add(_entityFactory.Create<Tile>(new Point(x, y), size, texture, 1));
+                    tiles.Add(_entityFactory.Create<Tile>(new Point(x, y), size, new Texture2D(_graphicsDevice, size.X, size.Y), 1));
                 }
             }
 
             var board = _entityFactory.Create<Board>();
-            tiles.ForEach(x => x.Transform.SetParent(board.Transform));
+            tiles.ForEach(x => 
+            {
+                x.Transform.SetParent(board.Transform);
+                x.AddComponent(new Animator
+                {
+                    Animations = new List<Animation>()
+                    {
+                        new Animation(_contentManager.Load<Texture2D>("tile_break"), new Point(32, 32))
+                        {
+                            Name = "break", Speed = 0.5f
+                        }
+                    }
+                });
+            });
 
             board.AddComponent(new BoardInfo
             {

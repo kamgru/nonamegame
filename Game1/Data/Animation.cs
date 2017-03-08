@@ -53,5 +53,10 @@ namespace Game1.Data
         {
             return _frames[CurrentFrame];
         }
+
+        public Rectangle GetCurrentRectangle()
+        {
+
+        }
     }
 }
