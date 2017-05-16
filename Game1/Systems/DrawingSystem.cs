@@ -34,12 +34,12 @@ namespace Game1.Systems
         public void Draw(SpriteBatch spriteBatch)
         {
             var entites = _entityManager.GetEntities().Where(x => x.HasComponent<Sprite>())
-                .Select(x => new { Texture2D = x.GetComponent<Sprite>().Texture2D, Position = x.GetComponent<Transform>().Position })
-                .Where(x => x.Texture2D != null);
+                .Select(x => new { Sprite = x.GetComponent<Sprite>(), Position = x.GetComponent<Transform>().Position })
+                .Where(x => x.Sprite.Texture2D != null);
 
             foreach (var entity in entites)
             {
-                spriteBatch.Draw(entity.Texture2D, entity.Position, Color.White);
+                spriteBatch.Draw(entity.Sprite.Texture2D, entity.Position, entity.Sprite.Rectangle, Color.White);
             }
 
             var boardPosition = _entityManager.GetEntities().FirstOrDefault(x => x.HasComponent<BoardPosition>())?.GetComponent<BoardPosition>();

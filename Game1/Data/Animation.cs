@@ -13,25 +13,18 @@ namespace Game1.Data
         public string Name { get; set; }
         public int CurrentFrame { get; set; }
         public float Speed { get; set; } = 1f;
-
         public float Elapsed { get; set; }
-
-        public int FrameCount
-        {
-            get
-            {
-                return _frames.Count;
-            }
-        }
+        public int FrameCount => _rectangles.Count;
 
         public bool Looped { get; set; }
 
-        private List<Color[]> _frames = new List<Color[]>();
+        public Texture2D Texture2D { get; set; }
 
+        private List<Rectangle> _rectangles = new List<Rectangle>();
 
         public Animation(Texture2D sheet, Point frameSize)
         {
-
+            Texture2D = sheet;
             var cols = sheet.Width / frameSize.X;
             var rows = sheet.Height / frameSize.Y;
 
@@ -39,24 +32,14 @@ namespace Game1.Data
             {
                 for (int y = 0; y < rows; y++)
                 {
-                    var frame = new Color[frameSize.X * frameSize.Y];
-                    var rect = new Rectangle(x * frameSize.X, y * frameSize.Y, frameSize.X, frameSize.Y);
-
-                    sheet.GetData(0, rect, frame, 0, frame.Length);
-
-                    _frames.Add(frame);
+                    _rectangles.Add(new Rectangle(x * frameSize.X, y * frameSize.Y, frameSize.X, frameSize.Y));
                 }
             }
         }
 
-        public Color[] GetCurrentFrame()
-        {
-            return _frames[CurrentFrame];
-        }
-
         public Rectangle GetCurrentRectangle()
         {
-
+            return _rectangles[CurrentFrame];
         }
     }
 }
