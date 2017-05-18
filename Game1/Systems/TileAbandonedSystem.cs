@@ -37,6 +37,7 @@ namespace Game1.Systems
                     tile.Animator.Play("break");
                     tile.TileInfo.Destroyed = true;
                     tile.Entity.RemoveComponent(tile.TileAbandoned);
+                    tile.Animator.OnAnimationEnded = () => _entityManager.DestroyEntity(tile.Entity);
                 }
             }
         }

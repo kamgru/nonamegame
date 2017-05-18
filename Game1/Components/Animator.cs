@@ -1,4 +1,5 @@
 ﻿using Game1.Data;
+using Game1.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -16,7 +17,8 @@ namespace Game1.Components
         public bool IsPlaying { get; private set; }
         public IEnumerable<Animation> Animations { get; set; }
         public Animation CurrentAnimation { get; set; }
-        public int CallerMemberName { get; private set; }
+
+        public Action OnAnimationEnded { get; set; }
 
         public void Play(string name)
         {

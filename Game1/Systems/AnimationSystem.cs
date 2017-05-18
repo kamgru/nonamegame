@@ -45,6 +45,8 @@ namespace Game1.Systems
                     if (animation.CurrentFrame >= animation.FrameCount)
                     {
                         animation.CurrentFrame = 0;
+                        animator.OnAnimationEnded?.Invoke();
+
                         if (!animation.Looped)
                         {
                             animator.Stop();                    
