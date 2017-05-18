@@ -31,9 +31,10 @@ namespace Game1.Systems
 
             var boardPosition = entity.GetComponent<BoardPosition>();
 
-            //var boardInfo = _entityManager.GetEntitiesByComponent<BoardInfo>().Single().GetComponent<BoardInfo>();
-            var tiles = _entityManager.GetEntitiesByComponent<TileInfo>().Select(x => x.GetComponent<TileInfo>());
-            //var currentTile = boardInfo?.GetTileAt(boardPosition.Current);
+            var tiles = _entityManager.GetEntitiesByComponent<TileInfo>()
+                .Select(x => x.GetComponent<TileInfo>())
+                .ToList();
+
             var currentTile = tiles.SingleOrDefault(x => x.Position == boardPosition.Current);
 
             if (currentTile == null || currentTile.Destroyed)
@@ -41,19 +42,8 @@ namespace Game1.Systems
                 _entityManager.DestroyEntity(entity);
             }
 
-            var previousTile = tiles.SingleOrDefault(x => x.Position == boardPosition.Previous && !x.Destroyed);
-            if (previousTile != null)
-            {
-                previousTile.Value--;
-                if (previousTile.Value <= 0)
-                {
-                    //boardInfo.RemoveTileAt(previousTile.Position);
-                    //_entityManager.DestroyEntity(previousTile.Entity);
-                    
-                    previousTile.Entity.GetComponent<Animator>().Play("break");
-                    previousTile.Destroyed = true;
-                }
-            }
+            tiles.SingleOrDefault(x => x.Position == boardPosition.Previous && !x.Destroyed)
+                ?.Entity.AddComponent(new TileAbandoned());
 
             entity.RemoveComponent(movedToNewTile);
         }

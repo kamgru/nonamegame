@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
+using Game1.Factories;
 
 namespace Game1
 {
@@ -21,13 +22,13 @@ namespace Game1
         private SpriteBatch _spriteBatch;
 
         private IEntityManager _entityManager;
-        private IEntityFactory _entityFactory;
         private DrawingSystem _drawingSystem;
 
         private InputHandlingSystem _inputHandlingSystem;
         private MoveToScreenPositionSystem _moveToScreenPositionSystem;
         private MoveToNewTileSystem _moveToNewTileSystem;
         private AnimationSystem _animationSystem;
+        private TileAbandonedSystem _tileAbandonedSystem;
 
         private InputMappingService _inputMappingService;
         private ConfigurationService _configurationService;
@@ -44,13 +45,13 @@ namespace Game1
             _inputMappingService = new InputMappingService();
 
             _entityManager = new EntityManager();
-            _entityFactory = new EntityFactory(_entityManager);
             _drawingSystem = new DrawingSystem(_entityManager, Content);
             _animationSystem = new AnimationSystem(_entityManager, _configurationService);
 
             _inputHandlingSystem = new InputHandlingSystem(_entityManager, _inputMappingService, _configurationService);
             _moveToScreenPositionSystem = new MoveToScreenPositionSystem(_entityManager);
             _moveToNewTileSystem = new MoveToNewTileSystem(_entityManager);
+            _tileAbandonedSystem = new TileAbandonedSystem(_entityManager);
 
             base.Initialize();
         }
@@ -59,12 +60,12 @@ namespace Game1
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            var board = new BoardBuildingService(_configurationService, Content, _entityFactory, GraphicsDevice).Build(1);
+            var board = new BoardFactory(_entityManager, Content, _configurationService).Create();
 
             var tileSize = _configurationService.GetTileSizeInPixels();
-            var size = board.BoardInfo.Size * tileSize;
+            var size = board.GetComponent<BoardInfo>().Size * tileSize;
 
-            var player = new PlayerBuildingService(Content, _entityFactory).Build();
+            var player = new PlayerFactory(_entityManager, Content).Create();
             player.Transform.SetParent(board.Transform);
 
             board.Transform.Position = new Vector2((GraphicsDevice.Viewport.Width - size.X) / 2 , (GraphicsDevice.Viewport.Height - size.Y) / 2 );
@@ -85,6 +86,7 @@ namespace Game1
             _moveToScreenPositionSystem.Update(gameTime);
             _moveToNewTileSystem.Update(gameTime);
             _animationSystem.Update(gameTime);
+            _tileAbandonedSystem.Update(gameTime);
 
             base.Update(gameTime);
         }

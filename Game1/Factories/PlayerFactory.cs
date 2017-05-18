@@ -1,32 +1,28 @@
-﻿using Game1.Api;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Game1.Entities;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
+using Game1.Api;
 using Game1.Components;
 using Game1.Data;
+using Game1.Entities;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
-namespace Game1.Services
+namespace Game1.Factories
 {
-    public class PlayerBuildingService : IPlayerBuildingService
+    public class PlayerFactory : EntityFactory
     {
-        private readonly ContentManager _contentManager;
-        private readonly IEntityFactory _entityFactory;
-
-        public PlayerBuildingService(ContentManager contentManager, IEntityFactory entityFactory)
+        public PlayerFactory(IEntityManager entityManager, ContentManager contentManager)
+            : base(entityManager, contentManager)
         {
-            _contentManager = contentManager;
-            _entityFactory = entityFactory;
         }
 
-        public Player Build()
+        public override Entity Create()
         {
-            var player = _entityFactory.Create<Player>();
+            var player = base.Create();
+
             var texture = _contentManager.Load<Texture2D>("red_dot");
 
             player.AddComponent(new Sprite { Texture2D = texture });
