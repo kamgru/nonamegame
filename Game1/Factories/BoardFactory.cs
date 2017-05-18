@@ -35,42 +35,53 @@ namespace Game1.Factories
             {
                 for (int y = 0; y < 6; y++)
                 {
-                    var tile = base.Create();
-                    tile.Transform.Position = (new Point(x, y) * size).ToVector2();
-                    tile.AddComponent(new Sprite
-                    {
-                        Texture2D = texture
-                    });
-                    tile.AddComponent(new TileInfo
-                    {
-                        Value = 1,
-                        Position = new Point(x, y)
-                    });
-                    tiles.Add(tile);
+                    tiles.Add(CreateTile(new Point(x, y), size, texture, board.Transform));
                 }
             }
 
-            tiles.ForEach(x =>
-            {
-                x.Transform.SetParent(board.Transform);
-                x.AddComponent(new Animator
-                {
-                    Animations = new List<Animation>()
-                    {
-                        new Animation(_contentManager.Load<Texture2D>("tile_break"), new Point(32, 32))
-                        {
-                            Name = "break", Speed = 0.5f
-                        }
-                    }
-                });
-            });
-
             board.AddComponent(new BoardInfo
             {
-                Size = new Point(tiles.Max(t => t.GetComponent<TileInfo>().Position.X) + 1, tiles.Max(t => t.GetComponent<TileInfo>().Position.Y) + 1),
+                Size = new Point
+                {
+                    X = tiles.Max(t => t.GetComponent<TileInfo>().Position.X) + 1,
+                    Y = tiles.Max(t => t.GetComponent<TileInfo>().Position.Y) + 1
+                }
             });
 
             return board;
+        }
+
+        private Entity CreateTile(Point position, Point size, Texture2D texture, Transform parent)
+        {
+            var tile = base.Create();
+
+            tile.Transform.Position = (position * size).ToVector2();
+            tile.Transform.SetParent(parent);
+
+            tile.AddComponent(new Sprite
+            {
+                Texture2D = texture
+            });
+
+            tile.AddComponent(new TileInfo
+            {
+                Value = 1,
+                Position = position
+            });
+
+            tile.AddComponent(new Animator
+            {
+                Animations = new List<Animation>()
+                {
+                    new Animation(_contentManager.Load<Texture2D>("tile_break"), new Point(32, 32))
+                    {
+                        Name = "break",
+                        Speed = 0.5f
+                    }
+                }
+            });
+
+            return tile;
         }
     }
 }
