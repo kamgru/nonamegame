@@ -2,6 +2,7 @@
 using Game1.Data;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Linq;
 
 namespace Game1.Services
 {
@@ -15,26 +16,29 @@ namespace Game1.Services
             Intent intent = 0;
 
             var state = Keyboard.GetState();
-
-            if (state.IsKeyDown(Keys.A) && !_previousState.IsKeyDown(Keys.A))
+            
+            if (state.GetPressedKeys().Any())
             {
-                intent |= Intent.MoveLeft;
-            }
+                if (state.IsKeyDown(Keys.A) && !_previousState.IsKeyDown(Keys.A))
+                {
+                    intent |= Intent.MoveLeft;
+                }
 
-            if (state.IsKeyDown(Keys.D) && !_previousState.IsKeyDown(Keys.D))
-            {
-                intent |= Intent.MoveRight;
-            }
+                if (state.IsKeyDown(Keys.D) && !_previousState.IsKeyDown(Keys.D))
+                {
+                    intent |= Intent.MoveRight;
+                }
 
-            if (state.IsKeyDown(Keys.W) && !_previousState.IsKeyDown(Keys.W))
-            {
-                intent |= Intent.MoveUp;
-            }
+                if (state.IsKeyDown(Keys.W) && !_previousState.IsKeyDown(Keys.W))
+                {
+                    intent |= Intent.MoveUp;
+                }
 
-            if (state.IsKeyDown(Keys.S) && !_previousState.IsKeyDown(Keys.S))
-            {
-                intent |= Intent.MoveDown;
-            }
+                if (state.IsKeyDown(Keys.S) && !_previousState.IsKeyDown(Keys.S))
+                {
+                    intent |= Intent.MoveDown;
+                }
+            }           
 
             _previousState = state;
 

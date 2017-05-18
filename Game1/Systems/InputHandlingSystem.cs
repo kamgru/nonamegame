@@ -45,23 +45,24 @@ namespace Game1.Systems
             {
                 var intent = entity.GetComponent<IntentMap>().Intent & intents;
 
-                var possibleDirections = _directionMap.Where(x => intent.HasFlag(x.Key))
-                    .Select(x => x.Value)
-                    .ToList();
-
-                if (possibleDirections.Any())
+                if (intent != 0)
                 {
-                    var direction = possibleDirections.Aggregate((a, b) => a + b);
+                    var direction = _directionMap.Where(x => intent.HasFlag(x.Key))
+                        .Select(x => x.Value)
+                        .SingleOrDefault();
 
-                    entity.AddComponent(new TargetScreenPosition
+                    if (direction != null)
                     {
-                        Target = entity.Transform.Position + direction * new Vector2(_tileSize.X, _tileSize.Y)
-                    });
+                        entity.AddComponent(new TargetScreenPosition
+                        {
+                            Target = entity.Transform.Position + direction * new Vector2(_tileSize.X, _tileSize.Y)
+                        });
 
-                    var boardPosition = entity.GetComponent<BoardPosition>();
-                    boardPosition.Translate(direction.ToPoint());
+                        var boardPosition = entity.GetComponent<BoardPosition>();
+                        boardPosition.Translate(direction.ToPoint());
 
-                    entity.GetComponent<Animator>().Play("walk");
+                        entity.GetComponent<Animator>().Play("walk");
+                    }
                 }
             }
         }
