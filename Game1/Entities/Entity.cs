@@ -12,6 +12,8 @@ namespace Game1.Entities
         private List<ComponentBase> _components = new List<ComponentBase>();
         private Transform _transform;
 
+        public string Name { get; set; }
+
         public Transform Transform
         {
             get
@@ -51,6 +53,11 @@ namespace Game1.Entities
         public IEnumerable<ComponentBase> GetComponents()
         {
             return _components.ToList();
+        }
+
+        public override string ToString()
+        {
+            return $"Entity: {Name} - components: {string.Join(", ", _components.Select(x => x.GetType().ToString()))}";
         }
     }
 }

@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using Game1.Components;
+using System.Diagnostics;
 
 namespace Game1.Managers
 {
     public class EntityManager : IEntityManager
     {
 
-        private HashSet<Entity> _entities = new HashSet<Entity>();
+        private List<Entity> _entities = new List<Entity>();
 
         public void DestroyEntity(Entity entity)
         {
@@ -30,11 +31,13 @@ namespace Game1.Managers
 
         public IEnumerable<Entity> GetEntitiesByComponent<TComponent>() where TComponent : ComponentBase
         {
-            return _entities.Where(x => x.HasComponent<TComponent>()).ToList();
+            var result = _entities.Where(x => x.HasComponent<TComponent>()).Distinct().ToList();
+            return result;
         }
 
         public void RegisterEntity(Entity entity)
         {
+            Debug.WriteLine($"RegisterEntity(): {entity.ToString()}");
             _entities.Add(entity);
         }
     }

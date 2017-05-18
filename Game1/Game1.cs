@@ -50,12 +50,18 @@ namespace Game1
             _systemsManager.Push(new MoveToNewTileSystem(_entityManager));
             _systemsManager.Push(new TileAbandonedSystem(_entityManager));
 
-            var board = new BoardFactory(_entityManager, Content, _configurationService).Create();
+            var board = new BoardFactory(_entityManager, 
+                Content, 
+                _configurationService, new TileFactory(
+                    _entityManager, 
+                    Content, 
+                    _configurationService))
+                .CreateBoard(new BoardService().GetBoard(1));
 
             var tileSize = _configurationService.GetTileSizeInPixels();
             var size = board.GetComponent<BoardInfo>().Size * tileSize;
 
-            var player = new PlayerFactory(_entityManager, Content).Create();
+            var player = new PlayerFactory(_entityManager, Content).CreateEntity();
             player.Transform.SetParent(board.Transform);
 
             board.Transform.Position = new Vector2((GraphicsDevice.Viewport.Width - size.X) / 2, (GraphicsDevice.Viewport.Height - size.Y) / 2);

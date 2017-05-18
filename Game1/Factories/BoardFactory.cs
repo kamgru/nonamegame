@@ -10,34 +10,34 @@ using Game1.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics;
 
 namespace Game1.Factories
 {
     public class BoardFactory : EntityFactory
     {
         private readonly IConfigurationService _configurationService;
+        private readonly TileFactory _tileFactory;
 
-        public BoardFactory(IEntityManager entityManager, ContentManager contentManager, IConfigurationService configurationService) 
+        public BoardFactory(IEntityManager entityManager, ContentManager contentManager, IConfigurationService configurationService, TileFactory tileFactory) 
             : base(entityManager, contentManager)
         {
             _configurationService = configurationService;
+            _tileFactory = tileFactory;
         }
 
-        public override Entity Create()
+        public Entity CreateBoard(Board data)
         {
-            var board = base.Create();
-            var size = _configurationService.GetTileSizeInPixels();
-            var texture = _contentManager.Load<Texture2D>("grey_tile");
+            var board = base.CreateEntity();
 
-            var tiles = new List<Entity>();
-
-            for (int x = 0; x < 10; x++)
-            {
-                for (int y = 0; y < 6; y++)
+            var tiles = data.Tiles
+                .Select(tileData => 
                 {
-                    tiles.Add(CreateTile(new Point(x, y), size, texture, board.Transform));
-                }
-            }
+                    var tile = _tileFactory.CreateTile(tileData);
+                    tile.Transform.SetParent(board.Transform);
+                    return tile;
+                })
+                .ToList();
 
             board.AddComponent(new BoardInfo
             {
@@ -48,40 +48,9 @@ namespace Game1.Factories
                 }
             });
 
+            board.Name = "Board";
+
             return board;
-        }
-
-        private Entity CreateTile(Point position, Point size, Texture2D texture, Transform parent)
-        {
-            var tile = base.Create();
-
-            tile.Transform.Position = (position * size).ToVector2();
-            tile.Transform.SetParent(parent);
-
-            tile.AddComponent(new Sprite
-            {
-                Texture2D = texture
-            });
-
-            tile.AddComponent(new TileInfo
-            {
-                Value = 1,
-                Position = position
-            });
-
-            tile.AddComponent(new Animator
-            {
-                Animations = new List<Animation>()
-                {
-                    new Animation(_contentManager.Load<Texture2D>("tile_break"), new Point(32, 32))
-                    {
-                        Name = "break",
-                        Speed = 0.5f
-                    }
-                }
-            });
-
-            return tile;
         }
     }
 }

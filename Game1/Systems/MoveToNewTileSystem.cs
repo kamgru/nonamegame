@@ -32,8 +32,7 @@ namespace Game1.Systems
             var boardPosition = entity.GetComponent<BoardPosition>();
 
             var tiles = _entityManager.GetEntitiesByComponent<TileInfo>()
-                .Select(x => x.GetComponent<TileInfo>())
-                .ToList();
+                .Select(x => x.GetComponent<TileInfo>());
 
             var currentTile = tiles.SingleOrDefault(x => x.Position == boardPosition.Current);
 

@@ -19,9 +19,9 @@ namespace Game1.Factories
         {
         }
 
-        public override Entity Create()
+        public override Entity CreateEntity()
         {
-            var player = base.Create();
+            var player = base.CreateEntity();
 
             var texture = _contentManager.Load<Texture2D>("red_dot");
 
@@ -42,6 +42,8 @@ namespace Game1.Factories
                     }
                 }
             });
+
+            player.Name = "Player";
 
             return player;
         }

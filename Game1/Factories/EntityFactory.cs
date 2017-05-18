@@ -16,7 +16,7 @@ namespace Game1.Factories
             _contentManager = contentManager;
         }
 
-        public virtual Entity Create()
+        public virtual Entity CreateEntity()
         {
             var entity = (Entity)Activator.CreateInstance(typeof(Entity));
             _entityManager.RegisterEntity(entity);
