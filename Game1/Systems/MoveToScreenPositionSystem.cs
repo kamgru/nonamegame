@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Game1.Systems
 {
-    public class MoveToScreenPositionSystem : ISystem
+    public class MoveToScreenPositionSystem : IUpdatingSystem
     {
         private readonly IEntityManager _entityManager;
 

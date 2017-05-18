@@ -22,13 +22,7 @@ namespace Game1
         private SpriteBatch _spriteBatch;
 
         private IEntityManager _entityManager;
-        private DrawingSystem _drawingSystem;
-
-        private InputHandlingSystem _inputHandlingSystem;
-        private MoveToScreenPositionSystem _moveToScreenPositionSystem;
-        private MoveToNewTileSystem _moveToNewTileSystem;
-        private AnimationSystem _animationSystem;
-        private TileAbandonedSystem _tileAbandonedSystem;
+        private SystemsManager _systemsManager;
 
         private InputMappingService _inputMappingService;
         private ConfigurationService _configurationService;
@@ -36,29 +30,25 @@ namespace Game1
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
         }
 
         protected override void Initialize()
         {
+            Content.RootDirectory = "Content";
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
             _configurationService = new ConfigurationService();
             _inputMappingService = new InputMappingService();
 
             _entityManager = new EntityManager();
-            _drawingSystem = new DrawingSystem(_entityManager, Content);
-            _animationSystem = new AnimationSystem(_entityManager, _configurationService);
+            _systemsManager = new SystemsManager();
 
-            _inputHandlingSystem = new InputHandlingSystem(_entityManager, _inputMappingService, _configurationService);
-            _moveToScreenPositionSystem = new MoveToScreenPositionSystem(_entityManager);
-            _moveToNewTileSystem = new MoveToNewTileSystem(_entityManager);
-            _tileAbandonedSystem = new TileAbandonedSystem(_entityManager);
-
-            base.Initialize();
-        }
-
-        protected override void LoadContent()
-        {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _systemsManager.Push(new SpriteDrawingSystem(_entityManager, Content, _spriteBatch));
+            _systemsManager.Push(new AnimationSystem(_entityManager, _configurationService));
+            _systemsManager.Push(new InputHandlingSystem(_entityManager, _inputMappingService, _configurationService));
+            _systemsManager.Push(new MoveToScreenPositionSystem(_entityManager));
+            _systemsManager.Push(new MoveToNewTileSystem(_entityManager));
+            _systemsManager.Push(new TileAbandonedSystem(_entityManager));
 
             var board = new BoardFactory(_entityManager, Content, _configurationService).Create();
 
@@ -68,13 +58,14 @@ namespace Game1
             var player = new PlayerFactory(_entityManager, Content).Create();
             player.Transform.SetParent(board.Transform);
 
-            board.Transform.Position = new Vector2((GraphicsDevice.Viewport.Width - size.X) / 2 , (GraphicsDevice.Viewport.Height - size.Y) / 2 );
+            board.Transform.Position = new Vector2((GraphicsDevice.Viewport.Width - size.X) / 2, (GraphicsDevice.Viewport.Height - size.Y) / 2);
 
+            base.Initialize();
         }
 
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            Content.Unload();
         }
 
         protected override void Update(GameTime gameTime)
@@ -82,11 +73,7 @@ namespace Game1
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            _inputHandlingSystem.Update(gameTime);
-            _moveToScreenPositionSystem.Update(gameTime);
-            _moveToNewTileSystem.Update(gameTime);
-            _animationSystem.Update(gameTime);
-            _tileAbandonedSystem.Update(gameTime);
+            _systemsManager.UpdateSystems(gameTime);
 
             base.Update(gameTime);
         }
@@ -94,12 +81,9 @@ namespace Game1
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.White);
-
             _spriteBatch.Begin();
-            _drawingSystem.Draw(_spriteBatch);
-
+            _systemsManager.Draw(gameTime);
             _spriteBatch.End();
-
             base.Draw(gameTime);
         }
     }

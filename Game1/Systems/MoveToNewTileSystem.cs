@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace Game1.Systems
 {
-    public class MoveToNewTileSystem : ISystem
+    public class MoveToNewTileSystem : IUpdatingSystem
     {
         private readonly IEntityManager _entityManager;
 

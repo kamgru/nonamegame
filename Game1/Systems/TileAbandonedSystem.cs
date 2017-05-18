@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 
 namespace Game1.Systems
 {
-    public class TileAbandonedSystem : ISystem
+    public class TileAbandonedSystem : IUpdatingSystem
     {
         private readonly IEntityManager _entityManager;
 

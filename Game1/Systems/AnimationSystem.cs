@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Game1.Systems
 {
-    public class AnimationSystem : ISystem
+    public class AnimationSystem : IUpdatingSystem
     {
         private readonly IEntityManager _entityManager;
         private readonly int _fps;
@@ -21,7 +21,6 @@ namespace Game1.Systems
             _entityManager = entityManager;
             _fps = configurationService.GetFps();
         }
-            
 
         public void Update(GameTime gameTime)
         {

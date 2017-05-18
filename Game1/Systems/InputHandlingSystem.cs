@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Game1.Systems
 {
-    public class InputHandlingSystem : ISystem
+    public class InputHandlingSystem : IUpdatingSystem
     {
         private readonly IEntityManager _entityManager;
         private readonly IInputMappingService _inputMappingService;

@@ -12,26 +12,22 @@ using System.Threading.Tasks;
 
 namespace Game1.Systems
 {
-    public class DrawingSystem : ISystem
+    public class SpriteDrawingSystem : IDrawingSystem
     {
         private readonly IEntityManager _entityManager;
         private readonly ContentManager _contentManager;
-
+        private readonly SpriteBatch _spriteBatch;
         private readonly SpriteFont _debugFont;
 
-        public DrawingSystem(IEntityManager entityManager, ContentManager contentManager)
+        public SpriteDrawingSystem(IEntityManager entityManager, ContentManager contentManager, SpriteBatch spriteBatch)
         {
             _entityManager = entityManager;
             _contentManager = contentManager;
+            _spriteBatch = spriteBatch;
             _debugFont = contentManager.Load<SpriteFont>("default");
         }
 
-        public void Update(GameTime gameTime)
-        {
-            
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw()
         {
             var entites = _entityManager.GetEntities().Where(x => x.HasComponent<Sprite>())
                 .Select(x => new { Sprite = x.GetComponent<Sprite>(), Position = x.GetComponent<Transform>().Position })
@@ -39,13 +35,13 @@ namespace Game1.Systems
 
             foreach (var entity in entites)
             {
-                spriteBatch.Draw(entity.Sprite.Texture2D, entity.Position, entity.Sprite.Rectangle, Color.White);
+                _spriteBatch.Draw(entity.Sprite.Texture2D, entity.Position, entity.Sprite.Rectangle, Color.White);
             }
 
             var boardPosition = _entityManager.GetEntities().FirstOrDefault(x => x.HasComponent<BoardPosition>())?.GetComponent<BoardPosition>();
             if (boardPosition != null)
             {
-                spriteBatch.DrawString(_debugFont, $"c:{boardPosition.Current.X}, {boardPosition.Current.Y}", Vector2.Zero, Color.Red);
+                _spriteBatch.DrawString(_debugFont, $"c:{boardPosition.Current.X}, {boardPosition.Current.Y}", Vector2.Zero, Color.Red);
             }
         }
     }
