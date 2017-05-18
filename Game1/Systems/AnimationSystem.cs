@@ -54,8 +54,8 @@ namespace Game1.Systems
                     }
                     animation.Elapsed = gameTime.ElapsedGameTime.Milliseconds;
 
-                    sprite.Texture2D = animation.Texture2D;        
-                    sprite.Rectangle = animation.GetCurrentRectangle();
+                    sprite.Texture2D = animation.Texture2D;
+                    sprite.Rectangle = animation.CurrentRectangle;
                 }
             }
         }

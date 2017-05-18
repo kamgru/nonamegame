@@ -12,12 +12,11 @@ namespace Game1.Data
     {
         public string Name { get; set; }
         public int CurrentFrame { get; set; }
+        public int FrameCount => _rectangles.Count;
         public float Speed { get; set; } = 1f;
         public float Elapsed { get; set; }
-        public int FrameCount => _rectangles.Count;
-
+        public Rectangle CurrentRectangle => _rectangles[CurrentFrame];
         public bool Looped { get; set; }
-
         public Texture2D Texture2D { get; set; }
 
         private List<Rectangle> _rectangles = new List<Rectangle>();
@@ -35,11 +34,6 @@ namespace Game1.Data
                     _rectangles.Add(new Rectangle(x * frameSize.X, y * frameSize.Y, frameSize.X, frameSize.Y));
                 }
             }
-        }
-
-        public Rectangle GetCurrentRectangle()
-        {
-            return _rectangles[CurrentFrame];
         }
     }
 }
