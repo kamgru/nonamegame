@@ -26,6 +26,26 @@ namespace Game1.Managers
             _drawingSystems.Add(system.GetType(), system);
         }
 
+        public TSystem Peek<TSystem>() where TSystem : ISystem
+        {
+            if (typeof(IUpdatingSystem).IsAssignableFrom(typeof(TSystem)))
+            {
+                if (_updatingSystems.ContainsKey(typeof(TSystem)))
+                {
+                    return (TSystem)_updatingSystems[typeof(TSystem)];
+                }
+            }
+
+            if (typeof(IDrawingSystem).IsAssignableFrom(typeof(TSystem)))
+            {
+                if (_drawingSystems.ContainsKey(typeof(TSystem)))
+                {
+                    return (TSystem) _drawingSystems[typeof(TSystem)];
+                }
+            }
+
+            return default(TSystem);
+        }
 
         public void UpdateSystems(GameTime gameTime)
         {

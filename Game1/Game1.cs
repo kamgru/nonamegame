@@ -43,10 +43,7 @@ namespace Game1
             _entityManager = new EntityManager();
             _systemsManager = new SystemsManager();
 
-            var spriteDrawing = new SpriteDrawingSystem(_entityManager, Content, _spriteBatch);
-            spriteDrawing.SetActive(true);
-
-            _systemsManager.Push(spriteDrawing);
+            _systemsManager.Push(new SpriteDrawingSystem(_entityManager, Content, _spriteBatch));
             _systemsManager.Push(new AnimationSystem(_entityManager, _configurationService));
             _systemsManager.Push(new InputHandlingSystem(_entityManager, _inputMappingService, _configurationService));
             _systemsManager.Push(new MoveToScreenPositionSystem(_entityManager));
@@ -70,6 +67,13 @@ namespace Game1
             board.Transform.Position = new Vector2((GraphicsDevice.Viewport.Width - size.X) / 2, (GraphicsDevice.Viewport.Height - size.Y) / 2);
 
             base.Initialize();
+
+            _systemsManager.Peek<SpriteDrawingSystem>().SetActive(true);
+            _systemsManager.Peek<AnimationSystem>().SetActive(true);
+            _systemsManager.Peek<InputHandlingSystem>().SetActive(true);
+            _systemsManager.Peek<MoveToScreenPositionSystem>().SetActive(true);
+            _systemsManager.Peek<MoveToNewTileSystem>().SetActive(true);
+            _systemsManager.Peek<TileAbandonedSystem>().SetActive(true);
         }
 
         protected override void UnloadContent()
