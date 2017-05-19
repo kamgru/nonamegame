@@ -47,21 +47,23 @@ namespace Game1.Systems
 
                 if (intent != 0)
                 {
-                    var direction = _directionMap.Where(x => intent.HasFlag(x.Key))
-                        .Select(x => x.Value)
-                        .SingleOrDefault();
+                    var requestedDirections = _directionMap.Where(x => intent.HasFlag(x.Key)).ToList();
 
-                    if (direction != null)
+                    if (requestedDirections.Count == 1)
                     {
-                        entity.AddComponent(new TargetScreenPosition
+                        var direction = requestedDirections.First().Value;
+                        if (direction != Vector2.Zero)
                         {
-                            Target = entity.Transform.Position + direction * new Vector2(_tileSize.X, _tileSize.Y)
-                        });
+                            entity.AddComponent(new TargetScreenPosition
+                            {
+                                Target = entity.Transform.Position + direction * new Vector2(_tileSize.X, _tileSize.Y)
+                            });
 
-                        var boardPosition = entity.GetComponent<BoardPosition>();
-                        boardPosition.Translate(direction.ToPoint());
+                            var boardPosition = entity.GetComponent<BoardPosition>();
+                            boardPosition.Translate(direction.ToPoint());
 
-                        entity.GetComponent<Animator>().Play("walk");
+                            entity.GetComponent<Animator>().Play("walk");
+                        }
                     }
                 }
             }
