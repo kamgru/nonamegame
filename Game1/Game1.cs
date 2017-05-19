@@ -43,7 +43,10 @@ namespace Game1
             _entityManager = new EntityManager();
             _systemsManager = new SystemsManager();
 
-            _systemsManager.Push(new SpriteDrawingSystem(_entityManager, Content, _spriteBatch));
+            var spriteDrawing = new SpriteDrawingSystem(_entityManager, Content, _spriteBatch);
+            spriteDrawing.SetActive(true);
+
+            _systemsManager.Push(spriteDrawing);
             _systemsManager.Push(new AnimationSystem(_entityManager, _configurationService));
             _systemsManager.Push(new InputHandlingSystem(_entityManager, _inputMappingService, _configurationService));
             _systemsManager.Push(new MoveToScreenPositionSystem(_entityManager));

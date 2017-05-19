@@ -12,9 +12,8 @@ using System.Threading.Tasks;
 
 namespace Game1.Systems
 {
-    public class InputHandlingSystem : IUpdatingSystem
+    public class InputHandlingSystem : SystemBase, IUpdatingSystem
     {
-        private readonly IEntityManager _entityManager;
         private readonly IInputMappingService _inputMappingService;
         private readonly Point _tileSize;
 
@@ -27,8 +26,8 @@ namespace Game1.Systems
         };
 
         public InputHandlingSystem(IEntityManager entityManager, IInputMappingService inputMappingService, IConfigurationService configurationService)
+            :base(entityManager)
         {
-            _entityManager = entityManager;
             _inputMappingService = inputMappingService;
             _tileSize = configurationService.GetTileSizeInPixels();
         }
@@ -37,7 +36,7 @@ namespace Game1.Systems
         {
             var intents = _inputMappingService.GetIntents();
 
-            var entities = _entityManager.GetEntities().Where(x => x.HasComponent<IntentMap>() 
+            var entities = EntityManager.GetEntities().Where(x => x.HasComponent<IntentMap>() 
                 && !x.HasComponent<TargetScreenPosition>()
                 && x.HasComponent<BoardPosition>());
 

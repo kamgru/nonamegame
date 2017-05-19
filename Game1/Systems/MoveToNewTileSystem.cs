@@ -10,18 +10,16 @@ using System.Diagnostics;
 
 namespace Game1.Systems
 {
-    public class MoveToNewTileSystem : IUpdatingSystem
+    public class MoveToNewTileSystem : SystemBase, IUpdatingSystem
     {
-        private readonly IEntityManager _entityManager;
-
         public MoveToNewTileSystem(IEntityManager entityManager)
+            :base(entityManager)
         {
-            _entityManager = entityManager;
         }
 
         public void Update(GameTime gameTime)
         {
-            var entity = _entityManager.GetEntitiesByComponent<MovedToNewTile>().SingleOrDefault();
+            var entity = EntityManager.GetEntitiesByComponent<MovedToNewTile>().SingleOrDefault();
             if (entity == null)
             {
                 return;
@@ -31,7 +29,7 @@ namespace Game1.Systems
 
             var boardPosition = entity.GetComponent<BoardPosition>();
 
-            var tiles = _entityManager.GetEntitiesByComponent<TileInfo>()
+            var tiles = EntityManager.GetEntitiesByComponent<TileInfo>()
                 .Select(x => x.GetComponent<TileInfo>())
                 .ToList();
 
@@ -39,7 +37,7 @@ namespace Game1.Systems
 
             if (currentTile == null || currentTile.Destroyed)
             {
-                _entityManager.DestroyEntity(entity);
+                EntityManager.DestroyEntity(entity);
             }
 
             tiles.SingleOrDefault(x => x.Position == boardPosition.Previous && !x.Destroyed)

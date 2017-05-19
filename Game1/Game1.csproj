@@ -81,6 +81,7 @@
     <Compile Include="Systems\InputHandlingSystem.cs" />
     <Compile Include="Systems\MoveToScreenPositionSystem.cs" />
     <Compile Include="Systems\MoveToNewTileSystem.cs" />
+    <Compile Include="Systems\SystemBase.cs" />
     <Compile Include="Systems\TileAbandonedSystem.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -11,20 +11,19 @@ using System.Threading.Tasks;
 
 namespace Game1.Systems
 {
-    public class AnimationSystem : IUpdatingSystem
+    public class AnimationSystem : SystemBase, IUpdatingSystem
     {
-        private readonly IEntityManager _entityManager;
         private readonly int _fps;
 
         public AnimationSystem(IEntityManager entityManager, IConfigurationService configurationService)
+            :base(entityManager)
         {
-            _entityManager = entityManager;
             _fps = configurationService.GetFps();
         }
 
         public void Update(GameTime gameTime)
         {
-            var animators = _entityManager.GetEntitiesByComponent<Animator>().Select(x => x.GetComponent<Animator>());
+            var animators = EntityManager.GetEntitiesByComponent<Animator>().Select(x => x.GetComponent<Animator>());
 
             foreach (var animator in animators.Where(x => x.IsPlaying && x.CurrentAnimation != null))
             {

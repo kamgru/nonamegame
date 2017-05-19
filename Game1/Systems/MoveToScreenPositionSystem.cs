@@ -11,18 +11,16 @@ using System.Threading.Tasks;
 
 namespace Game1.Systems
 {
-    public class MoveToScreenPositionSystem : IUpdatingSystem
+    public class MoveToScreenPositionSystem : SystemBase, IUpdatingSystem
     {
-        private readonly IEntityManager _entityManager;
-
         public MoveToScreenPositionSystem(IEntityManager entityManager)
+            :base(entityManager)
         {
-            _entityManager = entityManager;
         }
 
         public void Update(GameTime gameTime)
         {
-            var entities = _entityManager.GetEntities().Where(x => x.HasComponent<TargetScreenPosition>() 
+            var entities = EntityManager.GetEntities().Where(x => x.HasComponent<TargetScreenPosition>() 
                 && x.HasComponent<MoveSpeed>());
 
 
@@ -53,7 +51,6 @@ namespace Game1.Systems
                     {
                         transform.Position += direction * speed;
                     }
-                
                 }                
             }
         }

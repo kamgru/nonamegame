@@ -9,11 +9,12 @@ using Microsoft.Xna.Framework;
 
 namespace Game1.Systems
 {
-    public class TileAbandonedSystem : IUpdatingSystem
+    public class TileAbandonedSystem : SystemBase, IUpdatingSystem
     {
         private readonly IEntityManager _entityManager;
 
         public TileAbandonedSystem(IEntityManager entityManager)
+            :base(entityManager)
         {
             _entityManager = entityManager;
         }
