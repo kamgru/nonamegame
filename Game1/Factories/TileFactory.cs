@@ -39,7 +39,7 @@ namespace Game1.Factories
 
             tile.AddComponent(new TileInfo
             {
-                Value = 1,
+                Value = data.Value,
                 Position = position
             });
 

@@ -27,7 +27,8 @@ namespace Game1.Systems
                     Animator = x.GetComponent<Animator>(),
                     TileAbandoned = x.GetComponent<TileAbandoned>(),
                     Entity = x
-                });
+                })
+                .ToList();
 
             foreach (var tile in tiles)
             {
@@ -36,9 +37,9 @@ namespace Game1.Systems
                 {
                     tile.Animator.Play("break");
                     tile.TileInfo.Destroyed = true;
-                    tile.Entity.RemoveComponent(tile.TileAbandoned);
                     tile.Animator.OnAnimationEnded = () => _entityManager.DestroyEntity(tile.Entity);
                 }
+                tile.Entity.RemoveComponent(tile.TileAbandoned);
             }
         }
     }
