@@ -66,6 +66,12 @@
     <Compile Include="Factories\PlayerFactory.cs" />
     <Compile Include="Factories\TileFactory.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Input\ContextManager.cs" />
+    <Compile Include="Input\InputActionsDictionary.cs" />
+    <Compile Include="Input\InputContext.cs" />
+    <Compile Include="Input\InputProvider.cs" />
+    <Compile Include="Input\Intent.cs" />
+    <Compile Include="Input\IntentMapper.cs" />
     <Compile Include="Managers\EntityManager.cs" />
     <Compile Include="Api\IEntityManager.cs" />
     <Compile Include="Managers\SystemsManager.cs" />
