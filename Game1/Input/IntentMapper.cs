@@ -17,12 +17,12 @@ namespace Game1.Input
             _inputProvider = inputProvider;
         }
 
-        public IReadOnlyCollection<Intent> MapIntents()
+        public IReadOnlyCollection<InputIntent> MapIntents()
         {
             var pressedKeys = _inputProvider.GetPressedKeys();
             var intents = _contextManager.GetActiveContexts().SelectMany(context => context.Intents);
 
-            var mappedIntents = new List<Intent>();
+            var mappedIntents = new List<InputIntent>();
 
             if (pressedKeys.Any())
             {

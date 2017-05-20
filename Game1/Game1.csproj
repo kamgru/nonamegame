@@ -67,10 +67,9 @@
     <Compile Include="Factories\TileFactory.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Input\ContextManager.cs" />
-    <Compile Include="Input\InputActionsDictionary.cs" />
     <Compile Include="Input\InputContext.cs" />
+    <Compile Include="Input\InputIntent.cs" />
     <Compile Include="Input\InputProvider.cs" />
-    <Compile Include="Input\Intent.cs" />
     <Compile Include="Input\IntentMapper.cs" />
     <Compile Include="Managers\EntityManager.cs" />
     <Compile Include="Api\IEntityManager.cs" />
@@ -81,10 +80,10 @@
     <Compile Include="Services\ConfigurationService.cs" />
     <Compile Include="Api\IConfigurationService.cs" />
     <Compile Include="Api\IInputMappingService.cs" />
-    <Compile Include="Services\InputMappingService.cs" />
+    <Compile Include="Services\InputService.cs" />
     <Compile Include="Systems\AnimationSystem.cs" />
+    <Compile Include="Systems\PlayerMovementSystem.cs" />
     <Compile Include="Systems\SpriteDrawingSystem.cs" />
-    <Compile Include="Systems\InputHandlingSystem.cs" />
     <Compile Include="Systems\MoveToScreenPositionSystem.cs" />
     <Compile Include="Systems\MoveToNewTileSystem.cs" />
     <Compile Include="Systems\SystemBase.cs" />

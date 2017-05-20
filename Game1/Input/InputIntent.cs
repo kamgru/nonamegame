@@ -2,7 +2,7 @@
 
 namespace Game1.Input
 {
-    public class Intent
+    public class InputIntent
     {
         public int Id { get; set; }
         public string Name { get; set; }

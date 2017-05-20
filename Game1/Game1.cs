@@ -10,6 +10,8 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
 using Game1.Factories;
+using Game1.Input;
+using Game1.Data;
 
 namespace Game1
 {
@@ -24,8 +26,8 @@ namespace Game1
         private IEntityManager _entityManager;
         private SystemsManager _systemsManager;
 
-        private InputMappingService _inputMappingService;
         private ConfigurationService _configurationService;
+        private InputService _inputService;
 
         public Game1()
         {
@@ -34,18 +36,49 @@ namespace Game1
 
         protected override void Initialize()
         {
+            var contextManager = new ContextManager();
+            contextManager.Add(new InputContext
+            {
+                Id = 1,
+                Active = true,
+                Name = "gameplay context",
+                Intents = new[]
+                {
+                    new InputIntent
+                    {
+                         Id = (int)Intent.MoveLeft,
+                         Key = Keys.A
+                    },
+                    new InputIntent
+                    {
+                        Id = (int)Intent.MoveRight,
+                        Key = Keys.D
+                    },
+                    new InputIntent
+                    {
+                         Id = (int)Intent.MoveUp,
+                         Key = Keys.W
+                    },
+                    new InputIntent
+                    {
+                        Id = (int)Intent.MoveDown,
+                        Key = Keys.S
+                    },
+                }
+            });
+
             Content.RootDirectory = "Content";
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _configurationService = new ConfigurationService();
-            _inputMappingService = new InputMappingService();
+            _inputService = new InputService(new IntentMapper(contextManager, new InputProvider()));
 
             _entityManager = new EntityManager();
             _systemsManager = new SystemsManager();
 
+            _systemsManager.Push(new PlayerMovementSystem(_entityManager, _inputService, _configurationService));
             _systemsManager.Push(new SpriteDrawingSystem(_entityManager, Content, _spriteBatch));
             _systemsManager.Push(new AnimationSystem(_entityManager, _configurationService));
-            _systemsManager.Push(new InputHandlingSystem(_entityManager, _inputMappingService, _configurationService));
             _systemsManager.Push(new MoveToScreenPositionSystem(_entityManager));
             _systemsManager.Push(new MoveToNewTileSystem(_entityManager));
             _systemsManager.Push(new TileAbandonedSystem(_entityManager));
@@ -68,9 +101,9 @@ namespace Game1
 
             base.Initialize();
 
+            _systemsManager.Peek<PlayerMovementSystem>().SetActive(true);
             _systemsManager.Peek<SpriteDrawingSystem>().SetActive(true);
             _systemsManager.Peek<AnimationSystem>().SetActive(true);
-            _systemsManager.Peek<InputHandlingSystem>().SetActive(true);
             _systemsManager.Peek<MoveToScreenPositionSystem>().SetActive(true);
             _systemsManager.Peek<MoveToNewTileSystem>().SetActive(true);
             _systemsManager.Peek<TileAbandonedSystem>().SetActive(true);
