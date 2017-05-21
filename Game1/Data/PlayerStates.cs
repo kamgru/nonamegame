@@ -10,5 +10,6 @@ namespace Game1.Data
     {
         public const string Idle = "idle";
         public const string Moving = "moving";
+        public const string Dead = "dead";
     }
 }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Game1.Components
 {
-    public class EntityState : ComponentBase
+    public class Player : ComponentBase
     {
-        public string CurrentState { get; set; }
+        public string Name { get; set; } = "Player";
     }
 }

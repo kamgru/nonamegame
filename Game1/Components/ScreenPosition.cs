@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Game1.Components
 {
-    public class Transform : ComponentBase
+    public class ScreenPosition : ComponentBase
     {
         private Vector2 _position;
 
@@ -25,7 +25,7 @@ namespace Game1.Components
 
         public event EventHandler OnPositionChange;
 
-        public void SetParent(Transform parent)
+        public void SetParent(ScreenPosition parent)
         {
             if (parent == null)
             {
@@ -39,7 +39,7 @@ namespace Game1.Components
 
         private void Parent_OnPositionChange(object sender, EventArgs e)
         {
-            var parent = sender as Transform;
+            var parent = sender as ScreenPosition;
             if (parent != null)
             {
                 Position += parent.Position;

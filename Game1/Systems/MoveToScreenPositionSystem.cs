@@ -13,8 +13,8 @@ namespace Game1.Systems
 {
     public class MoveToScreenPositionSystem : SystemBase, IUpdatingSystem
     {
-        public MoveToScreenPositionSystem(IEntityManager entityManager, SystemsManager systemsManager)
-            :base(entityManager, systemsManager)
+        public MoveToScreenPositionSystem(IEntityManager entityManager)
+            :base(entityManager)
         {
         }
 
@@ -30,22 +30,19 @@ namespace Game1.Systems
 
                 var transform = entity.Transform;
 
-                if ((transform.Position - moveTo.Target).LengthSquared() > 0.01f)
+                if ((transform.Position - moveTo.Position).LengthSquared() > 0.01f)
                 {
                     var speed = entity.GetComponent<MoveSpeed>().Speed;
 
-                    var direction = moveTo.Target - transform.Position;
+                    var direction = moveTo.Position - transform.Position;
                     direction.Normalize();
 
                     var distancePlanned = (direction * speed).LengthSquared();
-                    var distanceLeft = (transform.Position - moveTo.Target).LengthSquared();
+                    var distanceLeft = (transform.Position - moveTo.Position).LengthSquared();
 
                     if (distancePlanned >= distanceLeft)
                     {
-                        transform.Position = moveTo.Target;
-                        entity.RemoveComponent(moveTo);
-
-                        entity.AddComponent(new MovedToNewTile());
+                        transform.Position = moveTo.Position;
                     }
                     else
                     {

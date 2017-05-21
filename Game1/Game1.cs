@@ -32,10 +32,15 @@ namespace Game1
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
+
+           
         }
 
         protected override void Initialize()
         {
+            base.Initialize();
+
+
             var contextManager = new ContextManager();
             contextManager.Add(new InputContext
             {
@@ -76,13 +81,12 @@ namespace Game1
             _entityManager = new EntityManager();
             _systemsManager = new SystemsManager();
 
-            _systemsManager.Push(new GameBoardMovementSystem(_entityManager, _systemsManager, _inputService, _configurationService));
-            _systemsManager.Push(new SpriteDrawingSystem(_entityManager, _systemsManager, Content, _spriteBatch));
-            _systemsManager.Push(new AnimationSystem(_entityManager, _systemsManager, _configurationService));
-            _systemsManager.Push(new MoveToScreenPositionSystem(_entityManager, _systemsManager));
-            _systemsManager.Push(new MoveToNewTileSystem(_entityManager, _systemsManager));
-            _systemsManager.Push(new TileAbandonedSystem(_entityManager, _systemsManager));
-            _systemsManager.Push(new PlayerStateSystem(_entityManager, _systemsManager, _inputService));
+            _systemsManager.Push(new PlayerInputHandlingSystem(_entityManager, _inputService, _configurationService));
+            _systemsManager.Push(new SpriteDrawingSystem(_entityManager, Content, _spriteBatch));
+            _systemsManager.Push(new AnimationSystem(_entityManager, _configurationService));
+            _systemsManager.Push(new MoveToScreenPositionSystem(_entityManager));
+            _systemsManager.Push(new TileFsmSystem(_entityManager));
+            _systemsManager.Push(new PlayerFsmSystem(_entityManager, _inputService));
 
             var board = new BoardFactory(_entityManager, 
                 Content, 
@@ -99,16 +103,15 @@ namespace Game1
             player.Transform.SetParent(board.Transform);
 
             board.Transform.Position = new Vector2((GraphicsDevice.Viewport.Width - size.X) / 2, (GraphicsDevice.Viewport.Height - size.Y) / 2);
+            player.GetComponent<TargetScreenPosition>().Position = player.Transform.Position;
 
-            base.Initialize();
-
-            _systemsManager.Peek<GameBoardMovementSystem>().SetActive(true);
+            _systemsManager.Peek<PlayerInputHandlingSystem>().SetActive(true);
             _systemsManager.Peek<SpriteDrawingSystem>().SetActive(true);
             _systemsManager.Peek<AnimationSystem>().SetActive(true);
             _systemsManager.Peek<MoveToScreenPositionSystem>().SetActive(true);
-            _systemsManager.Peek<MoveToNewTileSystem>().SetActive(true);
-            _systemsManager.Peek<TileAbandonedSystem>().SetActive(true);
-            _systemsManager.Peek<PlayerStateSystem>().SetActive(true);
+            _systemsManager.Peek<TileFsmSystem>().SetActive(true);
+            _systemsManager.Peek<PlayerFsmSystem>().SetActive(true);
+
         }
 
         protected override void UnloadContent()

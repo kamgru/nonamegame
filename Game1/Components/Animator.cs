@@ -18,8 +18,6 @@ namespace Game1.Components
         public IEnumerable<Animation> Animations { get; set; }
         public Animation CurrentAnimation { get; set; }
 
-        public Action OnAnimationEnded { get; set; }
-
         public void Play(string name)
         {
             var animation = Animations.FirstOrDefault(x => x.Name == name);

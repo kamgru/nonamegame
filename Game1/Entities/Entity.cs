@@ -10,17 +10,17 @@ namespace Game1.Entities
     public class Entity
     {
         private List<ComponentBase> _components = new List<ComponentBase>();
-        private Transform _transform;
+        private ScreenPosition _transform;
 
         public string Name { get; set; }
 
-        public Transform Transform
+        public ScreenPosition Transform
         {
             get
             {
                 if (_transform == null)
                 {
-                    _transform = new Transform();
+                    _transform = new ScreenPosition();
                     _components.Add(_transform);
                 }
                 return _transform;

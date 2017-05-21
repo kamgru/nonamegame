@@ -55,6 +55,11 @@ namespace Game1.Factories
                 }
             });
 
+            tile.AddComponent(new State
+            {
+                CurrentState = TileStates.Idle
+            });
+
             tile.Name = $"tile {position.X} : {position.Y}";
 
             return tile;

@@ -28,7 +28,13 @@ namespace Game1.Factories
             player.AddComponent(new Sprite { Texture2D = texture });
             player.AddComponent(new MoveSpeed { Speed = 3f });
             player.AddComponent(new PositionOnBoard());
-            player.AddComponent(new EntityState());
+            player.AddComponent(new TargetScreenPosition());
+            player.AddComponent(new Player());
+
+            player.AddComponent(new State
+            {
+                CurrentState = PlayerStates.Idle
+            });
 
             player.AddComponent(new Animator
             {

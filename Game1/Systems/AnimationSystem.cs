@@ -16,8 +16,8 @@ namespace Game1.Systems
     {
         private readonly int _fps;
 
-        public AnimationSystem(IEntityManager entityManager, SystemsManager systemsManager, IConfigurationService configurationService)
-            :base(entityManager, systemsManager)
+        public AnimationSystem(IEntityManager entityManager, IConfigurationService configurationService)
+            :base(entityManager)
         {
             _fps = configurationService.GetFps();
         }
@@ -44,7 +44,6 @@ namespace Game1.Systems
                     if (animation.CurrentFrame >= animation.FrameCount)
                     {
                         animation.CurrentFrame = 0;
-                        animator.OnAnimationEnded?.Invoke();
 
                         if (!animation.Looped)
                         {

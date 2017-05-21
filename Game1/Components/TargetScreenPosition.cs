@@ -5,6 +5,6 @@ namespace Game1.Components
 
     public class TargetScreenPosition : ComponentBase
     {
-        public Vector2 Target { get; set; }
+        public Vector2 Position { get; set; }
     }
 }
