@@ -1,6 +1,7 @@
 ﻿using Game1.Api;
 using Game1.Components;
 using Game1.Entities;
+using Game1.Managers;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,8 @@ namespace Game1.Systems
     {
         private readonly int _fps;
 
-        public AnimationSystem(IEntityManager entityManager, IConfigurationService configurationService)
-            :base(entityManager)
+        public AnimationSystem(IEntityManager entityManager, SystemsManager systemsManager, IConfigurationService configurationService)
+            :base(entityManager, systemsManager)
         {
             _fps = configurationService.GetFps();
         }

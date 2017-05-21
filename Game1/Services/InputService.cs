@@ -11,10 +11,12 @@ namespace Game1.Services
     public class InputService
     {
         private readonly IntentMapper _intentMapper;
+        private readonly ContextManager _contextManager;
 
-        public InputService(IntentMapper intentMapper)
+        public InputService(IntentMapper intentMapper, ContextManager contextManager)
         {
             _intentMapper = intentMapper;
+            _contextManager = contextManager;
         }
 
         public IReadOnlyCollection<Intent> GetCurrentIntents(IEnumerable<Intent> filter = null)
@@ -26,6 +28,11 @@ namespace Game1.Services
             }
 
             return intents.ToList();
+        }
+
+        public void SetContextActive(int id, bool active)
+        {
+            _contextManager.GetContext(id).Active = active;
         }
     }
 }

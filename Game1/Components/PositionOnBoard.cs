@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Game1.Components
 {
-    public class BoardPosition : ComponentBase
+    public class PositionOnBoard : ComponentBase
     {
         public Point Current { get; set; }
         public Point Previous { get; set; }

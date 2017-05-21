@@ -26,9 +26,9 @@ namespace Game1.Factories
             var texture = _contentManager.Load<Texture2D>("red_dot");
 
             player.AddComponent(new Sprite { Texture2D = texture });
-            player.AddComponent(new IntentMap { Intent = Intent.MoveDown | Intent.MoveLeft | Intent.MoveRight | Intent.MoveUp });
             player.AddComponent(new MoveSpeed { Speed = 3f });
-            player.AddComponent(new BoardPosition());
+            player.AddComponent(new PositionOnBoard());
+            player.AddComponent(new EntityState());
 
             player.AddComponent(new Animator
             {

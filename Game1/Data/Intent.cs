@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace Game1.Data
 {
-    [Flags]
     public enum Intent
     {
         MoveUp = 1,
         MoveDown = 2,
-        MoveLeft = 4, 
-        MoveRight = 8
+        MoveLeft = 3, 
+        MoveRight = 4
+    }
+
+    public enum Context
+    {
+        Gameplay = 1
     }
 }

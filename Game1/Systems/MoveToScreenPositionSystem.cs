@@ -13,8 +13,8 @@ namespace Game1.Systems
 {
     public class MoveToScreenPositionSystem : SystemBase, IUpdatingSystem
     {
-        public MoveToScreenPositionSystem(IEntityManager entityManager)
-            :base(entityManager)
+        public MoveToScreenPositionSystem(IEntityManager entityManager, SystemsManager systemsManager)
+            :base(entityManager, systemsManager)
         {
         }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Game1.Api;
 using Game1.Components;
 using Microsoft.Xna.Framework;
+using Game1.Managers;
 
 namespace Game1.Systems
 {
@@ -13,8 +14,8 @@ namespace Game1.Systems
     {
         private readonly IEntityManager _entityManager;
 
-        public TileAbandonedSystem(IEntityManager entityManager)
-            :base(entityManager)
+        public TileAbandonedSystem(IEntityManager entityManager, SystemsManager systemsManager)
+            :base(entityManager, systemsManager)
         {
             _entityManager = entityManager;
         }

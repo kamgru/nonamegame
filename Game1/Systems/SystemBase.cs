@@ -11,11 +11,13 @@ namespace Game1.Systems
     public abstract class SystemBase : ISystem
     {
         protected readonly IEntityManager EntityManager;
+        protected readonly SystemsManager SystemsManager;
         protected bool Active;
 
-        protected SystemBase(IEntityManager entityManager)
+        protected SystemBase(IEntityManager entityManager, SystemsManager systemsManager)
         {
             EntityManager = entityManager;
+            SystemsManager = systemsManager;
         }
 
         public virtual void SetActive(bool value)

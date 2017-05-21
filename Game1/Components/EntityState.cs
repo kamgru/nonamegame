@@ -1,5 +1,4 @@
-﻿using Game1.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Game1.Components
 {
-    public class IntentMap : ComponentBase
+    public class EntityState : ComponentBase
     {
-        public Intent Intent { get; set; }
+        public string CurrentState { get; set; }
     }
 }

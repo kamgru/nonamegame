@@ -17,8 +17,8 @@ namespace Game1.Systems
         private readonly SpriteBatch _spriteBatch;
         private readonly SpriteFont _debugFont;
 
-        public SpriteDrawingSystem(IEntityManager entityManager, ContentManager contentManager, SpriteBatch spriteBatch)
-            :base(entityManager)
+        public SpriteDrawingSystem(IEntityManager entityManager, SystemsManager systemsManager, ContentManager contentManager, SpriteBatch spriteBatch)
+            :base(entityManager, systemsManager)
         {
             _spriteBatch = spriteBatch;
             _debugFont = contentManager.Load<SpriteFont>("default");
@@ -35,7 +35,7 @@ namespace Game1.Systems
                 _spriteBatch.Draw(entity.Sprite.Texture2D, entity.Position, entity.Sprite.Rectangle, Color.White);
             }
 
-            var boardPosition = EntityManager.GetEntities().FirstOrDefault(x => x.HasComponent<BoardPosition>())?.GetComponent<BoardPosition>();
+            var boardPosition = EntityManager.GetEntities().FirstOrDefault(x => x.HasComponent<PositionOnBoard>())?.GetComponent<PositionOnBoard>();
             if (boardPosition != null)
             {
                 _spriteBatch.DrawString(_debugFont, $"c:{boardPosition.Current.X}, {boardPosition.Current.Y}", Vector2.Zero, Color.Red);

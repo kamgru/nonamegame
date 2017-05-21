@@ -39,7 +39,7 @@ namespace Game1
             var contextManager = new ContextManager();
             contextManager.Add(new InputContext
             {
-                Id = 1,
+                Id = (int)Context.Gameplay,
                 Active = true,
                 Name = "gameplay context",
                 Intents = new[]
@@ -71,17 +71,18 @@ namespace Game1
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _configurationService = new ConfigurationService();
-            _inputService = new InputService(new IntentMapper(contextManager, new InputProvider()));
+            _inputService = new InputService(new IntentMapper(contextManager, new InputProvider()), contextManager);
 
             _entityManager = new EntityManager();
             _systemsManager = new SystemsManager();
 
-            _systemsManager.Push(new PlayerMovementSystem(_entityManager, _inputService, _configurationService));
-            _systemsManager.Push(new SpriteDrawingSystem(_entityManager, Content, _spriteBatch));
-            _systemsManager.Push(new AnimationSystem(_entityManager, _configurationService));
-            _systemsManager.Push(new MoveToScreenPositionSystem(_entityManager));
-            _systemsManager.Push(new MoveToNewTileSystem(_entityManager));
-            _systemsManager.Push(new TileAbandonedSystem(_entityManager));
+            _systemsManager.Push(new GameBoardMovementSystem(_entityManager, _systemsManager, _inputService, _configurationService));
+            _systemsManager.Push(new SpriteDrawingSystem(_entityManager, _systemsManager, Content, _spriteBatch));
+            _systemsManager.Push(new AnimationSystem(_entityManager, _systemsManager, _configurationService));
+            _systemsManager.Push(new MoveToScreenPositionSystem(_entityManager, _systemsManager));
+            _systemsManager.Push(new MoveToNewTileSystem(_entityManager, _systemsManager));
+            _systemsManager.Push(new TileAbandonedSystem(_entityManager, _systemsManager));
+            _systemsManager.Push(new PlayerStateSystem(_entityManager, _systemsManager, _inputService));
 
             var board = new BoardFactory(_entityManager, 
                 Content, 
@@ -101,12 +102,13 @@ namespace Game1
 
             base.Initialize();
 
-            _systemsManager.Peek<PlayerMovementSystem>().SetActive(true);
+            _systemsManager.Peek<GameBoardMovementSystem>().SetActive(true);
             _systemsManager.Peek<SpriteDrawingSystem>().SetActive(true);
             _systemsManager.Peek<AnimationSystem>().SetActive(true);
             _systemsManager.Peek<MoveToScreenPositionSystem>().SetActive(true);
             _systemsManager.Peek<MoveToNewTileSystem>().SetActive(true);
             _systemsManager.Peek<TileAbandonedSystem>().SetActive(true);
+            _systemsManager.Peek<PlayerStateSystem>().SetActive(true);
         }
 
         protected override void UnloadContent()

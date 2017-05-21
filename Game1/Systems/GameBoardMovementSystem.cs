@@ -9,10 +9,11 @@ using Game1.Input;
 using Game1.Data;
 using Game1.Services;
 using Game1.Components;
+using Game1.Managers;
 
 namespace Game1.Systems
 {
-    public class PlayerMovementSystem : SystemBase, IUpdatingSystem
+    public class GameBoardMovementSystem : SystemBase, IUpdatingSystem
     {
         private readonly Dictionary<Intent, Vector2> _directionMap = new Dictionary<Intent, Vector2>
         {
@@ -25,7 +26,8 @@ namespace Game1.Systems
         private readonly InputService _inputService;
         private readonly Point _tileSize;
 
-        public PlayerMovementSystem(IEntityManager entityManager, InputService inputService, IConfigurationService configurationService) : base(entityManager)
+        public GameBoardMovementSystem(IEntityManager entityManager, SystemsManager systemsManager, InputService inputService, IConfigurationService configurationService) 
+            : base(entityManager, systemsManager)
         {
             _inputService = inputService;
             _tileSize = configurationService.GetTileSizeInPixels();
@@ -39,9 +41,7 @@ namespace Game1.Systems
 
             if (requestedDirections.Count() == 1)
             {
-                var entities = EntityManager.GetEntities().Where(x => x.HasComponent<IntentMap>()
-                && !x.HasComponent<TargetScreenPosition>()
-                && x.HasComponent<BoardPosition>());
+                var entities = EntityManager.GetEntities().Where(x => x.HasComponent<PositionOnBoard>());
 
                 foreach (var entity in entities)
                 {
@@ -53,10 +53,10 @@ namespace Game1.Systems
                             Target = entity.Transform.Position + direction * new Vector2(_tileSize.X, _tileSize.Y)
                         });
 
-                        var boardPosition = entity.GetComponent<BoardPosition>();
+                        var boardPosition = entity.GetComponent<PositionOnBoard>();
                         boardPosition.Translate(direction.ToPoint());
 
-                        entity.GetComponent<Animator>().Play("walk");
+                        SystemsManager.Peek<PlayerStateSystem>().ChangeState(PlayerStates.Moving, entity.GetComponent<EntityState>());
                     }
                 }
             }

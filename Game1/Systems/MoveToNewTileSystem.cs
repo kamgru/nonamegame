@@ -7,13 +7,14 @@ using Game1.Api;
 using Game1.Components;
 using Microsoft.Xna.Framework;
 using System.Diagnostics;
+using Game1.Managers;
 
 namespace Game1.Systems
 {
     public class MoveToNewTileSystem : SystemBase, IUpdatingSystem
     {
-        public MoveToNewTileSystem(IEntityManager entityManager)
-            :base(entityManager)
+        public MoveToNewTileSystem(IEntityManager entityManager, SystemsManager systemsManager)
+            :base(entityManager, systemsManager)
         {
         }
 
@@ -27,7 +28,7 @@ namespace Game1.Systems
 
             var movedToNewTile = entity.GetComponent<MovedToNewTile>();
 
-            var boardPosition = entity.GetComponent<BoardPosition>();
+            var boardPosition = entity.GetComponent<PositionOnBoard>();
 
             var tiles = EntityManager.GetEntitiesByComponent<TileInfo>()
                 .Select(x => x.GetComponent<TileInfo>())
