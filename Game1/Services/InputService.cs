@@ -19,9 +19,9 @@ namespace Game1.Services
             _contextManager = contextManager;
         }
 
-        public IReadOnlyCollection<Intent> GetCurrentIntents(IEnumerable<Intent> filter = null)
+        public IReadOnlyCollection<Intent> ConsumeIntents(IEnumerable<Intent> filter = null)
         {
-            var intents = _intentMapper.MapIntents().Select(x => (Intent)x.Id);
+            var intents = _intentMapper.ConsumeIntents().Select(x => (Intent)x.Id);
             if (filter != null)
             {
                 intents = intents.Intersect(filter);

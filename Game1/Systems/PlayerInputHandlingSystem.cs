@@ -35,7 +35,7 @@ namespace Game1.Systems
 
         public void Update(GameTime gameTime)
         {
-            var intents = _inputService.GetCurrentIntents(_directionMap.Keys);
+            var intents = _inputService.ConsumeIntents(_directionMap.Keys);
 
             var requestedDirections = _directionMap.Where(x => intents.Contains(x.Key)).Select(x => x.Value);
 

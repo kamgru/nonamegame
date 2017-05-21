@@ -17,7 +17,7 @@ namespace Game1.Input
             _inputProvider = inputProvider;
         }
 
-        public IReadOnlyCollection<InputIntent> MapIntents()
+        public IReadOnlyCollection<InputIntent> ConsumeIntents()
         {
             var pressedKeys = _inputProvider.GetPressedKeys();
             var intents = _contextManager.GetActiveContexts().SelectMany(context => context.Intents);
