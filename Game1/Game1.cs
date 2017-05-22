@@ -85,8 +85,14 @@ namespace Game1
             _systemsManager.Push(new SpriteDrawingSystem(_entityManager, Content, _spriteBatch));
             _systemsManager.Push(new AnimationSystem(_entityManager, _configurationService));
             _systemsManager.Push(new MoveToScreenPositionSystem(_entityManager));
-            _systemsManager.Push(new TileFsmSystem(_entityManager));
-            _systemsManager.Push(new PlayerFsmSystem(_entityManager, _inputService));
+
+            var fsmSystem = new FsmSystem(_entityManager);
+            fsmSystem.RegisterHandler(new PlayerIdleHandler(_inputService));
+            fsmSystem.RegisterHandler(new PlayerMovingHandler(_inputService, _entityManager));
+            fsmSystem.RegisterHandler(new PlayerDeadHandler(_entityManager));
+            fsmSystem.RegisterHandler(new TileAbandonedHandler());
+            fsmSystem.RegisterHandler(new TileDestroyedHandler(_entityManager));
+            _systemsManager.Push(fsmSystem);
 
             var board = new BoardFactory(_entityManager, 
                 Content, 
@@ -109,9 +115,7 @@ namespace Game1
             _systemsManager.Peek<SpriteDrawingSystem>().SetActive(true);
             _systemsManager.Peek<AnimationSystem>().SetActive(true);
             _systemsManager.Peek<MoveToScreenPositionSystem>().SetActive(true);
-            _systemsManager.Peek<TileFsmSystem>().SetActive(true);
-            _systemsManager.Peek<PlayerFsmSystem>().SetActive(true);
-
+            _systemsManager.Peek<FsmSystem>().SetActive(true);
         }
 
         protected override void UnloadContent()

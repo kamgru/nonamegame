@@ -83,12 +83,18 @@
     <Compile Include="Api\IInputMappingService.cs" />
     <Compile Include="Services\InputService.cs" />
     <Compile Include="Systems\AnimationSystem.cs" />
+    <Compile Include="Systems\Fsm\EntityState.cs" />
+    <Compile Include="Systems\Fsm\FsmSystem.cs" />
+    <Compile Include="Systems\Fsm\PlayerDeadHandler.cs" />
+    <Compile Include="Systems\Fsm\PlayerIdleHandler.cs" />
+    <Compile Include="Systems\Fsm\PlayerMovingHandler.cs" />
+    <Compile Include="Systems\Fsm\StateHandlerBase.cs" />
+    <Compile Include="Systems\Fsm\TileAbandonedHandler.cs" />
+    <Compile Include="Systems\Fsm\TileDestroyedHandler.cs" />
     <Compile Include="Systems\PlayerInputHandlingSystem.cs" />
-    <Compile Include="Systems\PlayerFsmSystem.cs" />
     <Compile Include="Systems\SpriteDrawingSystem.cs" />
     <Compile Include="Systems\MoveToScreenPositionSystem.cs" />
     <Compile Include="Systems\SystemBase.cs" />
-    <Compile Include="Systems\TileFsmSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
