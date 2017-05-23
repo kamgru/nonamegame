@@ -18,7 +18,7 @@ namespace Game1.Systems
         {
             if (entityState.State.InTransition)
             {
-                entityState.Entity.GetComponent<Animator>().Play("break");
+                entityState.Entity.GetComponent<Animator>().Play(AnimationDictionary.TileDestroy);
                 entityState.Entity.GetComponent<TileInfo>().Destroyed = true;
                 entityState.State.InTransition = false;
             }

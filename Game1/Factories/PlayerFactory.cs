@@ -43,7 +43,7 @@ namespace Game1.Factories
                     new Animation(_contentManager.Load<Texture2D>("ball"), new Point(32, 32))
                     {
                         Looped = false,
-                        Name = "walk",
+                        Name = AnimationDictionary.PlayerMove,
                         Speed = 0.5f
                     }
                 }

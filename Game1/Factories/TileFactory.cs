@@ -49,7 +49,7 @@ namespace Game1.Factories
                 {
                     new Animation(_contentManager.Load<Texture2D>("tile_break"), new Point(32, 32))
                     {
-                        Name = "break",
+                        Name = AnimationDictionary.TileDestroy,
                         Speed = 0.5f
                     }
                 }
