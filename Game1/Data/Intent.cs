@@ -11,11 +11,8 @@ namespace Game1.Data
         MoveUp = 1,
         MoveDown = 2,
         MoveLeft = 3, 
-        MoveRight = 4
-    }
-
-    public enum Context
-    {
-        Gameplay = 1
+        MoveRight = 4,
+        Confirm = 8,
+        Cancel = 16
     }
 }

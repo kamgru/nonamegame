@@ -48,6 +48,7 @@
     <Compile Include="Components\Player.cs" />
     <Compile Include="Data\Animation.cs" />
     <Compile Include="Data\Board.cs" />
+    <Compile Include="Data\Context.cs" />
     <Compile Include="Data\Intent.cs" />
     <Compile Include="Components\Animator.cs" />
     <Compile Include="Components\BoardInfo.cs" />
@@ -77,6 +78,8 @@
     <Compile Include="Managers\SystemsManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screens\GameplayScreen.cs" />
+    <Compile Include="Screens\ScreenManager.cs" />
     <Compile Include="Services\BoardService.cs" />
     <Compile Include="Services\ConfigurationService.cs" />
     <Compile Include="Api\IConfigurationService.cs" />
