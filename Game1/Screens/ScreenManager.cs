@@ -9,8 +9,9 @@ namespace Game1.Screens
 {
     public class ScreenManager : DrawableGameComponent
     {
-        private readonly List<Screen> _screens = new List<Screen>();
+        private readonly ICollection<Screen> _screens = new List<Screen>();
 
+        private IEnumerable<Screen> _currentScreens;
 
         public ScreenManager(Game game) : base(game)
         {
@@ -23,11 +24,25 @@ namespace Game1.Screens
                 _screens.Remove(screen);
             }
             _screens.Add(screen);
+
+            if (screen.IsSingle)
+            {
+                _currentScreens = new[] { screen };
+            }
+            else
+            {
+                _currentScreens = _screens.ToList();
+            }
+        }
+
+        public TScreen Peek<TScreen>() where TScreen : Screen
+        {
+            return (TScreen)_screens.FirstOrDefault(x => x is TScreen);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            foreach (var screen in _screens)
+            foreach (var screen in _currentScreens)
             {
                 screen.Draw(gameTime);
             }
@@ -35,7 +50,7 @@ namespace Game1.Screens
 
         public override void Update(GameTime gameTime)
         {
-            foreach (var screen in _screens)
+            foreach (var screen in _currentScreens)
             {
                 screen.Update(gameTime);
             }

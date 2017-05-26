@@ -12,34 +12,25 @@ using System.Linq;
 using Game1.Factories;
 using Game1.Input;
 using Game1.Data;
+using Game1.Screens;
 
 namespace Game1
 {
-    /// <summary>
-    /// This is the main type for your game.
-    /// </summary>
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
-        private IEntityManager _entityManager;
-        private SystemsManager _systemsManager;
-
-        private ConfigurationService _configurationService;
         private InputService _inputService;
+        private ScreenManager _screenManager;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
-
-           
         }
 
         protected override void Initialize()
         {
             base.Initialize();
-
 
             var contextManager = new ContextManager();
             contextManager.Add(new InputContext
@@ -72,50 +63,30 @@ namespace Game1
                 }
             });
 
+            contextManager.Add(new InputContext
+            {
+                Id = (int)Context.Generic,
+                Active = true,
+                Name = "generic context",
+                Intents = new[]
+                {
+                    new InputIntent
+                    {
+                        Id = (int)Intent.Confirm,
+                        Key = Keys.Space
+                    }
+                }
+            });
+
             Content.RootDirectory = "Content";
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            _configurationService = new ConfigurationService();
             _inputService = new InputService(new IntentMapper(contextManager, new InputProvider()), contextManager);
+            _screenManager = new ScreenManager(this);
 
-            _entityManager = new EntityManager();
-            _systemsManager = new SystemsManager();
+            var mainMenu = new MainMenuScreen(Content, _screenManager, _inputService, _spriteBatch);
+            mainMenu.Init();
 
-            _systemsManager.Push(new PlayerInputHandlingSystem(_entityManager, _inputService, _configurationService));
-            _systemsManager.Push(new SpriteDrawingSystem(_entityManager, Content, _spriteBatch));
-            _systemsManager.Push(new AnimationSystem(_entityManager, _configurationService));
-            _systemsManager.Push(new MoveToScreenPositionSystem(_entityManager));
-
-            var fsmSystem = new FsmSystem(_entityManager);
-            fsmSystem.RegisterHandler(new PlayerIdleHandler(_inputService));
-            fsmSystem.RegisterHandler(new PlayerMovingHandler(_inputService, _entityManager));
-            fsmSystem.RegisterHandler(new PlayerDeadHandler(_entityManager));
-            fsmSystem.RegisterHandler(new TileAbandonedHandler());
-            fsmSystem.RegisterHandler(new TileDestroyedHandler(_entityManager));
-            _systemsManager.Push(fsmSystem);
-
-            var board = new BoardFactory(_entityManager, 
-                Content, 
-                _configurationService, new TileFactory(
-                    _entityManager, 
-                    Content, 
-                    _configurationService))
-                .CreateBoard(new BoardService().GetBoard(1));
-
-            var tileSize = _configurationService.GetTileSizeInPixels();
-            var size = board.GetComponent<BoardInfo>().Size * tileSize;
-
-            var player = new PlayerFactory(_entityManager, Content).CreateEntity();
-            player.Transform.SetParent(board.Transform);
-
-            board.Transform.Position = new Vector2((GraphicsDevice.Viewport.Width - size.X) / 2, (GraphicsDevice.Viewport.Height - size.Y) / 2);
-            player.GetComponent<TargetScreenPosition>().Position = player.Transform.Position;
-
-            _systemsManager.Peek<PlayerInputHandlingSystem>().SetActive(true);
-            _systemsManager.Peek<SpriteDrawingSystem>().SetActive(true);
-            _systemsManager.Peek<AnimationSystem>().SetActive(true);
-            _systemsManager.Peek<MoveToScreenPositionSystem>().SetActive(true);
-            _systemsManager.Peek<FsmSystem>().SetActive(true);
+            _screenManager.Push(mainMenu);            
         }
 
         protected override void UnloadContent()
@@ -127,9 +98,7 @@ namespace Game1
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            _systemsManager.UpdateSystems(gameTime);
-
+            _screenManager.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -137,7 +106,7 @@ namespace Game1
         {
             GraphicsDevice.Clear(Color.White);
             _spriteBatch.Begin();
-            _systemsManager.Draw(gameTime);
+            _screenManager.Draw(gameTime);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
