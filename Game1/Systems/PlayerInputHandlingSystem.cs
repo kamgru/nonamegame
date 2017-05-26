@@ -10,6 +10,7 @@ using Game1.Data;
 using Game1.Services;
 using Game1.Components;
 using Game1.Managers;
+using Game1.Events;
 
 namespace Game1.Systems
 {
@@ -24,12 +25,14 @@ namespace Game1.Systems
         };
 
         private readonly InputService _inputService;
+        private readonly EventManager _eventManager;
         private readonly Point _tileSize;
 
-        public PlayerInputHandlingSystem(IEntityManager entityManager, InputService inputService, IConfigurationService configurationService) 
+        public PlayerInputHandlingSystem(IEntityManager entityManager, InputService inputService, IConfigurationService configurationService, EventManager eventManager) 
             : base(entityManager)
         {
             _inputService = inputService;
+            _eventManager = eventManager;
             _tileSize = configurationService.GetTileSizeInPixels();
         }
 
@@ -42,9 +45,7 @@ namespace Game1.Systems
             if (requestedDirections.Count() == 1)
             {
                 var player = EntityManager.GetEntities()
-                    .Where(x => x.HasComponent<Player>())
-                    .Where(x => x.HasComponent<PositionOnBoard>())
-                    .Single();
+                    .Single(x => x.HasComponent<PositionOnBoard>() && x.HasComponent<Player>());
 
                 var direction = requestedDirections.First();
                 if (direction != Vector2.Zero)
@@ -54,13 +55,18 @@ namespace Game1.Systems
                     var tile = EntityManager.GetEntities()
                         .Where(x => x.HasComponent<TileInfo>())
                         .First(x => x.GetComponent<TileInfo>().Position == boardPosition.Current);
-                    tile.GetComponent<State>().CurrentState = TileStates.Abandoned;
 
                     boardPosition.Translate(direction.ToPoint());
 
                     player.GetComponent<TargetScreenPosition>().Position += direction * _tileSize.ToVector2();
-
                     player.GetComponent<State>().CurrentState = PlayerStates.Moving;
+
+                    _eventManager.Queue(new PlayerAbandonedTile
+                    {
+                        TileInfo = tile.GetComponent<TileInfo>(),
+                        State = tile.GetComponent<State>(),
+                        TileEntity = tile
+                    });
                 }
             }
         }

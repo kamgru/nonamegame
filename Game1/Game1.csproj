@@ -63,6 +63,9 @@
     <Compile Include="Data\Tile.cs" />
     <Compile Include="Data\TileStates.cs" />
     <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Events\EventBase.cs" />
+    <Compile Include="Events\EventManager.cs" />
+    <Compile Include="Events\PlayerAbandonedTile.cs" />
     <Compile Include="Factories\BoardFactory.cs" />
     <Compile Include="Factories\EntityFactory.cs" />
     <Compile Include="Factories\PlayerFactory.cs" />
@@ -94,12 +97,12 @@
     <Compile Include="Systems\Fsm\PlayerIdleHandler.cs" />
     <Compile Include="Systems\Fsm\PlayerMovingHandler.cs" />
     <Compile Include="Systems\Fsm\StateHandlerBase.cs" />
-    <Compile Include="Systems\Fsm\TileAbandonedHandler.cs" />
     <Compile Include="Systems\Fsm\TileDestroyedHandler.cs" />
     <Compile Include="Systems\PlayerInputHandlingSystem.cs" />
     <Compile Include="Systems\SpriteDrawingSystem.cs" />
     <Compile Include="Systems\MoveToScreenPositionSystem.cs" />
     <Compile Include="Systems\SystemBase.cs" />
+    <Compile Include="Systems\TileEventsSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

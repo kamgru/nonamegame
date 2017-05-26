@@ -8,6 +8,7 @@ using Game1.Systems;
 using Game1.Api;
 using Game1.Factories;
 using Game1.Components;
+using Game1.Events;
 
 namespace Game1.Screens
 {
@@ -16,6 +17,7 @@ namespace Game1.Screens
         private SystemsManager _systemsManager;
         private IEntityManager _entityManager;
         private IConfigurationService _configurationService;
+        private EventManager _eventManager;
 
         public GameplayScreen(ContentManager contentManager, ScreenManager screenManager, InputService inputService, SpriteBatch spriteBatch) 
             : base(contentManager, screenManager, inputService, spriteBatch)
@@ -29,18 +31,19 @@ namespace Game1.Screens
 
             _systemsManager = new SystemsManager();
             _entityManager = new EntityManager();
+            _eventManager = new EventManager();
             _configurationService = new ConfigurationService();
 
-            _systemsManager.Push(new PlayerInputHandlingSystem(_entityManager, InputService, _configurationService));
+            _systemsManager.Push(new PlayerInputHandlingSystem(_entityManager, InputService, _configurationService, _eventManager));
             _systemsManager.Push(new SpriteDrawingSystem(_entityManager, ContentManager, SpriteBatch));
             _systemsManager.Push(new AnimationSystem(_entityManager, _configurationService));
             _systemsManager.Push(new MoveToScreenPositionSystem(_entityManager));
+            _systemsManager.Push(new TileEventsSystem(_entityManager, _eventManager));
 
             var fsmSystem = new FsmSystem(_entityManager);
             fsmSystem.RegisterHandler(new PlayerIdleHandler(InputService));
             fsmSystem.RegisterHandler(new PlayerMovingHandler(InputService, _entityManager));
             fsmSystem.RegisterHandler(new PlayerDeadHandler(_entityManager));
-            fsmSystem.RegisterHandler(new TileAbandonedHandler());
             fsmSystem.RegisterHandler(new TileDestroyedHandler(_entityManager));
             _systemsManager.Push(fsmSystem);
 
@@ -66,10 +69,12 @@ namespace Game1.Screens
             _systemsManager.Peek<AnimationSystem>().SetActive(true);
             _systemsManager.Peek<MoveToScreenPositionSystem>().SetActive(true);
             _systemsManager.Peek<FsmSystem>().SetActive(true);
+            _systemsManager.Peek<TileEventsSystem>().SetActive(true);
         }
 
         public override void Update(GameTime gameTime)
         {
+            _eventManager.Dispatch();
             _systemsManager.UpdateSystems(gameTime);
         }
 

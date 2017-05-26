@@ -1,4 +1,5 @@
 ﻿using Game1.Api;
+using Game1.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -14,7 +15,7 @@ namespace Game1.Managers
     {
         private readonly IDictionary<Type, IUpdatingSystem> _updatingSystems = new Dictionary<Type, IUpdatingSystem>();
         private readonly IDictionary<Type, IDrawingSystem> _drawingSystems = new Dictionary<Type, IDrawingSystem>();
-
+        private readonly IDictionary<Type, ISystem> _basicSystems = new Dictionary<Type, ISystem>();
 
         public void Push(IUpdatingSystem system)
         {
@@ -24,6 +25,11 @@ namespace Game1.Managers
         public void Push(IDrawingSystem system)
         {
             _drawingSystems.Add(system.GetType(), system);
+        }
+
+        public void Push(ISystem system)
+        {
+            _basicSystems.Add(system.GetType(), system);
         }
 
         public TSystem Peek<TSystem>() where TSystem : ISystem
@@ -42,6 +48,11 @@ namespace Game1.Managers
                 {
                     return (TSystem) _drawingSystems[typeof(TSystem)];
                 }
+            }
+
+            if (_basicSystems.ContainsKey(typeof(TSystem)))
+            {
+                return (TSystem)_basicSystems[typeof(TSystem)];
             }
 
             return default(TSystem);
