@@ -30,6 +30,21 @@ namespace Game1.Systems
                     }
                 }
             });
+
+            eventManager.RegisterListener<PlayerEnteredTile>(gameEvent =>
+            {
+                if (gameEvent.TileInfo.TileType == TileType.End)
+                {
+                    var tiles = EntityManager.GetEntities()
+                    .Where(x => x.HasComponent<TileInfo>())
+                    .Select(x => x.GetComponent<TileInfo>());
+
+                    if (tiles.Where(x => x.TileType == TileType.Normal).All(x => x.Destroyed))
+                    {
+                        eventManager.Queue(new StageClear());
+                    }
+                }
+            });
         }
     }
 }

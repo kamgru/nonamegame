@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Game1.Data
+﻿namespace Game1.Data
 {
     public class Tile
     {
@@ -8,13 +6,7 @@ namespace Game1.Data
         public int Y { get; set; }
         public int Value { get; set; }
         public TileType TileType { get; set; }
-    }
-
-    [Flags]
-    public enum TileType
-    {
-        Normal = 1,
-        Start = 2,
-        End = 4
+        public string TextureName { get; set; }
+        public string SheetName { get; set; }
     }
 }

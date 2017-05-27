@@ -42,7 +42,7 @@ namespace Game1.Screens
 
             var fsmSystem = new FsmSystem(_entityManager);
             fsmSystem.RegisterHandler(new PlayerIdleHandler(InputService));
-            fsmSystem.RegisterHandler(new PlayerMovingHandler(InputService, _entityManager));
+            fsmSystem.RegisterHandler(new PlayerMovingHandler(InputService, _entityManager, _eventManager));
             fsmSystem.RegisterHandler(new PlayerDeadHandler(_entityManager));
             fsmSystem.RegisterHandler(new TileDestroyedHandler(_entityManager));
             _systemsManager.Push(fsmSystem);

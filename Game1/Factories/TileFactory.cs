@@ -15,14 +15,13 @@ namespace Game1.Factories
 {
     public class TileFactory : EntityFactory
     {
-        private readonly Texture2D _texture;
         private readonly Point _size;
-
+        private ContentManager _contentManager;
         public TileFactory(IEntityManager entityManager, ContentManager contentManager, IConfigurationService configurationService) 
             : base(entityManager, contentManager)
         {
+            _contentManager = contentManager;
             _size = configurationService.GetTileSizeInPixels();
-            _texture = contentManager.Load<Texture2D>("grey_tile");
         }
 
         public Entity CreateTile(Tile data)
@@ -34,7 +33,7 @@ namespace Game1.Factories
 
             tile.AddComponent(new Sprite
             {
-                Texture2D = _texture
+                Texture2D = _contentManager.Load<Texture2D>(data.TextureName)
             });
 
             tile.AddComponent(new TileInfo
@@ -48,7 +47,7 @@ namespace Game1.Factories
             {
                 Animations = new List<Animation>()
                 {
-                    new Animation(_contentManager.Load<Texture2D>("tile_break"), new Point(32, 32))
+                    new Animation(_contentManager.Load<Texture2D>(data.SheetName), new Point(32, 32))
                     {
                         Name = AnimationDictionary.TileDestroy,
                         Speed = 0.5f
