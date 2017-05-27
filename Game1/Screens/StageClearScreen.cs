@@ -18,8 +18,8 @@ namespace Game1.Screens
         private const string _text = "STAGE CLEAR";
         private Vector2 _position;
 
-        public StageClearScreen(ContentManager contentManager, ScreenManager screenManager, InputService inputService, SpriteBatch spriteBatch) 
-            : base(contentManager, screenManager, inputService, spriteBatch)
+        public StageClearScreen(ScreenDependencies dependencies) 
+            : base(dependencies)
         {
             IsSingle = true;
         }

@@ -83,7 +83,13 @@ namespace Game1
             _inputService = new InputService(new IntentMapper(contextManager, new InputProvider()), contextManager);
             _screenManager = new ScreenManager(this);
 
-            var mainMenu = new MainMenuScreen(Content, _screenManager, _inputService, _spriteBatch);
+            var mainMenu = new MainMenuScreen(new ScreenDependencies
+            {
+                ContentManager = Content,
+                ScreenManager = _screenManager,
+                InputService = _inputService,
+                SpriteBatch = _spriteBatch
+            });
             mainMenu.Init();
 
             _screenManager.Push(mainMenu);            

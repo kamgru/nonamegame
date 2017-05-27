@@ -87,6 +87,7 @@
     <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />
     <Compile Include="Screens\Screen.cs" />
+    <Compile Include="Screens\ScreenDependencies.cs" />
     <Compile Include="Screens\ScreenManager.cs" />
     <Compile Include="Screens\StageClearScreen.cs" />
     <Compile Include="Services\BoardService.cs" />

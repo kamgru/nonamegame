@@ -16,12 +16,12 @@ namespace Game1.Screens
 
         public bool IsSingle { get; protected set; }
 
-        protected Screen(ContentManager contentManager, ScreenManager screenManager, InputService inputService, SpriteBatch spriteBatch)
+        protected Screen(ScreenDependencies dependencies)
         {
-            ContentManager = contentManager;
-            ScreenManager = screenManager;
-            InputService = inputService;
-            SpriteBatch = spriteBatch;
+            ContentManager = dependencies.ContentManager;
+            ScreenManager = dependencies.ScreenManager;
+            InputService = dependencies.InputService;
+            SpriteBatch = dependencies.SpriteBatch;
         }
 
         public virtual void Init()

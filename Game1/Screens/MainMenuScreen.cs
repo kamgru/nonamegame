@@ -12,8 +12,8 @@ namespace Game1.Screens
     {
         private SpriteFont _menuFont;
 
-        public MainMenuScreen(ContentManager contentManager, ScreenManager screenManager, InputService inputService, SpriteBatch spriteBatch)
-            : base(contentManager, screenManager, inputService, spriteBatch)
+        public MainMenuScreen(ScreenDependencies dependencies)
+            : base(dependencies)
         {
         }
 
@@ -30,7 +30,12 @@ namespace Game1.Screens
 
             if (intents.Any())
             {
-                var gameplay = new GameplayScreen(ContentManager, ScreenManager, InputService, SpriteBatch);
+                var gameplay = new GameplayScreen(new ScreenDependencies {
+                    ContentManager = ContentManager,
+                    ScreenManager = ScreenManager,
+                    InputService = InputService,
+                    SpriteBatch = SpriteBatch});
+
                 ScreenManager.Push(gameplay);
                 gameplay.Init();
 

@@ -19,8 +19,8 @@ namespace Game1.Screens
         private IConfigurationService _configurationService;
         private EventManager _eventManager;
 
-        public GameplayScreen(ContentManager contentManager, ScreenManager screenManager, InputService inputService, SpriteBatch spriteBatch) 
-            : base(contentManager, screenManager, inputService, spriteBatch)
+        public GameplayScreen(ScreenDependencies dependencies) 
+            : base(dependencies)
         {
             IsSingle = true;
         }
@@ -35,7 +35,13 @@ namespace Game1.Screens
 
             _eventManager.RegisterListener<StageClear>(x =>
             {
-                var stageClear = new StageClearScreen(ContentManager, ScreenManager, InputService, SpriteBatch);
+                var stageClear = new StageClearScreen(new ScreenDependencies
+                {
+                    ContentManager = ContentManager,
+                    InputService = InputService,
+                    ScreenManager = ScreenManager,
+                    SpriteBatch = SpriteBatch
+                });
                 stageClear.Init();
                 ScreenManager.Push(stageClear);
             });
