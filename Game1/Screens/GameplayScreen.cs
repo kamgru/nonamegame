@@ -32,6 +32,14 @@ namespace Game1.Screens
             _systemsManager = new SystemsManager();
             _entityManager = new EntityManager();
             _eventManager = new EventManager();
+
+            _eventManager.RegisterListener<StageClear>(x =>
+            {
+                var stageClear = new StageClearScreen(ContentManager, ScreenManager, InputService, SpriteBatch);
+                stageClear.Init();
+                ScreenManager.Push(stageClear);
+            });
+
             _configurationService = new ConfigurationService();
 
             _systemsManager.Push(new PlayerInputHandlingSystem(_entityManager, InputService, _configurationService, _eventManager));

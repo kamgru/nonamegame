@@ -88,6 +88,7 @@
     <Compile Include="Screens\MainMenuScreen.cs" />
     <Compile Include="Screens\Screen.cs" />
     <Compile Include="Screens\ScreenManager.cs" />
+    <Compile Include="Screens\StageClearScreen.cs" />
     <Compile Include="Services\BoardService.cs" />
     <Compile Include="Services\ConfigurationService.cs" />
     <Compile Include="Api\IConfigurationService.cs" />
