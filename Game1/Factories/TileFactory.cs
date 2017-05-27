@@ -40,7 +40,8 @@ namespace Game1.Factories
             tile.AddComponent(new TileInfo
             {
                 Value = data.Value,
-                Position = position
+                Position = position,
+                TileType = data.TileType
             });
 
             tile.AddComponent(new Animator

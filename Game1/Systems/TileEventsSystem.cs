@@ -17,13 +17,16 @@ namespace Game1.Systems
         {
             eventManager.RegisterListener<PlayerAbandonedTile>(gameEvent =>
             {
-                gameEvent.TileInfo.Value--;
-                if (gameEvent.TileInfo.Value <= 0)
+                if (gameEvent.TileInfo.TileType == TileType.Normal)
                 {
-                    var state = gameEvent.TileInfo.Entity.GetComponent<State>();
-                    if (state != null)
+                    gameEvent.TileInfo.Value--;
+                    if (gameEvent.TileInfo.Value <= 0)
                     {
-                        state.CurrentState = TileStates.Destroyed;
+                        var state = gameEvent.TileInfo.Entity.GetComponent<State>();
+                        if (state != null)
+                        {
+                            state.CurrentState = TileStates.Destroyed;
+                        }
                     }
                 }
             });
