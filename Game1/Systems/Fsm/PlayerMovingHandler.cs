@@ -3,6 +3,7 @@ using System.Linq;
 using Game1.Components;
 using Game1.Data;
 using Game1.Services;
+using Game1.Events;
 
 namespace Game1.Systems
 {
@@ -10,12 +11,14 @@ namespace Game1.Systems
     {
         private readonly InputService _inputService;
         private readonly IEntityManager _entityManager;
+        private readonly EventManager _eventManager;
 
-        public PlayerMovingHandler(InputService inputService, IEntityManager entityManager)
+        public PlayerMovingHandler(InputService inputService, IEntityManager entityManager, EventManager eventManager)
             : base(PlayerStates.Moving)
         {
             _inputService = inputService;
             _entityManager = entityManager;
+            _eventManager = eventManager;
         }
 
         public override void Handle(EntityState entityState)
@@ -33,7 +36,7 @@ namespace Game1.Systems
                     var currentPosition = entityState.Entity.GetComponent<PositionOnBoard>().Current;
                     var currentTile = _entityManager.GetEntities()
                         .Where(x => x.HasComponent<TileInfo>())
-                        .Select(x => new { TileInfo = x.GetComponent<TileInfo>() })
+                        .Select(x => new { TileInfo = x.GetComponent<TileInfo>(), Entity = x })
                         .FirstOrDefault(x => x.TileInfo.Position == currentPosition);
 
                     if (currentTile == null || currentTile.TileInfo.Destroyed)
@@ -43,6 +46,12 @@ namespace Game1.Systems
                     else
                     {
                         entityState.State.CurrentState = PlayerStates.Idle;
+
+                        _eventManager.Queue(new PlayerEnteredTile
+                        {
+                            TileEntity = currentTile.Entity,
+                            TileInfo = currentTile.TileInfo
+                        });
                     }
                 }
             }

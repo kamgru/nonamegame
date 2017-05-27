@@ -66,6 +66,7 @@
     <Compile Include="Events\EventBase.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\PlayerAbandonedTile.cs" />
+    <Compile Include="Events\PlayerEnteredTile.cs" />
     <Compile Include="Factories\BoardFactory.cs" />
     <Compile Include="Factories\EntityFactory.cs" />
     <Compile Include="Factories\PlayerFactory.cs" />
