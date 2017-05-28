@@ -24,21 +24,24 @@ namespace Game1.Screens
             base.Init();
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime, bool isActive)
         {
-            var intents = InputService.ConsumeIntents(new[] {Intent.Confirm});
-
-            if (intents.Any())
+            if (isActive)
             {
-                var gameplay = new GameplayScreen(new ScreenDependencies {
-                    ContentManager = ContentManager,
-                    ScreenManager = ScreenManager,
-                    InputService = InputService,
-                    SpriteBatch = SpriteBatch});
+                var intents = InputService.ConsumeIntents(new[] { Intent.Confirm });
 
-                ScreenManager.Push(gameplay);
-                gameplay.Init();
+                if (intents.Any())
+                {
+                    var gameplay = new GameplayScreen(new ScreenDependencies
+                    {
+                        ContentManager = ContentManager,
+                        ScreenManager = ScreenManager,
+                        InputService = InputService,
+                        SpriteBatch = SpriteBatch
+                    });
 
+                    ScreenManager.Push(gameplay);                    
+                }
             }
         }
 

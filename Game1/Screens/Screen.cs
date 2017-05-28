@@ -5,6 +5,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Game1.Screens
 {
+    public enum ScreenMode
+    {
+        Single = 0,
+        Overlay = 1
+    }
+
     public abstract class Screen
     {
         protected readonly ContentManager ContentManager;
@@ -13,8 +19,7 @@ namespace Game1.Screens
         protected readonly SpriteBatch SpriteBatch;
 
         public bool IsInitialized { get; protected set; }
-
-        public bool IsSingle { get; protected set; }
+        public ScreenMode ScreenMode { get; set; }
 
         protected Screen(ScreenDependencies dependencies)
         {
@@ -28,7 +33,7 @@ namespace Game1.Screens
         {
             IsInitialized = true;
         }
-        public abstract void Update(GameTime gameTime);
+        public abstract void Update(GameTime gameTime, bool isActive);
         public abstract void Draw(GameTime gameTime);
 
     }

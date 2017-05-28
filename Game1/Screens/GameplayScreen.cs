@@ -22,7 +22,6 @@ namespace Game1.Screens
         public GameplayScreen(ScreenDependencies dependencies) 
             : base(dependencies)
         {
-            IsSingle = true;
         }
 
         public override void Init()
@@ -86,10 +85,13 @@ namespace Game1.Screens
             _systemsManager.Peek<TileEventsSystem>().SetActive(true);
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime, bool isActive)
         {
-            _eventManager.Dispatch();
-            _systemsManager.UpdateSystems(gameTime);
+            if (isActive)
+            {
+                _eventManager.Dispatch();
+                _systemsManager.UpdateSystems(gameTime);
+            }
         }
 
         public override void Draw(GameTime gameTime)

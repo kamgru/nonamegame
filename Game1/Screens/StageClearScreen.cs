@@ -21,7 +21,7 @@ namespace Game1.Screens
         public StageClearScreen(ScreenDependencies dependencies) 
             : base(dependencies)
         {
-            IsSingle = true;
+            ScreenMode = ScreenMode.Overlay;
         }
 
         public override void Init()
@@ -37,7 +37,7 @@ namespace Game1.Screens
             SpriteBatch.DrawString(_defaultFont, _text, _position, Color.Green);
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime, bool isActive)
         {
             if (InputService.ConsumeIntents(new[] { Intent.Confirm }).Any())
             {

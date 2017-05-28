@@ -9,9 +9,8 @@ namespace Game1.Screens
 {
     public class ScreenManager : DrawableGameComponent
     {
-        private readonly ICollection<Screen> _screens = new List<Screen>();
-
-        private IEnumerable<Screen> _currentScreens;
+        private readonly IList<Screen> _screens = new List<Screen>();
+        private IList<Screen> _screensToProcess;
 
         public ScreenManager(Game game) : base(game)
         {
@@ -19,19 +18,22 @@ namespace Game1.Screens
 
         public void Push(Screen screen)
         {
-            if (_screens.Contains(screen))
-            {
-                _screens.Remove(screen);
-            }
             _screens.Add(screen);
 
-            if (screen.IsSingle)
+            if (!screen.IsInitialized)
             {
-                _currentScreens = new[] { screen };
+                screen.Init();
             }
-            else
+
+            _screensToProcess = new List<Screen>(_screens.Count);
+
+            foreach (var scr in _screens.Reverse())
             {
-                _currentScreens = _screens.ToList();
+                _screensToProcess.Insert(0, scr);
+                if (scr.ScreenMode == ScreenMode.Single)
+                {
+                    break;
+                }
             }
         }
 
@@ -42,7 +44,7 @@ namespace Game1.Screens
 
         public override void Draw(GameTime gameTime)
         {
-            foreach (var screen in _currentScreens)
+            foreach (var screen in _screensToProcess)
             {
                 screen.Draw(gameTime);
             }
@@ -50,9 +52,9 @@ namespace Game1.Screens
 
         public override void Update(GameTime gameTime)
         {
-            foreach (var screen in _currentScreens)
+            for (var i = 0; i < _screensToProcess.Count; i++)
             {
-                screen.Update(gameTime);
+                _screensToProcess[i].Update(gameTime, i == _screensToProcess.Count - 1);
             }
         }
     }
