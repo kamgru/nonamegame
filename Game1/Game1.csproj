@@ -43,21 +43,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Components\Player.cs" />
-    <Compile Include="Data\AnimationDictionary.cs" />
-    <Compile Include="Data\Board.cs" />
-    <Compile Include="Data\Context.cs" />
-    <Compile Include="Data\Intent.cs" />
     <Compile Include="Components\BoardInfo.cs" />
     <Compile Include="Components\PositionOnBoard.cs" />
     <Compile Include="Components\MoveSpeed.cs" />
     <Compile Include="Components\TargetScreenPosition.cs" />
     <Compile Include="Components\TileInfo.cs" />
-    <Compile Include="Data\PlayerStates.cs" />
-    <Compile Include="Data\Tile.cs" />
-    <Compile Include="Data\TileStates.cs" />
-    <Compile Include="Data\TileType.cs" />
-    <Compile Include="Events\EventBase.cs" />
-    <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\PlayerAbandonedTile.cs" />
     <Compile Include="Events\PlayerEnteredTile.cs" />
     <Compile Include="Events\StageClear.cs" />
@@ -67,25 +57,12 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Gui\Menu.cs" />
     <Compile Include="Gui\MenuItem.cs" />
-    <Compile Include="Input\ContextManager.cs" />
-    <Compile Include="Input\InputContext.cs" />
-    <Compile Include="Input\InputIntent.cs" />
-    <Compile Include="Input\InputProvider.cs" />
-    <Compile Include="Input\IntentMapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />
-    <Compile Include="Screens\Screen.cs" />
-    <Compile Include="Screens\ScreenDependencies.cs" />
-    <Compile Include="Screens\ScreenManager.cs" />
     <Compile Include="Screens\StageClearScreen.cs" />
     <Compile Include="Services\BoardService.cs" />
-    <Compile Include="Services\ConfigurationService.cs" />
-    <Compile Include="Api\IConfigurationService.cs" />
-    <Compile Include="Api\IInputMappingService.cs" />
-    <Compile Include="Services\InputService.cs" />
-    <Compile Include="Services\Session.cs" />
     <Compile Include="Systems\Fsm\PlayerDeadHandler.cs" />
     <Compile Include="Systems\Fsm\PlayerIdleHandler.cs" />
     <Compile Include="Systems\Fsm\PlayerMovingHandler.cs" />
@@ -110,6 +87,14 @@
     <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Game1.Common\Game1.Common.csproj">
+      <Project>{de69a2b5-76ab-4376-b0b7-4ce0837de0a3}</Project>
+      <Name>Game1.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Game1.Data\Game1.Data.csproj">
+      <Project>{87028b69-26e4-4622-a85c-c842fb5853cd}</Project>
+      <Name>Game1.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Game1.ECS\Game1.ECS.csproj">
       <Project>{db4e4b0d-ac7a-472c-bce9-56d88277e37f}</Project>
       <Name>Game1.ECS</Name>

@@ -2,7 +2,6 @@
 using Game1.Services;
 using Microsoft.Xna.Framework;
 using Game1.Systems;
-using Game1.Api;
 using Game1.Factories;
 using Game1.Components;
 using Game1.Events;
@@ -16,7 +15,7 @@ namespace Game1.Screens
     {
         private SystemsManager _systemsManager;
         private IEntityManager _entityManager;
-        private IConfigurationService _configurationService;
+        private ConfigurationService _configurationService;
         private EventManager _eventManager;
 
         public GameplayScreen(ScreenDependencies dependencies, int stageId) 

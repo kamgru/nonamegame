@@ -1,5 +1,4 @@
-﻿using Game1.Api;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +29,7 @@ namespace Game1.Systems
         private readonly EventManager _eventManager;
         private readonly Point _tileSize;
 
-        public PlayerInputHandlingSystem(IEntityManager entityManager, InputService inputService, IConfigurationService configurationService, EventManager eventManager) 
+        public PlayerInputHandlingSystem(IEntityManager entityManager, InputService inputService, ConfigurationService configurationService, EventManager eventManager) 
             : base(entityManager)
         {
             _inputService = inputService;

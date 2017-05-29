@@ -1,11 +1,10 @@
 ﻿using System;
-using Game1.Api;
 using Microsoft.Xna.Framework;
 
 namespace Game1.Services
 {
 
-    public class ConfigurationService : IConfigurationService
+    public class ConfigurationService
     {
         public int GetFps()
         {

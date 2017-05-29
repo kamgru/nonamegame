@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Game1.Api;
 using Microsoft.Xna.Framework.Content;
 using Game1.Data;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,13 +13,14 @@ using Game1.ECS.Core;
 using Game1.ECS.Components;
 using Game1.ECS.Factories;
 using Game1.ECS;
+using Game1.Services;
 
 namespace Game1.Factories
 {
     public class TileFactory : EntityFactory
     {
         private readonly Point _size;
-        public TileFactory(IEntityManager entityManager, ContentManager contentManager, IConfigurationService configurationService) 
+        public TileFactory(IEntityManager entityManager, ContentManager contentManager, ConfigurationService configurationService) 
             : base(entityManager, contentManager)
         {
             _size = configurationService.GetTileSizeInPixels();
