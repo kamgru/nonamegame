@@ -97,6 +97,7 @@
     <Compile Include="Api\IConfigurationService.cs" />
     <Compile Include="Api\IInputMappingService.cs" />
     <Compile Include="Services\InputService.cs" />
+    <Compile Include="Services\Session.cs" />
     <Compile Include="Systems\AnimationSystem.cs" />
     <Compile Include="Systems\Fsm\EntityState.cs" />
     <Compile Include="Systems\Fsm\FsmSystem.cs" />
