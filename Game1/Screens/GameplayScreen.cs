@@ -18,10 +18,12 @@ namespace Game1.Screens
         private IEntityManager _entityManager;
         private IConfigurationService _configurationService;
         private EventManager _eventManager;
+        private int _stageId;
 
-        public GameplayScreen(ScreenDependencies dependencies) 
+        public GameplayScreen(ScreenDependencies dependencies, int stageId) 
             : base(dependencies)
         {
+            _stageId = stageId;
         }
 
         public override void Init()
@@ -66,7 +68,7 @@ namespace Game1.Screens
                     _entityManager,
                     ContentManager,
                     _configurationService))
-                .CreateBoard(new BoardService().GetBoard(1));
+                .CreateBoard(new BoardService().GetBoard(_stageId));
 
             var tileSize = _configurationService.GetTileSizeInPixels();
             var size = board.GetComponent<BoardInfo>().Size * tileSize;

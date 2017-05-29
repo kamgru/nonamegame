@@ -38,7 +38,7 @@ namespace Game1.Screens
                     ScreenManager = ScreenManager,
                     InputService = InputService,
                     SpriteBatch = SpriteBatch
-                });
+                }, 1);
 
                 ScreenManager.Push(gameplay);
             };
