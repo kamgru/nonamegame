@@ -1,4 +1,6 @@
-﻿namespace Game1.Data
+﻿using Game1.Data;
+
+namespace Game1.Gameplay
 {
     public class Tile
     {

@@ -1,5 +1,9 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using Game1.Core.Input;
+using Game1.Data;
+using Microsoft.Xna.Framework.Input;
 
 namespace Game1.Core.Services
 {
@@ -14,6 +18,56 @@ namespace Game1.Core.Services
         public Point GetTileSizeInPixels()
         {
             return new Point(32, 32);
+        }
+
+        public IReadOnlyCollection<InputContext> GetInputContexts()
+        {
+            return new[]
+            {
+                new InputContext
+                {
+                    Id = (int)Context.Gameplay,
+                    Active = true,
+                    Name = "gameplay context",
+                    Intents = new[]
+                    {
+                        new InputIntent
+                        {
+                             Id = (int)Intent.MoveLeft,
+                             Key = Keys.Left
+                        },
+                        new InputIntent
+                        {
+                            Id = (int)Intent.MoveRight,
+                            Key = Keys.Right
+                        },
+                        new InputIntent
+                        {
+                             Id = (int)Intent.MoveUp,
+                             Key = Keys.Up
+                        },
+                        new InputIntent
+                        {
+                            Id = (int)Intent.MoveDown,
+                            Key = Keys.Down
+                        },
+                    }
+                },
+                new InputContext
+                {
+                    Id = (int)Context.Generic,
+                    Active = true,
+                    Name = "generic context",
+                    Intents = new[]
+                    {
+                        new InputIntent
+                        {
+                            Id = (int)Intent.Confirm,
+                            Key = Keys.Enter
+                        }
+                    }
+                }
+            };
         }
     }
 }

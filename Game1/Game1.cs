@@ -27,56 +27,10 @@ namespace Game1
         {
             base.Initialize();
 
-            var contextManager = new ContextManager();
-            contextManager.Add(new InputContext
-            {
-                Id = (int)Context.Gameplay,
-                Active = true,
-                Name = "gameplay context",
-                Intents = new[]
-                {
-                    new InputIntent
-                    {
-                         Id = (int)Intent.MoveLeft,
-                         Key = Keys.A
-                    },
-                    new InputIntent
-                    {
-                        Id = (int)Intent.MoveRight,
-                        Key = Keys.D
-                    },
-                    new InputIntent
-                    {
-                         Id = (int)Intent.MoveUp,
-                         Key = Keys.W
-                    },
-                    new InputIntent
-                    {
-                        Id = (int)Intent.MoveDown,
-                        Key = Keys.S
-                    },
-                }
-            });
-
-            contextManager.Add(new InputContext
-            {
-                Id = (int)Context.Generic,
-                Active = true,
-                Name = "generic context",
-                Intents = new[]
-                {
-                    new InputIntent
-                    {
-                        Id = (int)Intent.Confirm,
-                        Key = Keys.Space
-                    }
-                }
-            });
-
             Content.RootDirectory = "Content";
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _inputService = new InputService(new IntentMapper(contextManager, new InputProvider()), contextManager);
 
+            SetupInput();
             BootstrapScreens();
         }
 
@@ -87,8 +41,10 @@ namespace Game1
 
         protected override void Update(GameTime gameTime)
         {
+#if DEBUG
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+#endif
             _screenManager.Update(gameTime);
             base.Update(gameTime);
         }
@@ -100,6 +56,16 @@ namespace Game1
             _screenManager.Draw(gameTime);
             _spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        private void SetupInput()
+        {
+            var contextManager = new ContextManager();
+            foreach (var context in new ConfigurationService().GetInputContexts())
+            {
+                contextManager.Add(context);
+            }
+            _inputService = new InputService(new IntentMapper(contextManager, new InputProvider()), contextManager);
         }
 
         private void BootstrapScreens()

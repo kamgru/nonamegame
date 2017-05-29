@@ -41,11 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimationDictionary.cs" />
-    <Compile Include="Board.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Intent.cs" />
     <Compile Include="PlayerStates.cs" />
-    <Compile Include="Tile.cs" />
     <Compile Include="TileStates.cs" />
     <Compile Include="TileType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

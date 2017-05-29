@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Board.cs" />
     <Compile Include="Components\BoardInfo.cs" />
     <Compile Include="Components\MoveSpeed.cs" />
     <Compile Include="Components\Player.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Systems\MoveToScreenPositionSystem.cs" />
     <Compile Include="Systems\PlayerInputHandlingSystem.cs" />
     <Compile Include="Systems\TileEventsSystem.cs" />
+    <Compile Include="Tile.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Game1.Core\Game1.Core.csproj">

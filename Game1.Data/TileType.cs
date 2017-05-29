@@ -2,8 +2,6 @@
 
 namespace Game1.Data
 {
-
-    [Flags]
     public enum TileType
     {
         Normal = 1,
