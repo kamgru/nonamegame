@@ -16,7 +16,7 @@ namespace Game1.Core.Events
             _gameEvents.Enqueue(gameEvent);
         }
 
-        public void RegisterListener<TEvent>(Action<TEvent> eventHandler) where TEvent : IGameEvent
+        public void On<TEvent>(Action<TEvent> eventHandler) where TEvent : IGameEvent
         {
             if (!_delegates.ContainsKey(typeof(TEvent)))
             {

@@ -107,7 +107,7 @@ namespace Game1.Screens
         
         private void SetupEvents()
         {
-            _eventManager.RegisterListener<StageClear>(x => ScreenManager.Push<StageClearScreen>());
+            _eventManager.On<StageClear>(x => ScreenManager.Push<StageClearScreen>());
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Game1.Gameplay.Systems
         public TileEventsSystem(IEntityManager entityManager, EventManager eventManager)
             : base(entityManager)
         {
-            eventManager.RegisterListener<PlayerAbandonedTile>(gameEvent =>
+            eventManager.On<PlayerAbandonedTile>(gameEvent =>
             {
                 if (gameEvent.TileInfo.TileType == TileType.Normal)
                 {
@@ -34,7 +34,7 @@ namespace Game1.Gameplay.Systems
                 }
             });
 
-            eventManager.RegisterListener<PlayerEnteredTile>(gameEvent =>
+            eventManager.On<PlayerEnteredTile>(gameEvent =>
             {
                 if (gameEvent.TileInfo.TileType == TileType.End)
                 {

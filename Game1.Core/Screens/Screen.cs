@@ -5,12 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Game1.Core.Screens
 {
-    public enum ScreenMode
-    {
-        Single = 0,
-        Overlay = 1
-    }
-
     public abstract class Screen
     {
         protected readonly ContentManager ContentManager;
