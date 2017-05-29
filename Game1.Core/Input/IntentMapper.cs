@@ -8,8 +8,8 @@ namespace Game1.Core.Input
 {
     public class IntentMapper
     {
-        private ContextManager _contextManager;
-        private InputProvider _inputProvider;
+        private readonly ContextManager _contextManager;
+        private readonly InputProvider _inputProvider;
 
         public IntentMapper(ContextManager contextManager, InputProvider inputProvider)
         {

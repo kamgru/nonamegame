@@ -5,7 +5,7 @@ namespace Game1.Core.Input
 {
     public class ContextManager
     {
-        private ICollection<InputContext> _contexts = new List<InputContext>();
+        private readonly ICollection<InputContext> _contexts = new List<InputContext>();
 
         public void Add(InputContext context)
             => _contexts.Add(context);

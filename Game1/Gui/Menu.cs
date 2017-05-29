@@ -16,8 +16,8 @@ namespace Game1.Gui
         private readonly InputService _inputService;
         private int _currentIndex;
         private readonly IList<MenuItem> _menuItems;
-        private SpriteFont _defaultFont;
-        private SpriteBatch _spriteBatch;
+        private readonly SpriteFont _defaultFont;
+        private readonly SpriteBatch _spriteBatch;
 
         public Vector2 Position { get; set; }
 

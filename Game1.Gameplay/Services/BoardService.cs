@@ -9,7 +9,7 @@ namespace Game1.Gameplay.Services
 {
     public class BoardService
     {
-        private IEnumerable<Board> _boards = new []
+        private readonly IEnumerable<Board> _boards = new []
         {
             new Board
             {
