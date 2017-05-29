@@ -74,6 +74,8 @@
     <Compile Include="Factories\PlayerFactory.cs" />
     <Compile Include="Factories\TileFactory.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Gui\Menu.cs" />
+    <Compile Include="Gui\MenuItem.cs" />
     <Compile Include="Input\ContextManager.cs" />
     <Compile Include="Input\InputContext.cs" />
     <Compile Include="Input\InputIntent.cs" />

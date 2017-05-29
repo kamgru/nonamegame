@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Game1.Data;
+using Game1.Gui;
 using Game1.Services;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -11,6 +12,7 @@ namespace Game1.Screens
     public class MainMenuScreen : Screen
     {
         private SpriteFont _menuFont;
+        private Menu _menu;
 
         public MainMenuScreen(ScreenDependencies dependencies)
             : base(dependencies)
@@ -21,6 +23,35 @@ namespace Game1.Screens
         {
             _menuFont = ContentManager.Load<SpriteFont>("default");
             InputService.SetContextActive(0, true);
+
+            _menu = new Menu(InputService, SpriteBatch, _menuFont);
+
+            var viewport = ScreenManager.Game.GraphicsDevice.Viewport;
+            _menu.Position= new Vector2(viewport.Width / 2, viewport.Height / 2);
+
+            var start = new MenuItem {Text = "Start"};
+            start.OnSelected += (sender, args) =>
+            {
+                var gameplay = new GameplayScreen(new ScreenDependencies
+                {
+                    ContentManager = ContentManager,
+                    ScreenManager = ScreenManager,
+                    InputService = InputService,
+                    SpriteBatch = SpriteBatch
+                });
+
+                ScreenManager.Push(gameplay);
+            };
+
+            var quit = new MenuItem {Text = "Quit"};
+            quit.OnSelected += (sender, args) =>
+            {
+                ScreenManager.Game.Exit();
+            };
+
+            _menu.AddMenuItem(start);
+            _menu.AddMenuItem(quit);
+
             base.Init();
         }
 
@@ -28,26 +59,14 @@ namespace Game1.Screens
         {
             if (isActive)
             {
-                var intents = InputService.ConsumeIntents(new[] { Intent.Confirm });
-
-                if (intents.Any())
-                {
-                    var gameplay = new GameplayScreen(new ScreenDependencies
-                    {
-                        ContentManager = ContentManager,
-                        ScreenManager = ScreenManager,
-                        InputService = InputService,
-                        SpriteBatch = SpriteBatch
-                    });
-
-                    ScreenManager.Push(gameplay);                    
-                }
+                _menu.Update(gameTime);
             }
         }
 
         public override void Draw(GameTime gameTime)
         {
-            SpriteBatch.DrawString(_menuFont, "MAIN MENU", Vector2.Zero,  Color.Black);
+            SpriteBatch.DrawString(_menuFont, "THE GAME", Vector2.Zero,  Color.Black);
+            _menu.Draw(gameTime);
         }
     }
 }
