@@ -23,7 +23,7 @@ namespace Game1.Factories
         {
             var player = base.CreateEntity();
 
-            var texture = _contentManager.Load<Texture2D>("red_dot");
+            var texture = ContentManager.Load<Texture2D>("red_dot");
 
             player.AddComponent(new Sprite { Texture2D = texture });
             player.AddComponent(new MoveSpeed { Speed = 3f });
@@ -40,7 +40,7 @@ namespace Game1.Factories
             {
                 Animations = new List<Animation>
                 {
-                    new Animation(_contentManager.Load<Texture2D>("ball"), new Point(32, 32))
+                    new Animation(ContentManager.Load<Texture2D>("ball"), new Point(32, 32))
                     {
                         Looped = false,
                         Name = AnimationDictionary.PlayerMove,

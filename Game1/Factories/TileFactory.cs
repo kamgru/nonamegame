@@ -31,7 +31,7 @@ namespace Game1.Factories
 
             tile.AddComponent(new Sprite
             {
-                Texture2D = _contentManager.Load<Texture2D>(data.TextureName)
+                Texture2D = ContentManager.Load<Texture2D>(data.TextureName)
             });
 
             tile.AddComponent(new TileInfo
@@ -45,7 +45,7 @@ namespace Game1.Factories
             {
                 Animations = new List<Animation>()
                 {
-                    new Animation(_contentManager.Load<Texture2D>(data.SheetName), new Point(32, 32))
+                    new Animation(ContentManager.Load<Texture2D>(data.SheetName), new Point(32, 32))
                     {
                         Name = AnimationDictionary.TileDestroy,
                         Speed = 0.5f

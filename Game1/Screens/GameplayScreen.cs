@@ -62,7 +62,7 @@ namespace Game1.Screens
 
             var board = new BoardFactory(_entityManager,
                 ContentManager,
-                _configurationService, new TileFactory(
+                new TileFactory(
                     _entityManager,
                     ContentManager,
                     _configurationService))

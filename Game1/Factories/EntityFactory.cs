@@ -7,19 +7,19 @@ namespace Game1.Factories
 {
     public abstract class EntityFactory
     {
-        protected readonly IEntityManager _entityManager;
-        protected readonly ContentManager _contentManager;
+        protected readonly IEntityManager EntityManager;
+        protected readonly ContentManager ContentManager;
 
         protected EntityFactory(IEntityManager entityManager, ContentManager contentManager)
         {
-            _entityManager = entityManager;
-            _contentManager = contentManager;
+            EntityManager = entityManager;
+            ContentManager = contentManager;
         }
 
         public virtual Entity CreateEntity()
         {
             var entity = (Entity)Activator.CreateInstance(typeof(Entity));
-            _entityManager.RegisterEntity(entity);
+            EntityManager.RegisterEntity(entity);
             return entity;
         }
     }

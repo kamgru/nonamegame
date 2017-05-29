@@ -16,13 +16,11 @@ namespace Game1.Factories
 {
     public class BoardFactory : EntityFactory
     {
-        private readonly IConfigurationService _configurationService;
         private readonly TileFactory _tileFactory;
 
-        public BoardFactory(IEntityManager entityManager, ContentManager contentManager, IConfigurationService configurationService, TileFactory tileFactory) 
+        public BoardFactory(IEntityManager entityManager, ContentManager contentManager, TileFactory tileFactory) 
             : base(entityManager, contentManager)
         {
-            _configurationService = configurationService;
             _tileFactory = tileFactory;
         }
 
