@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using Game1.Managers;
 
-namespace Game1.Systems
+namespace Game1.ECS.Core
 {
     public abstract class StateHandlerBase
     {

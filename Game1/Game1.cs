@@ -1,7 +1,5 @@
 ﻿using Game1.Api;
 using Game1.Components;
-using Game1.Entities;
-using Game1.Managers;
 using Game1.Services;
 using Game1.Systems;
 using Microsoft.Xna.Framework;
@@ -18,7 +16,7 @@ namespace Game1
 {
     public class Game1 : Game
     {
-        private GraphicsDeviceManager _graphics;
+        private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private InputService _inputService;
         private ScreenManager _screenManager;

@@ -1,6 +1,4 @@
-﻿using Game1.Entities;
-
-namespace Game1.Components
+﻿namespace Game1.ECS.Core
 {
     public abstract class ComponentBase
     {

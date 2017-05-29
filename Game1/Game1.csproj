@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +13,8 @@
     <AssemblyName>Game1</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -41,36 +42,26 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Api\IDrawingSystem.cs" />
-    <Compile Include="Api\ISystem.cs" />
-    <Compile Include="Api\IUpdatingSystem.cs" />
-    <Compile Include="Components\State.cs" />
     <Compile Include="Components\Player.cs" />
-    <Compile Include="Data\Animation.cs" />
+    <Compile Include="Data\AnimationDictionary.cs" />
     <Compile Include="Data\Board.cs" />
     <Compile Include="Data\Context.cs" />
     <Compile Include="Data\Intent.cs" />
-    <Compile Include="Components\Animator.cs" />
     <Compile Include="Components\BoardInfo.cs" />
     <Compile Include="Components\PositionOnBoard.cs" />
-    <Compile Include="Components\ComponentBase.cs" />
     <Compile Include="Components\MoveSpeed.cs" />
     <Compile Include="Components\TargetScreenPosition.cs" />
     <Compile Include="Components\TileInfo.cs" />
-    <Compile Include="Components\ScreenPosition.cs" />
-    <Compile Include="Components\Sprite.cs" />
     <Compile Include="Data\PlayerStates.cs" />
     <Compile Include="Data\Tile.cs" />
     <Compile Include="Data\TileStates.cs" />
     <Compile Include="Data\TileType.cs" />
-    <Compile Include="Entities\Entity.cs" />
     <Compile Include="Events\EventBase.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\PlayerAbandonedTile.cs" />
     <Compile Include="Events\PlayerEnteredTile.cs" />
     <Compile Include="Events\StageClear.cs" />
     <Compile Include="Factories\BoardFactory.cs" />
-    <Compile Include="Factories\EntityFactory.cs" />
     <Compile Include="Factories\PlayerFactory.cs" />
     <Compile Include="Factories\TileFactory.cs" />
     <Compile Include="Game1.cs" />
@@ -81,9 +72,6 @@
     <Compile Include="Input\InputIntent.cs" />
     <Compile Include="Input\InputProvider.cs" />
     <Compile Include="Input\IntentMapper.cs" />
-    <Compile Include="Managers\EntityManager.cs" />
-    <Compile Include="Api\IEntityManager.cs" />
-    <Compile Include="Managers\SystemsManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screens\GameplayScreen.cs" />
@@ -98,18 +86,12 @@
     <Compile Include="Api\IInputMappingService.cs" />
     <Compile Include="Services\InputService.cs" />
     <Compile Include="Services\Session.cs" />
-    <Compile Include="Systems\AnimationSystem.cs" />
-    <Compile Include="Systems\Fsm\EntityState.cs" />
-    <Compile Include="Systems\Fsm\FsmSystem.cs" />
     <Compile Include="Systems\Fsm\PlayerDeadHandler.cs" />
     <Compile Include="Systems\Fsm\PlayerIdleHandler.cs" />
     <Compile Include="Systems\Fsm\PlayerMovingHandler.cs" />
-    <Compile Include="Systems\Fsm\StateHandlerBase.cs" />
     <Compile Include="Systems\Fsm\TileDestroyedHandler.cs" />
     <Compile Include="Systems\PlayerInputHandlingSystem.cs" />
-    <Compile Include="Systems\SpriteDrawingSystem.cs" />
     <Compile Include="Systems\MoveToScreenPositionSystem.cs" />
-    <Compile Include="Systems\SystemBase.cs" />
     <Compile Include="Systems\TileEventsSystem.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -124,7 +106,14 @@
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
+    <None Include="app.config" />
     <None Include="app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Game1.ECS\Game1.ECS.csproj">
+      <Project>{db4e4b0d-ac7a-472c-bce9-56d88277e37f}</Project>
+      <Name>Game1.ECS</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

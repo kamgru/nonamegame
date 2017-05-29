@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Game1.ECS.Core;
 
-namespace Game1.Components
+namespace Game1.ECS.Components
 {
     public class Sprite : ComponentBase
     {

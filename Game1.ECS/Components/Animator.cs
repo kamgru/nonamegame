@@ -1,5 +1,4 @@
-﻿using Game1.Data;
-using Game1.Entities;
+﻿using Game1.ECS.Core;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -10,7 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.Components
+namespace Game1.ECS.Components
 {
     public class Animator : ComponentBase
     {

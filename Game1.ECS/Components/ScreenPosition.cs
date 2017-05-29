@@ -1,11 +1,13 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Game1.ECS.Core;
 
-namespace Game1.Components
+namespace Game1.ECS.Components
 {
     public class ScreenPosition : ComponentBase
     {
         private Vector2 _position;
+        private ScreenPosition _parent;
 
         public Vector2 Position
         {
@@ -27,13 +29,15 @@ namespace Game1.Components
 
         public void SetParent(ScreenPosition parent)
         {
-            if (parent == null)
+            if (parent != null)
             {
-                parent.OnPositionChange -= Parent_OnPositionChange;
+                _parent = parent;
+                _parent.OnPositionChange += Parent_OnPositionChange;
             }
-            else
+            else if (_parent != null)
             {
-                parent.OnPositionChange += Parent_OnPositionChange;
+                _parent.OnPositionChange -= Parent_OnPositionChange;
+                _parent = null;
             }
         }
 

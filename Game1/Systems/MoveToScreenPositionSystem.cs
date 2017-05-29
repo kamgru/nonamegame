@@ -1,6 +1,6 @@
-﻿using Game1.Api;
-using Game1.Components;
-using Game1.Managers;
+﻿using Game1.Components;
+using Game1.ECS.Api;
+using Game1.ECS.Core;
 using Game1.Services;
 using Microsoft.Xna.Framework;
 using System;

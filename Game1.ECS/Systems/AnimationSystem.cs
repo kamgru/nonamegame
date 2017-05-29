@@ -1,7 +1,6 @@
-﻿using Game1.Api;
-using Game1.Components;
-using Game1.Entities;
-using Game1.Managers;
+﻿using Game1.ECS.Api;
+using Game1.ECS.Components;
+using Game1.ECS.Core;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -10,16 +9,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.Systems
+namespace Game1.ECS.Systems
 {
     public class AnimationSystem : SystemBase, IUpdatingSystem
     {
         private readonly int _fps;
 
-        public AnimationSystem(IEntityManager entityManager, IConfigurationService configurationService)
+        public AnimationSystem(IEntityManager entityManager, int fps)
             :base(entityManager)
         {
-            _fps = configurationService.GetFps();
+            _fps = fps;
         }
 
         public void Update(GameTime gameTime)

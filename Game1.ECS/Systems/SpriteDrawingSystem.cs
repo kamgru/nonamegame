@@ -1,6 +1,6 @@
-﻿using Game1.Api;
-using Game1.Components;
-using Game1.Managers;
+﻿using Game1.ECS.Api;
+using Game1.ECS.Components;
+using Game1.ECS.Core;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.Systems
+namespace Game1.ECS.Systems
 {
     public class SpriteDrawingSystem : SystemBase, IDrawingSystem
     {
@@ -33,12 +33,6 @@ namespace Game1.Systems
             foreach (var entity in entites)
             {
                 _spriteBatch.Draw(entity.Sprite.Texture2D, entity.Position, entity.Sprite.Rectangle, Color.White);
-            }
-
-            var boardPosition = EntityManager.GetEntities().FirstOrDefault(x => x.HasComponent<PositionOnBoard>())?.GetComponent<PositionOnBoard>();
-            if (boardPosition != null)
-            {
-                _spriteBatch.DrawString(_debugFont, $"c:{boardPosition.Current.X}, {boardPosition.Current.Y}", Vector2.Zero, Color.Red);
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Game1.ECS.Core;
+using Microsoft.Xna.Framework;
 
 namespace Game1.Components
 {

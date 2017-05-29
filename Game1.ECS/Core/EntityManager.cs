@@ -1,17 +1,14 @@
-﻿using Game1.Api;
-using Game1.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System;
-using Game1.Components;
 using System.Diagnostics;
+using Game1.ECS.Api;
 
-namespace Game1.Managers
+namespace Game1.ECS.Core
 {
     public class EntityManager : IEntityManager
     {
-
-        private List<Entity> _entities = new List<Entity>();
+        private readonly List<Entity> _entities = new List<Entity>();
 
         public void DestroyEntity(Entity entity)
         {
@@ -21,7 +18,6 @@ namespace Game1.Managers
             {
                 entity.RemoveComponent(components[i]);                
             }
-            entity = null;
         }
 
         public IEnumerable<Entity> GetEntities()

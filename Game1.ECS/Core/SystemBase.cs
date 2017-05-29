@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Game1.ECS.Api;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Game1.Api;
-using Game1.Managers;
 
-namespace Game1.Systems
+namespace Game1.ECS.Core
 {
     public abstract class SystemBase : ISystem
     {

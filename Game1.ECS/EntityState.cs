@@ -1,7 +1,7 @@
-﻿using Game1.Components;
-using Game1.Entities;
+﻿using Game1.ECS.Components;
+using Game1.ECS.Core;
 
-namespace Game1.Systems
+namespace Game1.ECS
 {
     public class EntityState
     {

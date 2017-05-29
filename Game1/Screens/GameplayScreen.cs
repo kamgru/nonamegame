@@ -1,14 +1,14 @@
 ﻿using System;
 using Game1.Services;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Game1.Managers;
 using Game1.Systems;
 using Game1.Api;
 using Game1.Factories;
 using Game1.Components;
 using Game1.Events;
+using Game1.ECS.Api;
+using Game1.ECS.Core;
+using Game1.ECS.Systems;
 
 namespace Game1.Screens
 {
@@ -50,7 +50,7 @@ namespace Game1.Screens
 
             _systemsManager.Push(new PlayerInputHandlingSystem(_entityManager, InputService, _configurationService, _eventManager));
             _systemsManager.Push(new SpriteDrawingSystem(_entityManager, ContentManager, SpriteBatch));
-            _systemsManager.Push(new AnimationSystem(_entityManager, _configurationService));
+            _systemsManager.Push(new AnimationSystem(_entityManager, _configurationService.GetFps()));
             _systemsManager.Push(new MoveToScreenPositionSystem(_entityManager));
             _systemsManager.Push(new TileEventsSystem(_entityManager, _eventManager));
 

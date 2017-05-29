@@ -1,5 +1,4 @@
-﻿using Game1.Api;
-using Game1.Systems;
+﻿using Game1.ECS.Api;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.Managers
+namespace Game1.ECS.Core
 {
     public class SystemsManager
     {
@@ -34,20 +33,16 @@ namespace Game1.Managers
 
         public TSystem Peek<TSystem>() where TSystem : ISystem
         {
-            if (typeof(IUpdatingSystem).IsAssignableFrom(typeof(TSystem)))
+            if (typeof(IUpdatingSystem).IsAssignableFrom(typeof(TSystem)) 
+                && _updatingSystems.ContainsKey(typeof(TSystem)))
             {
-                if (_updatingSystems.ContainsKey(typeof(TSystem)))
-                {
-                    return (TSystem)_updatingSystems[typeof(TSystem)];
-                }
+                return (TSystem)_updatingSystems[typeof(TSystem)];
             }
 
-            if (typeof(IDrawingSystem).IsAssignableFrom(typeof(TSystem)))
+            if (typeof(IDrawingSystem).IsAssignableFrom(typeof(TSystem))
+                && _drawingSystems.ContainsKey(typeof(TSystem)))
             {
-                if (_drawingSystems.ContainsKey(typeof(TSystem)))
-                {
-                    return (TSystem) _drawingSystems[typeof(TSystem)];
-                }
+                return (TSystem) _drawingSystems[typeof(TSystem)];
             }
 
             if (_basicSystems.ContainsKey(typeof(TSystem)))

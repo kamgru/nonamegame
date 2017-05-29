@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using Game1.Api;
 using Game1.Components;
 using Game1.Data;
-using Game1.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
+using Game1.ECS.Api;
+using Game1.ECS.Core;
+using Game1.ECS.Factories;
 
 namespace Game1.Factories
 {

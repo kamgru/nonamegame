@@ -1,8 +1,7 @@
-﻿using Game1.Entities;
+﻿using Game1.ECS.Core;
 using System.Collections.Generic;
-using Game1.Components;
 
-namespace Game1.Api
+namespace Game1.ECS.Api
 {
     public interface IEntityManager
     {

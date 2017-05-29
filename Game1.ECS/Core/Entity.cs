@@ -1,15 +1,15 @@
-﻿using Game1.Components;
+﻿using Game1.ECS.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.Entities
+namespace Game1.ECS.Core
 {
     public class Entity
     {
-        private List<ComponentBase> _components = new List<ComponentBase>();
+        private readonly List<ComponentBase> _components = new List<ComponentBase>();
         private ScreenPosition _transform;
 
         public string Name { get; set; }

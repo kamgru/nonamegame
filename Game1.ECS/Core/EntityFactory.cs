@@ -1,9 +1,9 @@
 ﻿using System;
-using Game1.Api;
-using Game1.Entities;
 using Microsoft.Xna.Framework.Content;
+using Game1.ECS.Api;
+using Game1.ECS.Core;
 
-namespace Game1.Factories
+namespace Game1.ECS.Factories
 {
     public abstract class EntityFactory
     {

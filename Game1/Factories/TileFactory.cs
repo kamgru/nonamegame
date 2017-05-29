@@ -5,11 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Game1.Api;
 using Microsoft.Xna.Framework.Content;
-using Game1.Entities;
 using Game1.Data;
 using Microsoft.Xna.Framework.Graphics;
 using Game1.Components;
 using Microsoft.Xna.Framework;
+using Game1.ECS.Api;
+using Game1.ECS.Core;
+using Game1.ECS.Components;
+using Game1.ECS.Factories;
+using Game1.ECS;
 
 namespace Game1.Factories
 {

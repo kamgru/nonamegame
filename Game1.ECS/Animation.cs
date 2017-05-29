@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.Data
+namespace Game1.ECS
 {
     public class Animation
     {
@@ -19,7 +19,7 @@ namespace Game1.Data
         public bool Looped { get; set; }
         public Texture2D Texture2D { get; set; }
 
-        private List<Rectangle> _rectangles = new List<Rectangle>();
+        private readonly List<Rectangle> _rectangles = new List<Rectangle>();
 
         public Animation(Texture2D sheet, Point frameSize)
         {
@@ -35,11 +35,5 @@ namespace Game1.Data
                 }
             }
         }
-    }
-
-    public static class AnimationDictionary
-    {
-        public const string PlayerMove = "walk";
-        public const string TileDestroy = "break";
     }
 }

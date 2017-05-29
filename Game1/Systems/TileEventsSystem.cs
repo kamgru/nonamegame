@@ -7,6 +7,9 @@ using Game1.Api;
 using Game1.Events;
 using Game1.Components;
 using Game1.Data;
+using Game1.ECS.Api;
+using Game1.ECS.Core;
+using Game1.ECS.Components;
 
 namespace Game1.Systems
 {
