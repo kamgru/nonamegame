@@ -15,8 +15,9 @@ namespace Game1.Screens
     {
         private SpriteFont _defaultFont;
         private Viewport _viewport;
-        private const string _text = "STAGE CLEAR";
+        private const string Text = "STAGE CLEAR";
         private Vector2 _position;
+        private Texture2D _blank;
 
         public StageClearScreen(ScreenDependencies dependencies) 
             : base(dependencies)
@@ -28,13 +29,15 @@ namespace Game1.Screens
         {
             base.Init();
             _defaultFont = ContentManager.Load<SpriteFont>("default");
+            _blank = ContentManager.Load<Texture2D>("blank");
             _viewport = ScreenManager.Game.GraphicsDevice.Viewport;
-            _position = new Vector2((_viewport.Width - _defaultFont.MeasureString(_text).X) / 2, _viewport.Height / 2);
+            _position = new Vector2((_viewport.Width - _defaultFont.MeasureString(Text).X) / 2, _viewport.Height / 2);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            SpriteBatch.DrawString(_defaultFont, _text, _position, Color.Green);
+            SpriteBatch.Draw(_blank, _viewport.Bounds, null, new Color(0, 0, 0, 150));
+            SpriteBatch.DrawString(_defaultFont, Text, _position, Color.White);
         }
 
         public override void Update(GameTime gameTime, bool isActive)
