@@ -27,8 +27,6 @@ namespace Game1
         {
             base.Initialize();
 
-            this.Services.AddService(new Session());
-
             var contextManager = new ContextManager();
             contextManager.Add(new InputContext
             {

@@ -45,8 +45,7 @@ namespace Game1.Screens
         {
             if (InputService.ConsumeIntents(new[] { Intent.Confirm }).Any())
             {
-                var session = ScreenManager.Game.Services.GetService<Session>();
-                session.Set("stageId", session.Get<int>("stageId") + 1);
+                Session.Set("stageId", Session.Get<int>("stageId") + 1);
 
                 var gameplay = ScreenManager.Peek<GameplayScreen>();
                 gameplay.Init();
