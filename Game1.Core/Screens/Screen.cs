@@ -17,6 +17,7 @@ namespace Game1.Core.Screens
         protected readonly ScreenManager ScreenManager;
         protected readonly InputService InputService;
         protected readonly SpriteBatch SpriteBatch;
+        protected readonly Session Session;
 
         public bool IsInitialized { get; protected set; }
         public ScreenMode ScreenMode { get; set; }
@@ -27,6 +28,7 @@ namespace Game1.Core.Screens
             ScreenManager = dependencies.ScreenManager;
             InputService = dependencies.InputService;
             SpriteBatch = dependencies.SpriteBatch;
+            Session = dependencies.Session;
         }
 
         public virtual void Init()

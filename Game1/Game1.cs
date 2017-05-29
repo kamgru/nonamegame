@@ -78,18 +78,8 @@ namespace Game1
             Content.RootDirectory = "Content";
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _inputService = new InputService(new IntentMapper(contextManager, new InputProvider()), contextManager);
-            _screenManager = new ScreenManager(this);
 
-            var mainMenu = new MainMenuScreen(new ScreenDependencies
-            {
-                ContentManager = Content,
-                ScreenManager = _screenManager,
-                InputService = _inputService,
-                SpriteBatch = _spriteBatch
-            });
-            mainMenu.Init();
-
-            _screenManager.Push(mainMenu);            
+            BootstrapScreens();
         }
 
         protected override void UnloadContent()
@@ -112,6 +102,26 @@ namespace Game1
             _screenManager.Draw(gameTime);
             _spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        private void BootstrapScreens()
+        {
+            _screenManager = new ScreenManager(this);
+
+            var screenDependencies = new ScreenDependencies
+            {
+                ContentManager = Content,
+                ScreenManager = _screenManager,
+                InputService = _inputService,
+                SpriteBatch = _spriteBatch,
+                Session = new Session()
+            };
+
+            _screenManager.Register(new MainMenuScreen(screenDependencies));
+            _screenManager.Register(new GameplayScreen(screenDependencies));
+            _screenManager.Register(new StageClearScreen(screenDependencies));
+
+            _screenManager.Push<MainMenuScreen>();
         }
     }
 }

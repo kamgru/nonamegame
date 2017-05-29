@@ -30,18 +30,8 @@ namespace Game1.Screens
             _menu.Position= new Vector2(viewport.Width / 2, viewport.Height / 2);
 
             var start = new MenuItem {Text = "Start"};
-            start.OnSelected += (sender, args) =>
-            {
-                var gameplay = new GameplayScreen(new ScreenDependencies
-                {
-                    ContentManager = ContentManager,
-                    ScreenManager = ScreenManager,
-                    InputService = InputService,
-                    SpriteBatch = SpriteBatch
-                }, 0);
-
-                ScreenManager.Push(gameplay);
-            };
+                
+            start.OnSelected += (sender, args) => ScreenManager.Push<GameplayScreen>();
 
             var quit = new MenuItem {Text = "Quit"};
             quit.OnSelected += (sender, args) =>

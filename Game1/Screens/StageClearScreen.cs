@@ -50,7 +50,7 @@ namespace Game1.Screens
 
                 var gameplay = ScreenManager.Peek<GameplayScreen>();
                 gameplay.Init();
-                ScreenManager.Push(gameplay);
+                ScreenManager.Push<GameplayScreen>();
             }
         }
     }

@@ -15,5 +15,6 @@ namespace Game1.Core.Screens
         public ScreenManager ScreenManager { get; set; }
         public InputService InputService { get; set; }
         public SpriteBatch SpriteBatch { get; set; }
+        public Session Session { get; set; }
     }
 }

@@ -32,7 +32,7 @@ namespace Game1.Core.Services
                 return (T) entry.Value;
             }
 
-            throw new InvalidCastException(typeof(T).ToString());
+            throw new ArgumentException(key);
         }
 
         public bool Contains<T>(string key)

@@ -12,6 +12,7 @@ using Game1.Gameplay.StateManagement;
 using Game1.Gameplay.Factories;
 using Game1.Gameplay.Services;
 using Game1.Gameplay.Components;
+using System.Collections.Generic;
 
 namespace Game1.Screens
 {
@@ -22,10 +23,9 @@ namespace Game1.Screens
         private ConfigurationService _configurationService;
         private EventManager _eventManager;
 
-        public GameplayScreen(ScreenDependencies dependencies, int stageId) 
+        public GameplayScreen(ScreenDependencies dependencies) 
             : base(dependencies)
         {
-            ScreenManager.Game.Services.GetService<Session>().Set("stageId", stageId);
         }
 
         public override void Init()
@@ -57,13 +57,22 @@ namespace Game1.Screens
 
         private void SetupStage()
         {
-            var stageId = ScreenManager.Game.Services.GetService<Session>().Get<int>("stageId");
+            var stageId = 0;
+            try
+            {
+                stageId = Session.Get<int>("stageId");
+            }
+            catch (Exception e) when (e is KeyNotFoundException || e is ArgumentException)
+            {
+                Session.Set("stageId", 0);
+            }
 
             var board = new BoardFactory(_entityManager, ContentManager, new TileFactory(_entityManager, ContentManager, _configurationService))
                 .CreateBoard(new BoardService().GetBoard(stageId));
 
             var tileSize = _configurationService.GetTileSizeInPixels();
             var size = board.GetComponent<BoardInfo>().Size * tileSize;
+
 
             var player = new PlayerFactory(_entityManager, ContentManager).CreateEntity();
             player.Transform.SetParent(board.Transform);
@@ -98,14 +107,7 @@ namespace Game1.Screens
         
         private void SetupEvents()
         {
-            _eventManager.RegisterListener<StageClear>(
-                x => ScreenManager.Push(new StageClearScreen(new ScreenDependencies
-                {
-                    ContentManager = ContentManager,
-                    InputService = InputService,
-                    ScreenManager = ScreenManager,
-                    SpriteBatch = SpriteBatch
-                })));
+            _eventManager.RegisterListener<StageClear>(x => ScreenManager.Push<StageClearScreen>());
         }
     }
 }

@@ -10,31 +10,32 @@ namespace Game1.Core.Screens
     public class ScreenManager : DrawableGameComponent
     {
         private readonly IList<Screen> _screens = new List<Screen>();
-        private IList<Screen> _screensToProcess;
+        private readonly Stack<Screen> _screenStack = new Stack<Screen>();
 
         public ScreenManager(Game game) : base(game)
         {
         }
 
-        public void Push(Screen screen)
+        public void Push<TScreen>() where TScreen : Screen
         {
-            _screens.Add(screen);
+            var screen = _screens.FirstOrDefault(x => x is TScreen);
+
+            if (screen == null)
+            {
+                throw new InvalidOperationException($"Screen type {typeof(TScreen).ToString()} not registered");
+            }
 
             if (!screen.IsInitialized)
             {
                 screen.Init();
             }
 
-            _screensToProcess = new List<Screen>(_screens.Count);
-
-            foreach (var scr in _screens.Reverse())
+            if (screen.ScreenMode == ScreenMode.Single)
             {
-                _screensToProcess.Insert(0, scr);
-                if (scr.ScreenMode == ScreenMode.Single)
-                {
-                    break;
-                }
+                _screenStack.Clear();
             }
+
+            _screenStack.Push(screen);
         }
 
         public TScreen Peek<TScreen>() where TScreen : Screen
@@ -44,7 +45,7 @@ namespace Game1.Core.Screens
 
         public override void Draw(GameTime gameTime)
         {
-            foreach (var screen in _screensToProcess)
+            foreach (var screen in _screenStack.Reverse())
             {
                 screen.Draw(gameTime);
             }
@@ -52,10 +53,22 @@ namespace Game1.Core.Screens
 
         public override void Update(GameTime gameTime)
         {
-            for (var i = 0; i < _screensToProcess.Count; i++)
+            var idx = 0;
+            foreach (var screen in _screenStack.ToList())
             {
-                _screensToProcess[i].Update(gameTime, i == _screensToProcess.Count - 1);
+                idx++;
+                screen.Update(gameTime, idx == _screenStack.Count);
             }
+        }
+
+        public void Register<TScreen>(TScreen screen) where TScreen : Screen
+        {
+            if (_screens.Any(x => x is TScreen))
+            {
+                throw new ArgumentException($"Screen type {typeof(TScreen).ToString()} already registered");
+            }
+
+            _screens.Add(screen);
         }
     }
 }
