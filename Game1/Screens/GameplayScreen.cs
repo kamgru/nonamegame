@@ -18,12 +18,11 @@ namespace Game1.Screens
         private IEntityManager _entityManager;
         private IConfigurationService _configurationService;
         private EventManager _eventManager;
-        private int _stageId;
 
         public GameplayScreen(ScreenDependencies dependencies, int stageId) 
             : base(dependencies)
         {
-            _stageId = stageId;
+            ScreenManager.Game.Services.GetService<Session>().Set("stageId", stageId);
         }
 
         public override void Init()
@@ -62,13 +61,15 @@ namespace Game1.Screens
             fsmSystem.RegisterHandler(new TileDestroyedHandler(_entityManager));
             _systemsManager.Push(fsmSystem);
 
+            var stageId = ScreenManager.Game.Services.GetService<Session>().Get<int>("stageId");
+            
             var board = new BoardFactory(_entityManager,
                 ContentManager,
                 new TileFactory(
                     _entityManager,
                     ContentManager,
                     _configurationService))
-                .CreateBoard(new BoardService().GetBoard(_stageId));
+                .CreateBoard(new BoardService().GetBoard(stageId));
 
             var tileSize = _configurationService.GetTileSizeInPixels();
             var size = board.GetComponent<BoardInfo>().Size * tileSize;

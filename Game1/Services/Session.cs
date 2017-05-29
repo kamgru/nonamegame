@@ -10,8 +10,13 @@ namespace Game1.Services
     {
         private static Dictionary<string, Entry> _entries = new Dictionary<string, Entry>();
 
-        void Set<T>(string key, T value)
+        public void Set<T>(string key, T value)
         {
+            if (_entries.ContainsKey(key))
+            {
+                _entries.Remove(key);
+            }
+
             _entries.Add(key, new Entry
             {
                 Type = typeof(T),
@@ -19,7 +24,7 @@ namespace Game1.Services
             });
         }
 
-        T Get<T>(string key)
+        public T Get<T>(string key)
         {
             var entry = _entries[key];
             if (entry.Type == typeof(T))
