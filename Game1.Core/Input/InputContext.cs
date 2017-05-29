@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Game1.Input
+namespace Game1.Core.Input
 {
     public class InputContext
     {

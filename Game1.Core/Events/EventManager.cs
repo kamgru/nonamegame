@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Game1.Events
+namespace Game1.Core.Events
 {
 
     public class EventManager

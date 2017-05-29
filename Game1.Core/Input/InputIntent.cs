@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-namespace Game1.Input
+namespace Game1.Core.Input
 {
     public class InputIntent
     {

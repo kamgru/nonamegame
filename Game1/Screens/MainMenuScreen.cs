@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using Game1.Data;
 using Game1.Gui;
-using Game1.Services;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Game1.Core.Screens;
 
 namespace Game1.Screens
 {

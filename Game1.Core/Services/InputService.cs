@@ -1,12 +1,12 @@
-﻿using Game1.Data;
-using Game1.Input;
+﻿using Game1.Core.Input;
+using Game1.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.Services
+namespace Game1.Core.Services
 {
     public class InputService
     {

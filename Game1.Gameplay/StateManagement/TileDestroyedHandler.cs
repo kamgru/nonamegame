@@ -1,11 +1,11 @@
-﻿using Game1.Components;
-using Game1.Data;
+﻿using Game1.Data;
 using Game1.ECS;
 using Game1.ECS.Api;
 using Game1.ECS.Core;
 using Game1.ECS.Components;
+using Game1.Gameplay.Components;
 
-namespace Game1.Systems
+namespace Game1.Gameplay.StateManagement
 {
     public class TileDestroyedHandler : StateHandlerBase
     {

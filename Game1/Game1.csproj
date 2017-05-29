@@ -42,34 +42,14 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Components\Player.cs" />
-    <Compile Include="Components\BoardInfo.cs" />
-    <Compile Include="Components\PositionOnBoard.cs" />
-    <Compile Include="Components\MoveSpeed.cs" />
-    <Compile Include="Components\TargetScreenPosition.cs" />
-    <Compile Include="Components\TileInfo.cs" />
-    <Compile Include="Events\PlayerAbandonedTile.cs" />
-    <Compile Include="Events\PlayerEnteredTile.cs" />
-    <Compile Include="Events\StageClear.cs" />
-    <Compile Include="Factories\BoardFactory.cs" />
-    <Compile Include="Factories\PlayerFactory.cs" />
-    <Compile Include="Factories\TileFactory.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Gui\Menu.cs" />
     <Compile Include="Gui\MenuItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />
     <Compile Include="Screens\StageClearScreen.cs" />
-    <Compile Include="Services\BoardService.cs" />
-    <Compile Include="Systems\Fsm\PlayerDeadHandler.cs" />
-    <Compile Include="Systems\Fsm\PlayerIdleHandler.cs" />
-    <Compile Include="Systems\Fsm\PlayerMovingHandler.cs" />
-    <Compile Include="Systems\Fsm\TileDestroyedHandler.cs" />
-    <Compile Include="Systems\PlayerInputHandlingSystem.cs" />
-    <Compile Include="Systems\MoveToScreenPositionSystem.cs" />
-    <Compile Include="Systems\TileEventsSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -98,6 +78,10 @@
     <ProjectReference Include="..\Game1.ECS\Game1.ECS.csproj">
       <Project>{db4e4b0d-ac7a-472c-bce9-56d88277e37f}</Project>
       <Name>Game1.ECS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Game1.Gameplay\Game1.Gameplay.csproj">
+      <Project>{eb4598bd-01b7-4795-9850-6d888537f81a}</Project>
+      <Name>Game1.Gameplay</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

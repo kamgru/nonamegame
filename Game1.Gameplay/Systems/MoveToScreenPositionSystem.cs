@@ -1,7 +1,6 @@
-﻿using Game1.Components;
-using Game1.ECS.Api;
+﻿using Game1.ECS.Api;
 using Game1.ECS.Core;
-using Game1.Services;
+using Game1.Gameplay.Components;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.Systems
+namespace Game1.Gameplay.Systems
 {
     public class MoveToScreenPositionSystem : SystemBase, IUpdatingSystem
     {

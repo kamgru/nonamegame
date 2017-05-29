@@ -1,9 +1,9 @@
-﻿using Game1.Services;
+﻿using Game1.Core.Services;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Game1.Screens
+namespace Game1.Core.Screens
 {
     public enum ScreenMode
     {

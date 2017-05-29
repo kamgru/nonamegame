@@ -3,7 +3,7 @@ using Game1.ECS;
 using Game1.ECS.Api;
 using Game1.ECS.Core;
 
-namespace Game1.Systems
+namespace Game1.Gameplay.StateManagement
 {
     public class PlayerDeadHandler : StateHandlerBase
     {

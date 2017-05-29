@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Game1.Core.Events;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.Events
+namespace Game1.Gameplay.Events
 {
     public class StageClear : IGameEvent
     {

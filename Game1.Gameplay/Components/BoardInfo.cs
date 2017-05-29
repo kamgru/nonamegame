@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.Components
+namespace Game1.Gameplay.Components
 {
     public class BoardInfo : ComponentBase
     {

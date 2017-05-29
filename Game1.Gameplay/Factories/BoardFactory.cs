@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Game1.Components;
 using Game1.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -12,8 +11,9 @@ using System.Diagnostics;
 using Game1.ECS.Api;
 using Game1.ECS.Core;
 using Game1.ECS.Factories;
+using Game1.Gameplay.Components;
 
-namespace Game1.Factories
+namespace Game1.Gameplay.Factories
 {
     public class BoardFactory : EntityFactory
     {

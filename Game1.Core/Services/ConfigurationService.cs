@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace Game1.Services
+namespace Game1.Core.Services
 {
 
     public class ConfigurationService

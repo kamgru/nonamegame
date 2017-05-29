@@ -1,15 +1,13 @@
-﻿using Game1.Components;
-using Game1.Services;
-using Game1.Systems;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
-using Game1.Factories;
-using Game1.Input;
 using Game1.Data;
 using Game1.Screens;
+using Game1.Core.Services;
+using Game1.Core.Screens;
+using Game1.Core.Input;
 
 namespace Game1
 {

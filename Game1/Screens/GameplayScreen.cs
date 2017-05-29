@@ -1,13 +1,17 @@
 ﻿using System;
-using Game1.Services;
 using Microsoft.Xna.Framework;
-using Game1.Systems;
-using Game1.Factories;
-using Game1.Components;
-using Game1.Events;
 using Game1.ECS.Api;
 using Game1.ECS.Core;
 using Game1.ECS.Systems;
+using Game1.Core.Screens;
+using Game1.Core.Services;
+using Game1.Core.Events;
+using Game1.Gameplay.Events;
+using Game1.Gameplay.Systems;
+using Game1.Gameplay.StateManagement;
+using Game1.Gameplay.Factories;
+using Game1.Gameplay.Services;
+using Game1.Gameplay.Components;
 
 namespace Game1.Screens
 {

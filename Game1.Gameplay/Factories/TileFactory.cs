@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 using Game1.Data;
 using Microsoft.Xna.Framework.Graphics;
-using Game1.Components;
 using Microsoft.Xna.Framework;
 using Game1.ECS.Api;
 using Game1.ECS.Core;
 using Game1.ECS.Components;
 using Game1.ECS.Factories;
 using Game1.ECS;
-using Game1.Services;
+using Game1.Core.Services;
+using Game1.Gameplay.Components;
 
-namespace Game1.Factories
+namespace Game1.Gameplay.Factories
 {
     public class TileFactory : EntityFactory
     {

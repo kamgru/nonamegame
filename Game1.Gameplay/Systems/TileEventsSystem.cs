@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Game1.Events;
-using Game1.Components;
 using Game1.Data;
 using Game1.ECS.Api;
 using Game1.ECS.Core;
 using Game1.ECS.Components;
+using Game1.Gameplay.Events;
+using Game1.Core.Events;
+using Game1.Gameplay.Components;
 
-namespace Game1.Systems
+namespace Game1.Gameplay.Systems
 {
     public class TileEventsSystem : SystemBase
     {

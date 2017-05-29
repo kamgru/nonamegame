@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.Services
+namespace Game1.Core.Services
 {
     public class Session
     {
