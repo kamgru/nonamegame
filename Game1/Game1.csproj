@@ -87,9 +87,9 @@
     <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Game1.Common\Game1.Common.csproj">
+    <ProjectReference Include="..\Game1.Core\Game1.Core.csproj">
       <Project>{de69a2b5-76ab-4376-b0b7-4ce0837de0a3}</Project>
-      <Name>Game1.Common</Name>
+      <Name>Game1.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Game1.Data\Game1.Data.csproj">
       <Project>{87028b69-26e4-4622-a85c-c842fb5853cd}</Project>
