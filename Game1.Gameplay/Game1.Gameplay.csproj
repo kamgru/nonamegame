@@ -56,6 +56,7 @@
     <Compile Include="Events\StageClear.cs" />
     <Compile Include="Factories\BoardFactory.cs" />
     <Compile Include="Factories\PlayerFactory.cs" />
+    <Compile Include="Factories\PoofFactory.cs" />
     <Compile Include="Factories\TileFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BoardService.cs" />

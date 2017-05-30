@@ -88,7 +88,7 @@ namespace Game1.Screens
             _systemsManager.Push(new SpriteDrawingSystem(_entityManager, ContentManager, SpriteBatch));
             _systemsManager.Push(new AnimationSystem(_entityManager, _configurationService.GetFps()));
             _systemsManager.Push(new MoveToScreenPositionSystem(_entityManager));
-            _systemsManager.Push(new TileEventsSystem(_entityManager, _eventManager));
+            _systemsManager.Push(new TileEventsSystem(_entityManager, _eventManager, new PoofFactory(_entityManager, ContentManager)));
 
             var fsmSystem = new FsmSystem(_entityManager);
             fsmSystem.RegisterHandler(new PlayerIdleHandler(InputService));
