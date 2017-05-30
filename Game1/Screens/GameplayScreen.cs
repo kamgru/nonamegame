@@ -74,7 +74,7 @@ namespace Game1.Screens
             var size = board.GetComponent<BoardInfo>().Size * tileSize;
 
 
-            var player = new PlayerFactory(_entityManager, ContentManager).CreateEntity();
+            var player = new PlayerFactory(_entityManager, ContentManager).CreatePlayer();
             player.Transform.SetParent(board.Transform);
 
             board.Transform.Position = new Vector2((ScreenManager.Game.GraphicsDevice.Viewport.Width - size.X) / 2, (ScreenManager.Game.GraphicsDevice.Viewport.Height - size.Y) / 2);

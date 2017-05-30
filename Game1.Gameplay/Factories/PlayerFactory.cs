@@ -22,7 +22,7 @@ namespace Game1.Gameplay.Factories
         {
         }
 
-        public override Entity CreateEntity()
+        public Entity CreatePlayer()
         {
             var player = base.CreateEntity();
 
