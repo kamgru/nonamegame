@@ -13,5 +13,6 @@ namespace Game1.ECS.Components
     {
         public Texture2D Texture2D { get; set; }
         public Rectangle? Rectangle { get; set; }
+        public int ZIndex { get; set; }
     }
 }

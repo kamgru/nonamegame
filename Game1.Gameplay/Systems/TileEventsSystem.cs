@@ -16,9 +16,14 @@ namespace Game1.Gameplay.Systems
 {
     public class TileEventsSystem : SystemBase
     {
+        private readonly Entity _poof;
+
         public TileEventsSystem(IEntityManager entityManager, EventManager eventManager, PoofFactory poofFactory)
             : base(entityManager)
         {
+
+            _poof = poofFactory.CreatePoof();
+
             eventManager.On<PlayerAbandonedTile>(gameEvent =>
             {
                 if (gameEvent.TileInfo.TileType == TileType.Normal)
@@ -37,9 +42,9 @@ namespace Game1.Gameplay.Systems
 
             eventManager.On<PlayerEnteredTile>(gameEvent =>
             {
-                var poof = poofFactory.CreatePoof();
-                poof.Transform.Position = gameEvent.TileEntity.Transform.Position;
-                poof.GetComponent<Animator>().Play("poof");
+                
+                _poof.Transform.Position = gameEvent.TileEntity.Transform.Position;
+                _poof.GetComponent<Animator>().Play("poof");
 
                 if (gameEvent.TileInfo.TileType == TileType.End)
                 {

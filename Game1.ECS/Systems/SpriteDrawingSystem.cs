@@ -30,7 +30,7 @@ namespace Game1.ECS.Systems
                 .Select(x => new { Sprite = x.GetComponent<Sprite>(), Position = x.GetComponent<ScreenPosition>().Position })
                 .Where(x => x.Sprite.Texture2D != null);
 
-            foreach (var entity in entites)
+            foreach (var entity in entites.OrderBy(x => x.Sprite.ZIndex))
             {
                 _spriteBatch.Draw(entity.Sprite.Texture2D, entity.Position, entity.Sprite.Rectangle, Color.White);
             }

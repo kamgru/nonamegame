@@ -28,7 +28,7 @@ namespace Game1.Gameplay.Factories
 
             var texture = ContentManager.Load<Texture2D>("red_dot");
 
-            player.AddComponent(new Sprite { Texture2D = texture });
+            player.AddComponent(new Sprite { Texture2D = texture, ZIndex = 2000 });
             player.AddComponent(new MoveSpeed { Speed = 3f });
             player.AddComponent(new PositionOnBoard());
             player.AddComponent(new TargetScreenPosition());

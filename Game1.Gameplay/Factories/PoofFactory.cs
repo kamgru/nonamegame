@@ -24,6 +24,7 @@ namespace Game1.Gameplay.Factories
         public Entity CreatePoof()
         {
             var poof = CreateEntity();
+            poof.Transform.Position = Vector2.Zero;
             poof.AddComponent(new Animator
             {
                 Animations = new[]
@@ -36,7 +37,11 @@ namespace Game1.Gameplay.Factories
                     }
                 },
             });
-            poof.AddComponent(new Sprite());
+            poof.AddComponent(new Sprite
+            {
+                Texture2D = ContentManager.Load<Texture2D>("blank"),
+                ZIndex = 1000
+            });
             return poof;
         }
     }
