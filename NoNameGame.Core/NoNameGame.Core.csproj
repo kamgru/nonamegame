@@ -64,7 +64,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Game1.Data\NoNameGame.Data.csproj">
+    <ProjectReference Include="..\NoNameGame.Data\NoNameGame.Data.csproj">
       <Project>{87028b69-26e4-4622-a85c-c842fb5853cd}</Project>
       <Name>NoNameGame.Data</Name>
     </ProjectReference>

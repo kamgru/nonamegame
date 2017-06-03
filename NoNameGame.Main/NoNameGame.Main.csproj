@@ -67,19 +67,19 @@
     <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Game1.Core\NoNameGame.Core.csproj">
+    <ProjectReference Include="..\NoNameGame.Core\NoNameGame.Core.csproj">
       <Project>{de69a2b5-76ab-4376-b0b7-4ce0837de0a3}</Project>
       <Name>NoNameGame.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Game1.Data\NoNameGame.Data.csproj">
+    <ProjectReference Include="..\NoNameGame.Data\NoNameGame.Data.csproj">
       <Project>{87028b69-26e4-4622-a85c-c842fb5853cd}</Project>
       <Name>NoNameGame.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Game1.ECS\NoNameGame.ECS.csproj">
+    <ProjectReference Include="..\NoNameGame.ECS\NoNameGame.ECS.csproj">
       <Project>{db4e4b0d-ac7a-472c-bce9-56d88277e37f}</Project>
       <Name>NoNameGame.ECS</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Game1.Gameplay\NoNameGame.Gameplay.csproj">
+    <ProjectReference Include="..\NoNameGame.Gameplay\NoNameGame.Gameplay.csproj">
       <Project>{eb4598bd-01b7-4795-9850-6d888537f81a}</Project>
       <Name>NoNameGame.Gameplay</Name>
     </ProjectReference>
