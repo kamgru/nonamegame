@@ -1,6 +1,6 @@
 using System;
 
-namespace Game1.Gui
+namespace NoNameGame.Main.Gui
 {
     public class MenuItem
     {

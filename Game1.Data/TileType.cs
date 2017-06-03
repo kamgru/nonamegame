@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game1.Data
+namespace NoNameGame.Data
 {
     public enum TileType
     {

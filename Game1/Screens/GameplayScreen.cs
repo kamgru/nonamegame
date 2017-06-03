@@ -1,20 +1,20 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Game1.ECS.Api;
-using Game1.ECS.Core;
-using Game1.ECS.Systems;
-using Game1.Core.Screens;
-using Game1.Core.Services;
-using Game1.Core.Events;
-using Game1.Gameplay.Events;
-using Game1.Gameplay.Systems;
-using Game1.Gameplay.StateManagement;
-using Game1.Gameplay.Factories;
-using Game1.Gameplay.Services;
-using Game1.Gameplay.Components;
+using NoNameGame.ECS.Api;
+using NoNameGame.ECS.Core;
+using NoNameGame.ECS.Systems;
+using NoNameGame.Core.Screens;
+using NoNameGame.Core.Services;
+using NoNameGame.Core.Events;
+using NoNameGame.Gameplay.Events;
+using NoNameGame.Gameplay.Systems;
+using NoNameGame.Gameplay.StateManagement;
+using NoNameGame.Gameplay.Factories;
+using NoNameGame.Gameplay.Services;
+using NoNameGame.Gameplay.Components;
 using System.Collections.Generic;
 
-namespace Game1.Screens
+namespace NoNameGame.Main.Screens
 {
     public class GameplayScreen : Screen
     {

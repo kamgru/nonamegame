@@ -1,12 +1,12 @@
 ﻿using System.Linq;
-using Game1.Data;
-using Game1.Gui;
+using NoNameGame.Data;
+using NoNameGame.Main.Gui;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Game1.Core.Screens;
+using NoNameGame.Core.Screens;
 
-namespace Game1.Screens
+namespace NoNameGame.Main.Screens
 {
 
     public class MainMenuScreen : Screen

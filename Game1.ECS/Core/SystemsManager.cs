@@ -1,4 +1,4 @@
-﻿using Game1.ECS.Api;
+﻿using NoNameGame.ECS.Api;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.ECS.Core
+namespace NoNameGame.ECS.Core
 {
     public class SystemsManager
     {

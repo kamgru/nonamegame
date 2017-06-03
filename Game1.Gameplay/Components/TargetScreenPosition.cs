@@ -1,7 +1,7 @@
-﻿using Game1.ECS.Core;
+﻿using NoNameGame.ECS.Core;
 using Microsoft.Xna.Framework;
 
-namespace Game1.Gameplay.Components
+namespace NoNameGame.Gameplay.Components
 {
 
     public class TargetScreenPosition : ComponentBase

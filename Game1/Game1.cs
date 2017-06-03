@@ -3,13 +3,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
-using Game1.Data;
-using Game1.Screens;
-using Game1.Core.Services;
-using Game1.Core.Screens;
-using Game1.Core.Input;
+using NoNameGame.Data;
+using NoNameGame.Main.Screens;
+using NoNameGame.Core.Services;
+using NoNameGame.Core.Screens;
+using NoNameGame.Core.Input;
 
-namespace Game1
+namespace NoNameGame.Main
 {
     public class Game1 : Game
     {

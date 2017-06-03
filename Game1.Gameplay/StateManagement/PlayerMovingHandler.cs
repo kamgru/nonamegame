@@ -1,15 +1,15 @@
-﻿using Game1.Data;
-using Game1.ECS;
-using Game1.ECS.Api;
-using Game1.ECS.Core;
+﻿using NoNameGame.Data;
+using NoNameGame.ECS;
+using NoNameGame.ECS.Api;
+using NoNameGame.ECS.Core;
 using System.Linq;
-using Game1.ECS.Components;
-using Game1.Core.Services;
-using Game1.Core.Events;
-using Game1.Gameplay.Components;
-using Game1.Gameplay.Events;
+using NoNameGame.ECS.Components;
+using NoNameGame.Core.Services;
+using NoNameGame.Core.Events;
+using NoNameGame.Gameplay.Components;
+using NoNameGame.Gameplay.Events;
 
-namespace Game1.Gameplay.StateManagement
+namespace NoNameGame.Gameplay.StateManagement
 {
     public class PlayerMovingHandler : StateHandlerBase
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game1
+namespace NoNameGame.Main
 {
 #if WINDOWS || LINUX
     /// <summary>

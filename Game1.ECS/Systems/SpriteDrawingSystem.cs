@@ -1,6 +1,6 @@
-﻿using Game1.ECS.Api;
-using Game1.ECS.Components;
-using Game1.ECS.Core;
+﻿using NoNameGame.ECS.Api;
+using NoNameGame.ECS.Components;
+using NoNameGame.ECS.Core;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.ECS.Systems
+namespace NoNameGame.ECS.Systems
 {
     public class SpriteDrawingSystem : SystemBase, IDrawingSystem
     {

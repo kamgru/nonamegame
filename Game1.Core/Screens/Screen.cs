@@ -1,9 +1,9 @@
-﻿using Game1.Core.Services;
+﻿using NoNameGame.Core.Services;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Game1.Core.Screens
+namespace NoNameGame.Core.Screens
 {
     public abstract class Screen
     {

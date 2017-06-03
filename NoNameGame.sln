@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoNameGame", "Game1\NoNameGame.csproj", "{2772E1A3-D3D4-4B0C-9D8F-C4A8DFE91DEA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoNameGame.Main", "Game1\NoNameGame.Main.csproj", "{2772E1A3-D3D4-4B0C-9D8F-C4A8DFE91DEA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoNameGame.ECS", "Game1.ECS\NoNameGame.ECS.csproj", "{DB4E4B0D-AC7A-472C-BCE9-56D88277E37F}"
 EndProject

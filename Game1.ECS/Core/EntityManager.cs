@@ -2,9 +2,9 @@
 using System.Linq;
 using System;
 using System.Diagnostics;
-using Game1.ECS.Api;
+using NoNameGame.ECS.Api;
 
-namespace Game1.ECS.Core
+namespace NoNameGame.ECS.Core
 {
     public class EntityManager : IEntityManager
     {

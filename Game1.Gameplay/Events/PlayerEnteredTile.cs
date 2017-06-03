@@ -1,8 +1,8 @@
-﻿using Game1.Core.Events;
-using Game1.ECS.Core;
-using Game1.Gameplay.Components;
+﻿using NoNameGame.Core.Events;
+using NoNameGame.ECS.Core;
+using NoNameGame.Gameplay.Components;
 
-namespace Game1.Gameplay.Events
+namespace NoNameGame.Gameplay.Events
 {
     public class PlayerEnteredTile : IGameEvent
     {

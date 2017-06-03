@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Game1.Data;
+using NoNameGame.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Game1.Core.Services;
+using NoNameGame.Core.Services;
 
-namespace Game1.Gui
+namespace NoNameGame.Main.Gui
 {
     public class Menu
     {

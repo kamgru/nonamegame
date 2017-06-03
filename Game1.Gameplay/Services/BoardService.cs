@@ -1,11 +1,11 @@
-﻿using Game1.Data;
+﻿using NoNameGame.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.Gameplay.Services
+namespace NoNameGame.Gameplay.Services
 {
     public class BoardService
     {

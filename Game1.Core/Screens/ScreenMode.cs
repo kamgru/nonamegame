@@ -1,4 +1,4 @@
-﻿namespace Game1.Core.Screens
+﻿namespace NoNameGame.Core.Screens
 {
     public enum ScreenMode
     {

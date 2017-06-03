@@ -1,11 +1,11 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using Game1.Core.Input;
-using Game1.Data;
+using NoNameGame.Core.Input;
+using NoNameGame.Data;
 using Microsoft.Xna.Framework.Input;
 
-namespace Game1.Core.Services
+namespace NoNameGame.Core.Services
 {
 
     public class ConfigurationService

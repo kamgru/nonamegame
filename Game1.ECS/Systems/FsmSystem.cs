@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using Game1.ECS.Core;
-using Game1.ECS.Api;
-using Game1.ECS.Components;
+using NoNameGame.ECS.Core;
+using NoNameGame.ECS.Api;
+using NoNameGame.ECS.Components;
 
-namespace Game1.ECS.Systems
+namespace NoNameGame.ECS.Systems
 {
     public class FsmSystem : SystemBase, IUpdatingSystem
     {

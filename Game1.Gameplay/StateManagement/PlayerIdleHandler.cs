@@ -1,10 +1,10 @@
-﻿using Game1.Core.Services;
-using Game1.Data;
-using Game1.ECS;
-using Game1.ECS.Api;
-using Game1.ECS.Core;
+﻿using NoNameGame.Core.Services;
+using NoNameGame.Data;
+using NoNameGame.ECS;
+using NoNameGame.ECS.Api;
+using NoNameGame.ECS.Core;
 
-namespace Game1.Gameplay.StateManagement
+namespace NoNameGame.Gameplay.StateManagement
 {
     public class PlayerIdleHandler : StateHandlerBase
     {

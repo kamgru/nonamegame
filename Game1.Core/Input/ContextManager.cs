@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Game1.Core.Input
+namespace NoNameGame.Core.Input
 {
     public class ContextManager
     {

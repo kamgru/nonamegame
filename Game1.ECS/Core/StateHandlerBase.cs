@@ -2,7 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.ECS.Core
+namespace NoNameGame.ECS.Core
 {
     public abstract class StateHandlerBase
     {

@@ -1,11 +1,11 @@
-﻿using Game1.ECS.Components;
+﻿using NoNameGame.ECS.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.ECS.Core
+namespace NoNameGame.ECS.Core
 {
     public class Entity
     {

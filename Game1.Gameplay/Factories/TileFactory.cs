@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
-using Game1.Data;
+using NoNameGame.Data;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using Game1.ECS.Api;
-using Game1.ECS.Core;
-using Game1.ECS.Components;
-using Game1.ECS.Factories;
-using Game1.ECS;
-using Game1.Core.Services;
-using Game1.Gameplay.Components;
+using NoNameGame.ECS.Api;
+using NoNameGame.ECS.Core;
+using NoNameGame.ECS.Components;
+using NoNameGame.ECS.Factories;
+using NoNameGame.ECS;
+using NoNameGame.Core.Services;
+using NoNameGame.Gameplay.Components;
 
-namespace Game1.Gameplay.Factories
+namespace NoNameGame.Gameplay.Factories
 {
     public class TileFactory : EntityFactory
     {

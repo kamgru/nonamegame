@@ -1,7 +1,7 @@
-﻿using Game1.ECS.Core;
+﻿using NoNameGame.ECS.Core;
 using System.Collections.Generic;
 
-namespace Game1.ECS.Api
+namespace NoNameGame.ECS.Api
 {
     public interface IEntityManager
     {

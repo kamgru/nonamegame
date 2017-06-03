@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Game1.Data;
-using Game1.Core.Screens;
-using Game1.Core.Services;
+using NoNameGame.Data;
+using NoNameGame.Core.Screens;
+using NoNameGame.Core.Services;
 
-namespace Game1.Screens
+namespace NoNameGame.Main.Screens
 {
     public class StageClearScreen : Screen
     {

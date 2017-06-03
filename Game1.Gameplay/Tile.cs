@@ -1,6 +1,6 @@
-﻿using Game1.Data;
+﻿using NoNameGame.Data;
 
-namespace Game1.Gameplay
+namespace NoNameGame.Gameplay
 {
     public class Tile
     {

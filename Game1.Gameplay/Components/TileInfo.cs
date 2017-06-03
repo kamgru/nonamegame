@@ -1,13 +1,13 @@
-﻿using Game1.Data;
+﻿using NoNameGame.Data;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Game1.ECS.Core;
+using NoNameGame.ECS.Core;
 using System.Threading.Tasks;
 
-namespace Game1.Gameplay.Components
+namespace NoNameGame.Gameplay.Components
 {
     public class TileInfo : ComponentBase
     {

@@ -1,18 +1,18 @@
-﻿using Game1.ECS.Factories;
+﻿using NoNameGame.ECS.Factories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Game1.ECS.Api;
+using NoNameGame.ECS.Api;
 using Microsoft.Xna.Framework.Content;
-using Game1.ECS.Core;
+using NoNameGame.ECS.Core;
 using Microsoft.Xna.Framework;
-using Game1.ECS.Components;
-using Game1.ECS;
+using NoNameGame.ECS.Components;
+using NoNameGame.ECS;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Game1.Gameplay.Factories
+namespace NoNameGame.Gameplay.Factories
 {
     public class PoofFactory : EntityFactory
     {

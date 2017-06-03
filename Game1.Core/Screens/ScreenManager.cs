@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
-namespace Game1.Core.Screens
+namespace NoNameGame.Core.Screens
 {
     public class ScreenManager : DrawableGameComponent
     {

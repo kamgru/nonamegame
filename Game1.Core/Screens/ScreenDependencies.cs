@@ -1,4 +1,4 @@
-﻿using Game1.Core.Services;
+﻿using NoNameGame.Core.Services;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.Core.Screens
+namespace NoNameGame.Core.Screens
 {
     public class ScreenDependencies
     {

@@ -1,4 +1,4 @@
-﻿namespace Game1.ECS.Api
+﻿namespace NoNameGame.ECS.Api
 {
     public interface ISystem
     {
