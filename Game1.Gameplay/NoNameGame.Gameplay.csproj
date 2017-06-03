@@ -7,8 +7,8 @@
     <ProjectGuid>{EB4598BD-01B7-4795-9850-6D888537F81A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Game1.Gameplay</RootNamespace>
-    <AssemblyName>Game1.Gameplay</AssemblyName>
+    <RootNamespace>NoNameGame.Gameplay</RootNamespace>
+    <AssemblyName>NoNameGame.Gameplay</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

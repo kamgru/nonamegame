@@ -7,8 +7,8 @@
     <ProjectGuid>{DB4E4B0D-AC7A-472C-BCE9-56D88277E37F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Game1.ECS</RootNamespace>
-    <AssemblyName>Game1.ECS</AssemblyName>
+    <RootNamespace>NoNameGame.ECS</RootNamespace>
+    <AssemblyName>NoNameGame.ECS</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
