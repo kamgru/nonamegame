@@ -67,21 +67,21 @@
     <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Game1.Core\Game1.Core.csproj">
+    <ProjectReference Include="..\Game1.Core\NoNameGame.Core.csproj">
       <Project>{de69a2b5-76ab-4376-b0b7-4ce0837de0a3}</Project>
-      <Name>Game1.Core</Name>
+      <Name>NoNameGame.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Game1.Data\Game1.Data.csproj">
+    <ProjectReference Include="..\Game1.Data\NoNameGame.Data.csproj">
       <Project>{87028b69-26e4-4622-a85c-c842fb5853cd}</Project>
-      <Name>Game1.Data</Name>
+      <Name>NoNameGame.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Game1.ECS\Game1.ECS.csproj">
+    <ProjectReference Include="..\Game1.ECS\NoNameGame.ECS.csproj">
       <Project>{db4e4b0d-ac7a-472c-bce9-56d88277e37f}</Project>
-      <Name>Game1.ECS</Name>
+      <Name>NoNameGame.ECS</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Game1.Gameplay\Game1.Gameplay.csproj">
+    <ProjectReference Include="..\Game1.Gameplay\NoNameGame.Gameplay.csproj">
       <Project>{eb4598bd-01b7-4795-9850-6d888537f81a}</Project>
-      <Name>Game1.Gameplay</Name>
+      <Name>NoNameGame.Gameplay</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

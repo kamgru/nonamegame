@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DE69A2B5-76AB-4376-B0B7-4CE0837DE0A3}</ProjectGuid>
+    <ProjectGuid>{EB4598BD-01B7-4795-9850-6D888537F81A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Game1.Core</RootNamespace>
-    <AssemblyName>Game1.Core</AssemblyName>
+    <RootNamespace>Game1.Gameplay</RootNamespace>
+    <AssemblyName>Game1.Gameplay</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -44,30 +44,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Screens\ScreenMode.cs" />
-    <Compile Include="Services\ConfigurationService.cs" />
-    <Compile Include="Events\IGameEvent.cs" />
-    <Compile Include="Events\EventManager.cs" />
-    <Compile Include="Services\InputService.cs" />
-    <Compile Include="Input\ContextManager.cs" />
-    <Compile Include="Input\InputContext.cs" />
-    <Compile Include="Input\InputIntent.cs" />
-    <Compile Include="Input\InputProvider.cs" />
-    <Compile Include="Input\IntentMapper.cs" />
+    <Compile Include="Board.cs" />
+    <Compile Include="Components\BoardInfo.cs" />
+    <Compile Include="Components\MoveSpeed.cs" />
+    <Compile Include="Components\Player.cs" />
+    <Compile Include="Components\PositionOnBoard.cs" />
+    <Compile Include="Components\TargetScreenPosition.cs" />
+    <Compile Include="Components\TileInfo.cs" />
+    <Compile Include="Events\PlayerAbandonedTile.cs" />
+    <Compile Include="Events\PlayerEnteredTile.cs" />
+    <Compile Include="Events\StageClear.cs" />
+    <Compile Include="Factories\BoardFactory.cs" />
+    <Compile Include="Factories\PlayerFactory.cs" />
+    <Compile Include="Factories\PoofFactory.cs" />
+    <Compile Include="Factories\TileFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Screens\Screen.cs" />
-    <Compile Include="Screens\ScreenDependencies.cs" />
-    <Compile Include="Screens\ScreenManager.cs" />
-    <Compile Include="Services\Session.cs" />
+    <Compile Include="Services\BoardService.cs" />
+    <Compile Include="StateManagement\PlayerDeadHandler.cs" />
+    <Compile Include="StateManagement\PlayerIdleHandler.cs" />
+    <Compile Include="StateManagement\PlayerMovingHandler.cs" />
+    <Compile Include="StateManagement\TileDestroyedHandler.cs" />
+    <Compile Include="Systems\MoveToScreenPositionSystem.cs" />
+    <Compile Include="Systems\PlayerInputHandlingSystem.cs" />
+    <Compile Include="Systems\TileEventsSystem.cs" />
+    <Compile Include="Tile.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Game1.Core\NoNameGame.Core.csproj">
+      <Project>{de69a2b5-76ab-4376-b0b7-4ce0837de0a3}</Project>
+      <Name>NoNameGame.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Game1.Data\NoNameGame.Data.csproj">
+      <Project>{87028b69-26e4-4622-a85c-c842fb5853cd}</Project>
+      <Name>NoNameGame.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Game1.ECS\NoNameGame.ECS.csproj">
+      <Project>{db4e4b0d-ac7a-472c-bce9-56d88277e37f}</Project>
+      <Name>NoNameGame.ECS</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Game1.Data\Game1.Data.csproj">
-      <Project>{87028b69-26e4-4622-a85c-c842fb5853cd}</Project>
-      <Name>Game1.Data</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
