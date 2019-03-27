@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace NoNameGame.Core.Events
 {
-
     public class EventManager
     {
         private readonly Queue<IGameEvent> _gameEvents = new Queue<IGameEvent>();

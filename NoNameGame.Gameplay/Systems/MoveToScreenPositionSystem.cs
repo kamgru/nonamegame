@@ -7,23 +7,50 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NoNameGame.ECS.Messaging;
 
 namespace NoNameGame.Gameplay.Systems
 {
-    public class MoveToScreenPositionSystem : SystemBase, IUpdatingSystem
+    public class MoveToScreenPositionSystem 
+        : SystemBase, 
+        IUpdatingSystem,
+        IMessageListener<ComponentAdded<TargetScreenPosition>>,
+        IMessageListener<ComponentAdded<MoveSpeed>>
     {
-        public MoveToScreenPositionSystem(IEntityManager entityManager)
-            :base(entityManager)
+        public MoveToScreenPositionSystem()
         {
+            SystemMessageBroker.AddListener<ComponentAdded<TargetScreenPosition>>(this);
+            SystemMessageBroker.AddListener<ComponentAdded<MoveSpeed>>(this);
+        }
+
+        public void Handle(ComponentAdded<MoveSpeed> message)
+        {
+            if (message.Entity.HasComponent<TargetScreenPosition>())
+            {
+                Entities.Add(message.Entity);
+            }
+        }
+
+        public void Handle(ComponentAdded<TargetScreenPosition> message)
+        {
+            if (message.Entity.HasComponent<MoveSpeed>())
+            {
+                Entities.Add(message.Entity);
+            }
+        }
+
+        public override void Handle(EntityCreated message)
+        {
+            if (message.Entity.HasComponent<MoveSpeed>()
+                && message.Entity.HasComponent<TargetScreenPosition>())
+            {
+                Entities.Add(message.Entity);
+            }
         }
 
         public void Update(GameTime gameTime)
         {
-            var entities = EntityManager.GetEntities().Where(x => x.HasComponent<TargetScreenPosition>() 
-                && x.HasComponent<MoveSpeed>());
-
-
-            foreach (var entity in entities)
+            foreach (var entity in Entities)
             {
                 var moveTo = entity.GetComponent<TargetScreenPosition>();
 

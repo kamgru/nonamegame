@@ -8,22 +8,39 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NoNameGame.ECS.Messaging;
 
 namespace NoNameGame.ECS.Systems
 {
-    public class AnimationSystem : SystemBase, IUpdatingSystem
+    public class AnimationSystem 
+        : SystemBase, 
+        IUpdatingSystem,
+        IMessageListener<ComponentAdded<Animator>>
     {
         private readonly int _fps;
 
-        public AnimationSystem(IEntityManager entityManager, int fps)
-            :base(entityManager)
+        public AnimationSystem(int fps)
         {
             _fps = fps;
+            SystemMessageBroker.AddListener<ComponentAdded<Animator>>(this);
+        }
+
+        public void Handle(ComponentAdded<Animator> message)
+        {
+            Entities.Add(message.Entity);
+        }
+
+        public override void Handle(EntityCreated message)
+        {
+            if (message.Entity.HasComponent<Animator>())
+            {
+                Entities.Add(message.Entity);
+            }
         }
 
         public void Update(GameTime gameTime)
         {
-            var animators = EntityManager.GetEntitiesByComponent<Animator>().Select(x => x.GetComponent<Animator>());
+            var animators = Entities.Select(x => x.GetComponent<Animator>());
 
             foreach (var animator in animators.Where(x => x.IsPlaying && x.CurrentAnimation != null))
             {

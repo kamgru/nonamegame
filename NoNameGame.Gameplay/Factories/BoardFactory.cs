@@ -19,7 +19,10 @@ namespace NoNameGame.Gameplay.Factories
     {
         private readonly TileFactory _tileFactory;
 
-        public BoardFactory(IEntityManager entityManager, ContentManager contentManager, TileFactory tileFactory) 
+        public BoardFactory(
+            IEntityManager entityManager, 
+            ContentManager contentManager, 
+            TileFactory tileFactory) 
             : base(entityManager, contentManager)
         {
             _tileFactory = tileFactory;

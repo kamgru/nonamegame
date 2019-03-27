@@ -1,4 +1,5 @@
 ﻿using NoNameGame.ECS.Components;
+using NoNameGame.ECS.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,17 +38,19 @@ namespace NoNameGame.ECS.Core
             return (TComponent)_components.FirstOrDefault(x => x is TComponent);
         }
 
-        public ComponentBase AddComponent(ComponentBase component)
+        public TComponent AddComponent<TComponent>(TComponent component) where TComponent : ComponentBase
         {
             _components.Add(component);
             component.Entity = this;
+            SystemMessageBroker.Send(new ComponentAdded<TComponent>(component, this));
             return component;
         }
 
-        public void RemoveComponent(ComponentBase component)
+        public void RemoveComponent<TComponent>(TComponent component) where TComponent : ComponentBase
         {
             _components.Remove(component);
             component.Entity = null;
+            SystemMessageBroker.Send(new ComponentRemoved<TComponent>(component, this));
         }
 
         public IEnumerable<ComponentBase> GetComponents()

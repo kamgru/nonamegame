@@ -8,21 +8,28 @@ using NoNameGame.Core.Services;
 using NoNameGame.Core.Events;
 using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Events;
+using NoNameGame.ECS.Messaging;
+using System.Collections.Generic;
 
 namespace NoNameGame.Gameplay.StateManagement
 {
-    public class PlayerMovingHandler : StateHandlerBase
+    public class PlayerMovingHandler 
+        : StateHandlerBase,
+        IMessageListener<EntityCreated>,
+        IMessageListener<EntityDestroyed>
     {
         private readonly InputService _inputService;
-        private readonly IEntityManager _entityManager;
         private readonly EventManager _eventManager;
+        private readonly ICollection<Entity> _entities;
 
-        public PlayerMovingHandler(InputService inputService, IEntityManager entityManager, EventManager eventManager)
+        public PlayerMovingHandler(InputService inputService, EventManager eventManager)
             : base(PlayerStates.Moving)
         {
             _inputService = inputService;
-            _entityManager = entityManager;
             _eventManager = eventManager;
+            _entities = new List<Entity>();
+            SystemMessageBroker.AddListener<EntityCreated>(this);
+            SystemMessageBroker.AddListener<EntityDestroyed>(this);
         }
 
         public override void Handle(EntityState entityState)
@@ -38,8 +45,7 @@ namespace NoNameGame.Gameplay.StateManagement
                 if (entityState.Entity.Transform.Position == entityState.Entity.GetComponent<TargetScreenPosition>().Position)
                 {
                     var currentPosition = entityState.Entity.GetComponent<PositionOnBoard>().Current;
-                    var currentTile = _entityManager.GetEntities()
-                        .Where(x => x.HasComponent<TileInfo>())
+                    var currentTile = _entities.Where(x => x.HasComponent<TileInfo>())
                         .Select(x => new { TileInfo = x.GetComponent<TileInfo>(), Entity = x })
                         .FirstOrDefault(x => x.TileInfo.Position == currentPosition);
 
@@ -59,6 +65,16 @@ namespace NoNameGame.Gameplay.StateManagement
                     }
                 }
             }
+        }
+
+        public void Handle(EntityCreated message)
+        {
+            _entities.Add(message.Entity);
+        }
+
+        public void Handle(EntityDestroyed message)
+        {
+            _entities.Remove(message.Entity);
         }
     }
 }

@@ -11,17 +11,21 @@ using NoNameGame.Gameplay.Events;
 using NoNameGame.Core.Events;
 using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Factories;
+using NoNameGame.ECS.Messaging;
 
 namespace NoNameGame.Gameplay.Systems
 {
-    public class TileEventsSystem : SystemBase
+    public class TileEventsSystem 
+        : SystemBase,
+        IMessageListener<ComponentAdded<TileInfo>>
     {
         private readonly Entity _poof;
 
-        public TileEventsSystem(IEntityManager entityManager, EventManager eventManager, PoofFactory poofFactory)
-            : base(entityManager)
+        public TileEventsSystem(
+            EventManager eventManager, 
+            PoofFactory poofFactory)
         {
-
+            SystemMessageBroker.AddListener<ComponentAdded<TileInfo>>(this);
             _poof = poofFactory.CreatePoof();
 
             eventManager.On<PlayerAbandonedTile>(gameEvent =>
@@ -48,9 +52,7 @@ namespace NoNameGame.Gameplay.Systems
 
                 if (gameEvent.TileInfo.TileType == TileType.End)
                 {
-                    var tiles = EntityManager.GetEntities()
-                    .Where(x => x.HasComponent<TileInfo>())
-                    .Select(x => x.GetComponent<TileInfo>());
+                    var tiles = Entities.Select(x => x.GetComponent<TileInfo>());
 
                     if (tiles.Where(x => x.TileType == TileType.Normal).All(x => x.Destroyed))
                     {
@@ -58,6 +60,19 @@ namespace NoNameGame.Gameplay.Systems
                     }
                 }
             });
+        }
+
+        public void Handle(ComponentAdded<TileInfo> message)
+        {
+            Entities.Add(message.Entity);
+        }
+
+        public override void Handle(EntityCreated message)
+        {
+            if (message.Entity.HasComponent<TileInfo>())
+            {
+                Entities.Add(message.Entity);
+            }
         }
     }
 }

@@ -4,16 +4,34 @@ using Microsoft.Xna.Framework;
 using NoNameGame.ECS.Core;
 using NoNameGame.ECS.Api;
 using NoNameGame.ECS.Components;
+using NoNameGame.ECS.Messaging;
 
 namespace NoNameGame.ECS.Systems
 {
-    public class FsmSystem : SystemBase, IUpdatingSystem
+    public class FsmSystem 
+        : SystemBase, 
+        IUpdatingSystem,
+        IMessageListener<ComponentAdded<State>>
     {
         private readonly IDictionary<string, StateHandlerBase> _handlersDictionary;
 
-        public FsmSystem(IEntityManager entityManager) : base(entityManager)
+        public FsmSystem()
         {
             _handlersDictionary = new Dictionary<string, StateHandlerBase>();
+            SystemMessageBroker.AddListener<ComponentAdded<State>>(this);
+        }
+
+        public void Handle(ComponentAdded<State> message)
+        {
+            Entities.Add(message.Entity);
+        }
+
+        public override void Handle(EntityCreated message)
+        {
+            if (message.Entity.HasComponent<State>())
+            {
+                Entities.Add(message.Entity);
+            }
         }
 
         public void RegisterHandler(StateHandlerBase handler)
@@ -23,7 +41,7 @@ namespace NoNameGame.ECS.Systems
 
         public void Update(GameTime gameTime)
         {
-            var groups = EntityManager.GetEntities().Where(x => x.HasComponent<State>())
+            var groups = Entities
                 .Select(x => new EntityState { Entity = x, State = x.GetComponent<State>()})
                 .GroupBy(x => x.State.CurrentState)
                 .ToList();

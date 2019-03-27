@@ -84,15 +84,15 @@ namespace NoNameGame.Main.Screens
         private void SetupSystems()
         {
             _systemsManager = new SystemsManager();
-            _systemsManager.Push(new PlayerInputHandlingSystem(_entityManager, InputService, _configurationService, _eventManager));
-            _systemsManager.Push(new SpriteDrawingSystem(_entityManager, ContentManager, SpriteBatch));
-            _systemsManager.Push(new AnimationSystem(_entityManager, _configurationService.GetFps()));
-            _systemsManager.Push(new MoveToScreenPositionSystem(_entityManager));
-            _systemsManager.Push(new TileEventsSystem(_entityManager, _eventManager, new PoofFactory(_entityManager, ContentManager)));
+            _systemsManager.Push(new PlayerInputHandlingSystem(InputService, _configurationService, _eventManager));
+            _systemsManager.Push(new SpriteDrawingSystem(ContentManager, SpriteBatch));
+            _systemsManager.Push(new AnimationSystem(_configurationService.GetFps()));
+            _systemsManager.Push(new MoveToScreenPositionSystem());
+            _systemsManager.Push(new TileEventsSystem(_eventManager, new PoofFactory(_entityManager, ContentManager)));
 
-            var fsmSystem = new FsmSystem(_entityManager);
+            var fsmSystem = new FsmSystem();
             fsmSystem.RegisterHandler(new PlayerIdleHandler(InputService));
-            fsmSystem.RegisterHandler(new PlayerMovingHandler(InputService, _entityManager, _eventManager));
+            fsmSystem.RegisterHandler(new PlayerMovingHandler(InputService, _eventManager));
             fsmSystem.RegisterHandler(new PlayerDeadHandler(_entityManager));
             fsmSystem.RegisterHandler(new TileDestroyedHandler(_entityManager));
             _systemsManager.Push(fsmSystem);

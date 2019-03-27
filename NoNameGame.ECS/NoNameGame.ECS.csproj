@@ -47,6 +47,13 @@
   <ItemGroup>
     <Compile Include="Animation.cs" />
     <Compile Include="Core\EntityFactory.cs" />
+    <Compile Include="Messaging\ComponentAdded.cs" />
+    <Compile Include="Messaging\ComponentRemoved.cs" />
+    <Compile Include="Messaging\EntityCreated.cs" />
+    <Compile Include="Messaging\EntityDestroyed.cs" />
+    <Compile Include="Messaging\IMessage.cs" />
+    <Compile Include="Messaging\IMessageListener.cs" />
+    <Compile Include="Messaging\SystemMessageBroker.cs" />
     <Compile Include="Systems\AnimationSystem.cs" />
     <Compile Include="Components\Animator.cs" />
     <Compile Include="Core\ComponentBase.cs" />

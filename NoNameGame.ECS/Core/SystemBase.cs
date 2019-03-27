@@ -1,4 +1,5 @@
 ﻿using NoNameGame.ECS.Api;
+using NoNameGame.ECS.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +8,19 @@ using System.Threading.Tasks;
 
 namespace NoNameGame.ECS.Core
 {
-    public abstract class SystemBase : ISystem
+    public abstract class SystemBase 
+        : ISystem,
+        IMessageListener<EntityCreated>,
+        IMessageListener<EntityDestroyed>
     {
-        protected readonly IEntityManager EntityManager;
         protected bool Active;
+        protected ICollection<Entity> Entities;
 
-        protected SystemBase(IEntityManager entityManager)
+        protected SystemBase()
         {
-            EntityManager = entityManager;
+            Entities = new List<Entity>();
+            SystemMessageBroker.AddListener<EntityCreated>(this);
+            SystemMessageBroker.AddListener<EntityDestroyed>(this);
         }
 
         public virtual void SetActive(bool value)
@@ -25,6 +31,16 @@ namespace NoNameGame.ECS.Core
         public virtual bool IsActive()
         {
             return Active;
+        }
+
+        public virtual void Handle(EntityCreated message)
+        {
+            Entities.Add(message.Entity);
+        }
+
+        public virtual void Handle(EntityDestroyed message)
+        {
+            Entities.Remove(message.Entity);
         }
     }
 }

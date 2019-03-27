@@ -12,10 +12,16 @@ using NoNameGame.Core.Services;
 using NoNameGame.Core.Events;
 using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Events;
+using NoNameGame.ECS.Messaging;
 
 namespace NoNameGame.Gameplay.Systems
 {
-    public class PlayerInputHandlingSystem : SystemBase, IUpdatingSystem
+    public class PlayerInputHandlingSystem 
+        : SystemBase, 
+        IUpdatingSystem,
+        IMessageListener<ComponentAdded<Player>>,
+        IMessageListener<ComponentAdded<PositionOnBoard>>,
+        IMessageListener<ComponentAdded<TileInfo>>
     {
         private readonly Dictionary<Intent, Vector2> _directionMap = new Dictionary<Intent, Vector2>
         {
@@ -29,12 +35,47 @@ namespace NoNameGame.Gameplay.Systems
         private readonly EventManager _eventManager;
         private readonly Point _tileSize;
 
-        public PlayerInputHandlingSystem(IEntityManager entityManager, InputService inputService, ConfigurationService configurationService, EventManager eventManager) 
-            : base(entityManager)
+        public PlayerInputHandlingSystem(
+            InputService inputService, 
+            ConfigurationService configurationService, 
+            EventManager eventManager) 
         {
             _inputService = inputService;
             _eventManager = eventManager;
             _tileSize = configurationService.GetTileSizeInPixels();
+            SystemMessageBroker.AddListener<ComponentAdded<Player>>(this);
+            SystemMessageBroker.AddListener<ComponentAdded<PositionOnBoard>>(this);
+            SystemMessageBroker.AddListener<ComponentAdded<TileInfo>>(this);
+        }
+
+        public void Handle(ComponentAdded<TileInfo> message)
+        {
+            Entities.Add(message.Entity);
+        }
+
+        public void Handle(ComponentAdded<PositionOnBoard> message)
+        {
+            if (message.Entity.HasComponent<Player>())
+            {
+                Entities.Add(message.Entity);
+            }
+        }
+
+        public void Handle(ComponentAdded<Player> message)
+        {
+            if (message.Entity.HasComponent<PositionOnBoard>())
+            {
+                Entities.Add(message.Entity);
+            }
+        }
+
+        public override void Handle(EntityCreated message)
+        {
+            if (message.Entity.HasComponent<Player>()
+                && message.Entity.HasComponent<PositionOnBoard>())
+            {
+                Entities.Add(message.Entity);
+            }
         }
 
         public void Update(GameTime gameTime)
@@ -45,7 +86,7 @@ namespace NoNameGame.Gameplay.Systems
 
             if (requestedDirections.Count() == 1)
             {
-                var player = EntityManager.GetEntities()
+                var player = Entities
                     .Single(x => x.HasComponent<PositionOnBoard>() && x.HasComponent<Player>());
 
                 var direction = requestedDirections.First();
@@ -53,8 +94,7 @@ namespace NoNameGame.Gameplay.Systems
                 {
                     var boardPosition = player.GetComponent<PositionOnBoard>();
 
-                    var tile = EntityManager.GetEntities()
-                        .Where(x => x.HasComponent<TileInfo>())
+                    var tile = Entities.Where(x => x.HasComponent<TileInfo>())
                         .First(x => x.GetComponent<TileInfo>().Position == boardPosition.Current);
 
                     boardPosition.Translate(direction.ToPoint());
