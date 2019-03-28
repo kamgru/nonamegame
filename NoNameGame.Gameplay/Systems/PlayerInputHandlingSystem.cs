@@ -10,6 +10,8 @@ using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Events;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems;
+using NoNameGame.ECS.Entities;
+using System;
 
 namespace NoNameGame.Gameplay.Systems
 {
@@ -17,7 +19,6 @@ namespace NoNameGame.Gameplay.Systems
         : SystemBase, 
         IUpdatingSystem,
         IMessageListener<ComponentAdded<Player>>,
-        IMessageListener<ComponentAdded<PositionOnBoard>>,
         IMessageListener<ComponentAdded<TileInfo>>
     {
         private readonly Dictionary<Intent, Vector2> _directionMap = new Dictionary<Intent, Vector2>
@@ -31,6 +32,8 @@ namespace NoNameGame.Gameplay.Systems
         private readonly InputService _inputService;
         private readonly EventManager _eventManager;
         private readonly Point _tileSize;
+        private readonly List<Entity> _tileEntities = new List<Entity>();
+        private Entity _playerEntity;
 
         public PlayerInputHandlingSystem(
             InputService inputService, 
@@ -41,28 +44,24 @@ namespace NoNameGame.Gameplay.Systems
             _eventManager = eventManager;
             _tileSize = configurationService.GetTileSizeInPixels();
             SystemMessageBroker.AddListener<ComponentAdded<Player>>(this);
-            SystemMessageBroker.AddListener<ComponentAdded<PositionOnBoard>>(this);
             SystemMessageBroker.AddListener<ComponentAdded<TileInfo>>(this);
         }
 
         public void Handle(ComponentAdded<TileInfo> message)
         {
-            Entities.Add(message.Entity);
-        }
-
-        public void Handle(ComponentAdded<PositionOnBoard> message)
-        {
-            if (message.Entity.HasComponent<Player>())
-            {
-                Entities.Add(message.Entity);
-            }
+            _tileEntities.Add(message.Entity);
         }
 
         public void Handle(ComponentAdded<Player> message)
         {
-            if (message.Entity.HasComponent<PositionOnBoard>())
+            _playerEntity = message.Entity;
+        }
+
+        public override void Handle(EntityDestroyed message)
+        {
+            if (message.Entity.HasComponent<TileInfo>())
             {
-                Entities.Add(message.Entity);
+                _tileEntities.Remove(message.Entity);
             }
         }
 
@@ -74,30 +73,31 @@ namespace NoNameGame.Gameplay.Systems
 
             if (requestedDirections.Count() == 1)
             {
-                var player = Entities
-                    .Single(x => x.HasComponent<PositionOnBoard>() && x.HasComponent<Player>());
-
                 var direction = requestedDirections.First();
                 if (direction != Vector2.Zero)
                 {
-                    var boardPosition = player.GetComponent<PositionOnBoard>();
-
-                    var tile = Entities.Where(x => x.HasComponent<TileInfo>())
-                        .First(x => x.GetComponent<TileInfo>().Position == boardPosition.Current);
-
-                    boardPosition.Translate(direction.ToPoint());
-
-                    player.GetComponent<TargetScreenPosition>().Position += direction * _tileSize.ToVector2();
-                    player.GetComponent<State>().CurrentState = PlayerStates.Moving;
+                    var occupiedTile = FindOccupiedTile();
+                    MovePlayer(direction, _tileSize.ToVector2());
 
                     _eventManager.Queue(new PlayerAbandonedTile
                     {
-                        TileInfo = tile.GetComponent<TileInfo>(),
-                        State = tile.GetComponent<State>(),
-                        TileEntity = tile
+                        TileInfo = occupiedTile.GetComponent<TileInfo>(),
+                        State = occupiedTile.GetComponent<State>(),
+                        TileEntity = occupiedTile
                     });
                 }
             }
         }
+
+        private void MovePlayer(Vector2 direction, Vector2 distance)
+        {
+            _playerEntity.GetComponent<PositionOnBoard>().Translate(direction.ToPoint());
+            _playerEntity.GetComponent<TargetScreenPosition>().Position += direction * distance;
+            _playerEntity.GetComponent<State>().CurrentState = PlayerStates.Moving;
+        }
+
+        private Entity FindOccupiedTile()
+            => _tileEntities.First(
+                x => x.GetComponent<TileInfo>().Position == _playerEntity.GetComponent<PositionOnBoard>().Current);
     }
 }
