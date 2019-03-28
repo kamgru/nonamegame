@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Animation.cs" />
+    <Compile Include="Components\Animation.cs" />
     <Compile Include="Messaging\ComponentAdded.cs" />
     <Compile Include="Messaging\ComponentRemoved.cs" />
     <Compile Include="Messaging\EntityCreated.cs" />
