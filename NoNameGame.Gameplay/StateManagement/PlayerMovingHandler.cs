@@ -1,7 +1,4 @@
 ﻿using NoNameGame.Data;
-using NoNameGame.ECS;
-using NoNameGame.ECS.Api;
-using NoNameGame.ECS.Core;
 using System.Linq;
 using NoNameGame.ECS.Components;
 using NoNameGame.Core.Services;
@@ -10,6 +7,8 @@ using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Events;
 using NoNameGame.ECS.Messaging;
 using System.Collections.Generic;
+using NoNameGame.ECS.StateHandling;
+using NoNameGame.ECS.Entities;
 
 namespace NoNameGame.Gameplay.StateManagement
 {

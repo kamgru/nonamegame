@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using NoNameGame.Data;
-using NoNameGame.ECS.Api;
-using NoNameGame.ECS.Core;
 using NoNameGame.ECS.Components;
 using NoNameGame.Gameplay.Events;
 using NoNameGame.Core.Events;
 using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Factories;
 using NoNameGame.ECS.Messaging;
+using NoNameGame.ECS.Entities;
+using NoNameGame.ECS.Systems;
 
 namespace NoNameGame.Gameplay.Systems
 {

@@ -1,4 +1,6 @@
-﻿namespace NoNameGame.ECS.Core
+﻿using NoNameGame.ECS.Entities;
+
+namespace NoNameGame.ECS.Components
 {
     public abstract class ComponentBase
     {

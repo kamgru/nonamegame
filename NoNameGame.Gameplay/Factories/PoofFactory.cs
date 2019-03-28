@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Content;
-using NoNameGame.ECS.Core;
 using Microsoft.Xna.Framework;
 using NoNameGame.ECS.Components;
 using NoNameGame.ECS;
 using Microsoft.Xna.Framework.Graphics;
+using NoNameGame.ECS.Entities;
 
 namespace NoNameGame.Gameplay.Factories
 {

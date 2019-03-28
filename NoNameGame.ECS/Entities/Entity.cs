@@ -1,12 +1,8 @@
 ﻿using NoNameGame.ECS.Components;
 using NoNameGame.ECS.Messaging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NoNameGame.ECS.Core
+namespace NoNameGame.ECS.Entities
 {
     public class Entity
     {

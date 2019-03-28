@@ -1,8 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NoNameGame.ECS.Core
+﻿namespace NoNameGame.ECS.StateHandling
 {
     public abstract class StateHandlerBase
     {

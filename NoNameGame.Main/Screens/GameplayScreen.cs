@@ -1,7 +1,5 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using NoNameGame.ECS.Api;
-using NoNameGame.ECS.Core;
 using NoNameGame.ECS.Systems;
 using NoNameGame.Core.Screens;
 using NoNameGame.Core.Services;

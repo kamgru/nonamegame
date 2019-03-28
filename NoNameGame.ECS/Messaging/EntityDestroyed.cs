@@ -1,4 +1,4 @@
-﻿using NoNameGame.ECS.Core;
+﻿using NoNameGame.ECS.Entities;
 
 namespace NoNameGame.ECS.Messaging
 {

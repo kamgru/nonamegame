@@ -1,8 +1,7 @@
 ﻿using NoNameGame.Data;
-using NoNameGame.ECS;
-using NoNameGame.ECS.Api;
-using NoNameGame.ECS.Core;
 using NoNameGame.ECS.Components;
+using NoNameGame.ECS.Entities;
+using NoNameGame.ECS.StateHandling;
 using NoNameGame.Gameplay.Components;
 
 namespace NoNameGame.Gameplay.StateManagement

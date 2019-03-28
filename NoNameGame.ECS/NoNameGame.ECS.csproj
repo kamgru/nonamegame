@@ -55,9 +55,9 @@
     <Compile Include="Messaging\SystemMessageBroker.cs" />
     <Compile Include="Systems\AnimationSystem.cs" />
     <Compile Include="Components\Animator.cs" />
-    <Compile Include="Core\ComponentBase.cs" />
-    <Compile Include="Core\Entity.cs" />
-    <Compile Include="EntityState.cs" />
+    <Compile Include="Components\ComponentBase.cs" />
+    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="StateHandling\EntityState.cs" />
     <Compile Include="Systems\FsmSystem.cs" />
     <Compile Include="Api\IDrawingSystem.cs" />
     <Compile Include="Api\ISystem.cs" />
@@ -67,9 +67,9 @@
     <Compile Include="Components\Sprite.cs" />
     <Compile Include="Systems\SpriteDrawingSystem.cs" />
     <Compile Include="Components\State.cs" />
-    <Compile Include="Core\StateHandlerBase.cs" />
-    <Compile Include="Core\SystemBase.cs" />
-    <Compile Include="Core\SystemsManager.cs" />
+    <Compile Include="StateHandling\StateHandlerBase.cs" />
+    <Compile Include="Systems\SystemBase.cs" />
+    <Compile Include="Systems\SystemsManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

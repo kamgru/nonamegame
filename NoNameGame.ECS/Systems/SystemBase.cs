@@ -1,12 +1,9 @@
 ﻿using NoNameGame.ECS.Api;
+using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Messaging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace NoNameGame.ECS.Core
+namespace NoNameGame.ECS.Systems
 {
     public abstract class SystemBase 
         : ISystem,

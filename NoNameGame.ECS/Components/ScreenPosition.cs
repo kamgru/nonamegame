@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using NoNameGame.ECS.Core;
 
 namespace NoNameGame.ECS.Components
 {

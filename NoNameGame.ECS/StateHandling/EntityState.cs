@@ -1,7 +1,7 @@
 ﻿using NoNameGame.ECS.Components;
-using NoNameGame.ECS.Core;
+using NoNameGame.ECS.Entities;
 
-namespace NoNameGame.ECS
+namespace NoNameGame.ECS.StateHandling
 {
     public class EntityState
     {

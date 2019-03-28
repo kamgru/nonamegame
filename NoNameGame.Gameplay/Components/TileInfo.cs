@@ -1,11 +1,6 @@
 ﻿using NoNameGame.Data;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NoNameGame.ECS.Core;
-using System.Threading.Tasks;
+using NoNameGame.ECS.Components;
 
 namespace NoNameGame.Gameplay.Components
 {

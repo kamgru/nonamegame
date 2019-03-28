@@ -1,13 +1,8 @@
 ﻿using NoNameGame.ECS.Api;
-using NoNameGame.ECS.Core;
 using NoNameGame.Gameplay.Components;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NoNameGame.ECS.Messaging;
+using NoNameGame.ECS.Systems;
 
 namespace NoNameGame.Gameplay.Systems
 {

@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NoNameGame.Data;
+﻿using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using System.Diagnostics;
-using NoNameGame.ECS.Api;
-using NoNameGame.ECS.Core;
+using NoNameGame.ECS.Entities;
 using NoNameGame.Gameplay.Components;
-using NoNameGame.ECS.Messaging;
 
 namespace NoNameGame.Gameplay.Factories
 {

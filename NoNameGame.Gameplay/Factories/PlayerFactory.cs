@@ -3,10 +3,10 @@ using NoNameGame.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using NoNameGame.ECS.Core;
 using NoNameGame.ECS.Components;
 using NoNameGame.ECS;
 using NoNameGame.Gameplay.Components;
+using NoNameGame.ECS.Entities;
 
 namespace NoNameGame.Gameplay.Factories
 {

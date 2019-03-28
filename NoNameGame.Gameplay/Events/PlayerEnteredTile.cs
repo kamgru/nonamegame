@@ -1,5 +1,5 @@
 ﻿using NoNameGame.Core.Events;
-using NoNameGame.ECS.Core;
+using NoNameGame.ECS.Entities;
 using NoNameGame.Gameplay.Components;
 
 namespace NoNameGame.Gameplay.Events
