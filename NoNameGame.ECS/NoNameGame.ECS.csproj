@@ -58,7 +58,6 @@
     <Compile Include="Components\Animator.cs" />
     <Compile Include="Core\ComponentBase.cs" />
     <Compile Include="Core\Entity.cs" />
-    <Compile Include="Core\EntityManager.cs" />
     <Compile Include="EntityState.cs" />
     <Compile Include="Systems\FsmSystem.cs" />
     <Compile Include="Api\IDrawingSystem.cs" />

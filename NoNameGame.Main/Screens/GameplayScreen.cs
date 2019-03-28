@@ -32,7 +32,6 @@ namespace NoNameGame.Main.Screens
         {
             base.Init();
 
-            _entityManager = new EntityManager();
             _eventManager = new EventManager();
             _configurationService = new ConfigurationService();
 
@@ -67,14 +66,14 @@ namespace NoNameGame.Main.Screens
                 Session.Set("stageId", 0);
             }
 
-            var board = new BoardFactory(_entityManager, ContentManager, new TileFactory(_entityManager, ContentManager, _configurationService))
+            var board = new BoardFactory(ContentManager, new TileFactory(ContentManager, _configurationService))
                 .CreateBoard(new BoardService().GetBoard(stageId));
 
             var tileSize = _configurationService.GetTileSizeInPixels();
             var size = board.GetComponent<BoardInfo>().Size * tileSize;
 
 
-            var player = new PlayerFactory(_entityManager, ContentManager).CreatePlayer();
+            var player = new PlayerFactory(ContentManager).CreatePlayer();
             player.Transform.SetParent(board.Transform);
 
             board.Transform.Position = new Vector2((ScreenManager.Game.GraphicsDevice.Viewport.Width - size.X) / 2, (ScreenManager.Game.GraphicsDevice.Viewport.Height - size.Y) / 2);
@@ -88,13 +87,13 @@ namespace NoNameGame.Main.Screens
             _systemsManager.Push(new SpriteDrawingSystem(ContentManager, SpriteBatch));
             _systemsManager.Push(new AnimationSystem(_configurationService.GetFps()));
             _systemsManager.Push(new MoveToScreenPositionSystem());
-            _systemsManager.Push(new TileEventsSystem(_eventManager, new PoofFactory(_entityManager, ContentManager)));
+            _systemsManager.Push(new TileEventsSystem(_eventManager, new PoofFactory(ContentManager)));
 
             var fsmSystem = new FsmSystem();
             fsmSystem.RegisterHandler(new PlayerIdleHandler(InputService));
             fsmSystem.RegisterHandler(new PlayerMovingHandler(InputService, _eventManager));
-            fsmSystem.RegisterHandler(new PlayerDeadHandler(_entityManager));
-            fsmSystem.RegisterHandler(new TileDestroyedHandler(_entityManager));
+            fsmSystem.RegisterHandler(new PlayerDeadHandler());
+            fsmSystem.RegisterHandler(new TileDestroyedHandler());
             _systemsManager.Push(fsmSystem);
 
             _systemsManager.Peek<PlayerInputHandlingSystem>().SetActive(true);

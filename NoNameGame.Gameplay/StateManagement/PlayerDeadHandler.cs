@@ -7,19 +7,16 @@ namespace NoNameGame.Gameplay.StateManagement
 {
     public class PlayerDeadHandler : StateHandlerBase
     {
-        private readonly IEntityManager _entityManager;
-
-        public PlayerDeadHandler(IEntityManager entityManager)
+        public PlayerDeadHandler()
             :base(PlayerStates.Dead)
         {
-            _entityManager = entityManager;
         }
 
-        public override void Handle(EntityState entity)
+        public override void Handle(EntityState entityState)
         {
-            if (entity.State.InTransition)
+            if (entityState.State.InTransition)
             {
-                _entityManager.DestroyEntity(entity.Entity);
+                Entity.Destroy(entityState.Entity);
             }
         }
     }

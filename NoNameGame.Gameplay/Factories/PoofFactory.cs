@@ -16,8 +16,8 @@ namespace NoNameGame.Gameplay.Factories
 {
     public class PoofFactory : EntityFactory
     {
-        public PoofFactory(IEntityManager entityManager, ContentManager contentManager) 
-            : base(entityManager, contentManager)
+        public PoofFactory(ContentManager contentManager) 
+            : base(contentManager)
         {
         }
 

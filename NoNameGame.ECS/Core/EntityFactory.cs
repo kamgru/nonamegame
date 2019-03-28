@@ -2,24 +2,23 @@
 using Microsoft.Xna.Framework.Content;
 using NoNameGame.ECS.Api;
 using NoNameGame.ECS.Core;
+using NoNameGame.ECS.Messaging;
 
 namespace NoNameGame.ECS.Factories
 {
     public abstract class EntityFactory
     {
-        protected readonly IEntityManager EntityManager;
         protected readonly ContentManager ContentManager;
 
-        protected EntityFactory(IEntityManager entityManager, ContentManager contentManager)
+        protected EntityFactory(ContentManager contentManager)
         {
-            EntityManager = entityManager;
             ContentManager = contentManager;
         }
 
         public virtual Entity CreateEntity()
         {
             var entity = (Entity)Activator.CreateInstance(typeof(Entity));
-            EntityManager.RegisterEntity(entity);
+            SystemMessageBroker.Send(new EntityCreated(entity));
             return entity;
         }
     }

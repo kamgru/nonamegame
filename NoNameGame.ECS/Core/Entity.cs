@@ -62,5 +62,15 @@ namespace NoNameGame.ECS.Core
         {
             return $"Entity: {Name} - components: {string.Join(", ", _components.Select(x => x.GetType().ToString()))}";
         }
+
+        public static void Destroy(Entity entity)
+        {
+            var components = entity.GetComponents().ToArray();
+            for (var i = 0; i < components.Count(); i++)
+            {
+                entity.RemoveComponent(components[i]);
+            }
+            SystemMessageBroker.Send(new EntityDestroyed(entity));
+        }
     }
 }

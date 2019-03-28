@@ -20,8 +20,8 @@ namespace NoNameGame.Gameplay.Factories
     public class TileFactory : EntityFactory
     {
         private readonly Point _size;
-        public TileFactory(IEntityManager entityManager, ContentManager contentManager, ConfigurationService configurationService) 
-            : base(entityManager, contentManager)
+        public TileFactory(ContentManager contentManager, ConfigurationService configurationService) 
+            : base(contentManager)
         {
             _size = configurationService.GetTileSizeInPixels();
         }

@@ -17,8 +17,8 @@ namespace NoNameGame.Gameplay.Factories
 {
     public class PlayerFactory : EntityFactory
     {
-        public PlayerFactory(IEntityManager entityManager, ContentManager contentManager)
-            : base(entityManager, contentManager)
+        public PlayerFactory(ContentManager contentManager)
+            : base(contentManager)
         {
         }
 
