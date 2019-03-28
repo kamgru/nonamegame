@@ -10,6 +10,7 @@ namespace NoNameGame.ECS.Entities
         private ScreenPosition _transform;
 
         public string Name { get; set; }
+        public bool Destroyed { get; private set; }
 
         public ScreenPosition Transform
         {
@@ -66,11 +67,7 @@ namespace NoNameGame.ECS.Entities
 
         public static void Destroy(Entity entity)
         {
-            var components = entity.GetComponents().ToArray();
-            for (var i = 0; i < components.Count(); i++)
-            {
-                entity.RemoveComponent(components[i]);
-            }
+            entity.Destroyed = true;
             SystemMessageBroker.Send(new EntityDestroyed(entity));
         }
     }
