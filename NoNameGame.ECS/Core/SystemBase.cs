@@ -35,7 +35,6 @@ namespace NoNameGame.ECS.Core
 
         public virtual void Handle(EntityCreated message)
         {
-            Entities.Add(message.Entity);
         }
 
         public virtual void Handle(EntityDestroyed message)

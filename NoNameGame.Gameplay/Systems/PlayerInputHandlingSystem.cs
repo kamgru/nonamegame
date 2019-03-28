@@ -69,15 +69,6 @@ namespace NoNameGame.Gameplay.Systems
             }
         }
 
-        public override void Handle(EntityCreated message)
-        {
-            if (message.Entity.HasComponent<Player>()
-                && message.Entity.HasComponent<PositionOnBoard>())
-            {
-                Entities.Add(message.Entity);
-            }
-        }
-
         public void Update(GameTime gameTime)
         {
             var intents = _inputService.ConsumeIntents(_directionMap.Keys);

@@ -28,6 +28,11 @@ namespace NoNameGame.ECS.Core
             }
         }
 
+        public Entity()
+        {
+            SystemMessageBroker.Send(new EntityCreated(this));
+        }
+
         public bool HasComponent<TComponent>() where TComponent : ComponentBase
         {
             return _components.Any(x => x is TComponent);

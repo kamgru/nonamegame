@@ -1,41 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
 using NoNameGame.Data;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using NoNameGame.ECS.Api;
 using NoNameGame.ECS.Core;
 using NoNameGame.ECS.Components;
-using NoNameGame.ECS.Factories;
 using NoNameGame.ECS;
 using NoNameGame.Core.Services;
 using NoNameGame.Gameplay.Components;
 
 namespace NoNameGame.Gameplay.Factories
 {
-    public class TileFactory : EntityFactory
+    public class TileFactory
     {
+        private readonly ContentManager _contentManager;
         private readonly Point _size;
+
         public TileFactory(ContentManager contentManager, ConfigurationService configurationService) 
-            : base(contentManager)
         {
+            _contentManager = contentManager;
             _size = configurationService.GetTileSizeInPixels();
         }
 
         public Entity CreateTile(Tile data)
         {
-            var tile = base.CreateEntity();
+            var tile = new Entity();
             var position = new Point(data.X, data.Y);
 
             tile.Transform.Position = (position * _size).ToVector2();
 
             tile.AddComponent(new Sprite
             {
-                Texture2D = ContentManager.Load<Texture2D>(data.TextureName)
+                Texture2D = _contentManager.Load<Texture2D>(data.TextureName)
             });
 
             tile.AddComponent(new TileInfo
@@ -49,7 +45,7 @@ namespace NoNameGame.Gameplay.Factories
             {
                 Animations = new List<Animation>()
                 {
-                    new Animation(ContentManager.Load<Texture2D>(data.SheetName), new Point(32, 32))
+                    new Animation(_contentManager.Load<Texture2D>(data.SheetName), new Point(32, 32))
                     {
                         Name = AnimationDictionary.TileDestroy,
                         Speed = 0.5f

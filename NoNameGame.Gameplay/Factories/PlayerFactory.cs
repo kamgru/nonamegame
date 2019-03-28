@@ -1,32 +1,29 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NoNameGame.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using NoNameGame.ECS.Api;
 using NoNameGame.ECS.Core;
 using NoNameGame.ECS.Components;
-using NoNameGame.ECS.Factories;
 using NoNameGame.ECS;
 using NoNameGame.Gameplay.Components;
 
 namespace NoNameGame.Gameplay.Factories
 {
-    public class PlayerFactory : EntityFactory
+    public class PlayerFactory
     {
+        private readonly ContentManager _contentManager;
+
         public PlayerFactory(ContentManager contentManager)
-            : base(contentManager)
         {
+            _contentManager = contentManager;
         }
 
         public Entity CreatePlayer()
         {
-            var player = base.CreateEntity();
+            var player = new Entity();
 
-            var texture = ContentManager.Load<Texture2D>("red_ball");
+            var texture = _contentManager.Load<Texture2D>("red_ball");
 
             player.AddComponent(new Sprite { Texture2D = texture, ZIndex = 2000 });
             player.AddComponent(new MoveSpeed { Speed = 3f });
@@ -43,7 +40,7 @@ namespace NoNameGame.Gameplay.Factories
             {
                 Animations = new List<Animation>
                 {
-                    new Animation(ContentManager.Load<Texture2D>("ballses"), new Point(32, 32))
+                    new Animation(_contentManager.Load<Texture2D>("ballses"), new Point(32, 32))
                     {
                         Looped = false,
                         Name = AnimationDictionary.PlayerMove,

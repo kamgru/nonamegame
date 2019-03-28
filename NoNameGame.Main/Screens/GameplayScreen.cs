@@ -19,7 +19,6 @@ namespace NoNameGame.Main.Screens
     public class GameplayScreen : Screen
     {
         private SystemsManager _systemsManager;
-        private IEntityManager _entityManager;
         private ConfigurationService _configurationService;
         private EventManager _eventManager;
 
@@ -66,7 +65,7 @@ namespace NoNameGame.Main.Screens
                 Session.Set("stageId", 0);
             }
 
-            var board = new BoardFactory(ContentManager, new TileFactory(ContentManager, _configurationService))
+            var board = new BoardFactory(new TileFactory(ContentManager, _configurationService))
                 .CreateBoard(new BoardService().GetBoard(stageId));
 
             var tileSize = _configurationService.GetTileSizeInPixels();

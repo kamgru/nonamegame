@@ -10,26 +10,23 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
 using NoNameGame.ECS.Api;
 using NoNameGame.ECS.Core;
-using NoNameGame.ECS.Factories;
 using NoNameGame.Gameplay.Components;
+using NoNameGame.ECS.Messaging;
 
 namespace NoNameGame.Gameplay.Factories
 {
-    public class BoardFactory : EntityFactory
+    public class BoardFactory
     {
         private readonly TileFactory _tileFactory;
 
-        public BoardFactory(
-            ContentManager contentManager, 
-            TileFactory tileFactory) 
-            : base(contentManager)
+        public BoardFactory(TileFactory tileFactory) 
         {
             _tileFactory = tileFactory;
         }
 
         public Entity CreateBoard(Board data)
         {
-            var board = base.CreateEntity();
+            var board = new Entity();
 
             var tiles = data.Tiles
                 .Select(tileData => 
