@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Board.cs" />
     <Compile Include="Components\BoardInfo.cs" />
+    <Compile Include="Components\CommandQueue.cs" />
     <Compile Include="Components\MoveSpeed.cs" />
     <Compile Include="Components\Player.cs" />
     <Compile Include="Components\PositionOnBoard.cs" />
@@ -64,7 +65,11 @@
     <Compile Include="StateManagement\PlayerIdleHandler.cs" />
     <Compile Include="StateManagement\PlayerMovingHandler.cs" />
     <Compile Include="StateManagement\TileDestroyedHandler.cs" />
+    <Compile Include="Systems\CommandHandling\ICommand.cs" />
+    <Compile Include="Systems\CommandHandling\MovePlayerCommand.cs" />
+    <Compile Include="Systems\CommandHandling\MovePlayerCommandHandler.cs" />
     <Compile Include="Systems\MoveToScreenPositionSystem.cs" />
+    <Compile Include="Systems\PlayerCommandHandlingSystem.cs" />
     <Compile Include="Systems\PlayerInputHandlingSystem.cs" />
     <Compile Include="Systems\TileEventsSystem.cs" />
     <Compile Include="Tile.cs" />

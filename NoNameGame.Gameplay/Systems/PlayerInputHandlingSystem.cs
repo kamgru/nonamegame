@@ -11,7 +11,7 @@ using NoNameGame.Gameplay.Events;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems;
 using NoNameGame.ECS.Entities;
-using System;
+using NoNameGame.Gameplay.Systems.CommandHandling;
 
 namespace NoNameGame.Gameplay.Systems
 {
@@ -74,30 +74,8 @@ namespace NoNameGame.Gameplay.Systems
             if (requestedDirections.Count() == 1)
             {
                 var direction = requestedDirections.First();
-                if (direction != Vector2.Zero)
-                {
-                    var occupiedTile = FindOccupiedTile();
-                    MovePlayer(direction, _tileSize.ToVector2());
-
-                    _eventManager.Queue(new PlayerAbandonedTile
-                    {
-                        TileInfo = occupiedTile.GetComponent<TileInfo>(),
-                        State = occupiedTile.GetComponent<State>(),
-                        TileEntity = occupiedTile
-                    });
-                }
+                _playerEntity.GetComponent<CommandQueue>().Enqueue(new MovePlayerCommand(direction, _tileSize.ToVector2(), _playerEntity));
             }
         }
-
-        private void MovePlayer(Vector2 direction, Vector2 distance)
-        {
-            _playerEntity.GetComponent<PositionOnBoard>().Translate(direction.ToPoint());
-            _playerEntity.GetComponent<TargetScreenPosition>().Position += direction * distance;
-            _playerEntity.GetComponent<State>().CurrentState = PlayerStates.Moving;
-        }
-
-        private Entity FindOccupiedTile()
-            => _tileEntities.First(
-                x => x.GetComponent<TileInfo>().Position == _playerEntity.GetComponent<PositionOnBoard>().Current);
     }
 }

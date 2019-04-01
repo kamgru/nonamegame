@@ -11,6 +11,8 @@ using NoNameGame.Gameplay.Factories;
 using NoNameGame.Gameplay.Services;
 using NoNameGame.Gameplay.Components;
 using System.Collections.Generic;
+using NoNameGame.ECS.Entities;
+using NoNameGame.Gameplay.Systems.CommandHandling;
 
 namespace NoNameGame.Main.Screens
 {
@@ -81,6 +83,7 @@ namespace NoNameGame.Main.Screens
         {
             _systemsManager = new SystemsManager();
             _systemsManager.Push(new PlayerInputHandlingSystem(InputService, _configurationService, _eventManager));
+            _systemsManager.Push(new PlayerCommandHandlingSystem(new MovePlayerCommandHandler(_eventManager, new EntityRepository())));
             _systemsManager.Push(new SpriteDrawingSystem(ContentManager, SpriteBatch));
             _systemsManager.Push(new AnimationSystem(_configurationService.GetFps()));
             _systemsManager.Push(new MoveToScreenPositionSystem());
@@ -94,6 +97,7 @@ namespace NoNameGame.Main.Screens
             _systemsManager.Push(fsmSystem);
 
             _systemsManager.Peek<PlayerInputHandlingSystem>().SetActive(true);
+            _systemsManager.Peek<PlayerCommandHandlingSystem>().SetActive(true);
             _systemsManager.Peek<SpriteDrawingSystem>().SetActive(true);
             _systemsManager.Peek<AnimationSystem>().SetActive(true);
             _systemsManager.Peek<MoveToScreenPositionSystem>().SetActive(true);

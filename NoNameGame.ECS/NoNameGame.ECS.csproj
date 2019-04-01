@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Animation.cs" />
+    <Compile Include="Entities\EntityRepository.cs" />
     <Compile Include="Messaging\ComponentAdded.cs" />
     <Compile Include="Messaging\ComponentRemoved.cs" />
     <Compile Include="Messaging\EntityCreated.cs" />

@@ -30,6 +30,7 @@ namespace NoNameGame.Gameplay.Factories
             player.AddComponent(new PositionOnBoard());
             player.AddComponent(new TargetScreenPosition());
             player.AddComponent(new Player());
+            player.AddComponent(new CommandQueue());
 
             player.AddComponent(new State
             {
