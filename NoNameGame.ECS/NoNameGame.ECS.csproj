@@ -51,6 +51,9 @@
     <Compile Include="Messaging\ComponentRemoved.cs" />
     <Compile Include="Messaging\EntityCreated.cs" />
     <Compile Include="Messaging\EntityDestroyed.cs" />
+    <Compile Include="Messaging\GameEventManager.cs" />
+    <Compile Include="Messaging\IGameEvent.cs" />
+    <Compile Include="Messaging\IGameEventHandler.cs" />
     <Compile Include="Messaging\IMessage.cs" />
     <Compile Include="Messaging\IMessageListener.cs" />
     <Compile Include="Messaging\SystemMessageBroker.cs" />

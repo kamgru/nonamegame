@@ -46,8 +46,6 @@
   <ItemGroup>
     <Compile Include="Screens\ScreenMode.cs" />
     <Compile Include="Services\ConfigurationService.cs" />
-    <Compile Include="Events\IGameEvent.cs" />
-    <Compile Include="Events\EventManager.cs" />
     <Compile Include="Services\InputService.cs" />
     <Compile Include="Input\ContextManager.cs" />
     <Compile Include="Input\InputContext.cs" />

@@ -2,7 +2,6 @@
 using System.Linq;
 using NoNameGame.ECS.Components;
 using NoNameGame.Core.Services;
-using NoNameGame.Core.Events;
 using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Events;
 using NoNameGame.ECS.Messaging;
@@ -18,14 +17,12 @@ namespace NoNameGame.Gameplay.StateManagement
         IMessageListener<EntityDestroyed>
     {
         private readonly InputService _inputService;
-        private readonly EventManager _eventManager;
         private readonly ICollection<Entity> _entities;
 
-        public PlayerMovingHandler(InputService inputService, EventManager eventManager)
+        public PlayerMovingHandler(InputService inputService)
             : base(PlayerStates.Moving)
         {
             _inputService = inputService;
-            _eventManager = eventManager;
             _entities = new List<Entity>();
             SystemMessageBroker.AddListener<EntityCreated>(this);
             SystemMessageBroker.AddListener<EntityDestroyed>(this);
@@ -56,7 +53,7 @@ namespace NoNameGame.Gameplay.StateManagement
                     {
                         entityState.State.CurrentState = PlayerStates.Idle;
 
-                        _eventManager.Queue(new PlayerEnteredTile
+                        GameEventManager.Raise(new PlayerEnteredTile
                         {
                             TileEntity = currentTile.Entity,
                             TileInfo = currentTile.TileInfo

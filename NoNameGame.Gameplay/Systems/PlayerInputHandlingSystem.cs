@@ -3,11 +3,8 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using NoNameGame.Data;
 using NoNameGame.ECS.Api;
-using NoNameGame.ECS.Components;
 using NoNameGame.Core.Services;
-using NoNameGame.Core.Events;
 using NoNameGame.Gameplay.Components;
-using NoNameGame.Gameplay.Events;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems;
 using NoNameGame.ECS.Entities;
@@ -30,18 +27,15 @@ namespace NoNameGame.Gameplay.Systems
         };
 
         private readonly InputService _inputService;
-        private readonly EventManager _eventManager;
         private readonly Point _tileSize;
         private readonly List<Entity> _tileEntities = new List<Entity>();
         private Entity _playerEntity;
 
         public PlayerInputHandlingSystem(
             InputService inputService, 
-            ConfigurationService configurationService, 
-            EventManager eventManager) 
+            ConfigurationService configurationService) 
         {
             _inputService = inputService;
-            _eventManager = eventManager;
             _tileSize = configurationService.GetTileSizeInPixels();
             SystemMessageBroker.AddListener<ComponentAdded<Player>>(this);
             SystemMessageBroker.AddListener<ComponentAdded<TileInfo>>(this);

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using NoNameGame.ECS.Systems;
 using NoNameGame.Core.Screens;
 using NoNameGame.Core.Services;
-using NoNameGame.Core.Events;
 using NoNameGame.Gameplay.Events;
 using NoNameGame.Gameplay.Systems;
 using NoNameGame.Gameplay.StateManagement;
@@ -13,14 +12,14 @@ using NoNameGame.Gameplay.Components;
 using System.Collections.Generic;
 using NoNameGame.ECS.Entities;
 using NoNameGame.Gameplay.Systems.CommandHandling;
+using NoNameGame.ECS.Messaging;
 
 namespace NoNameGame.Main.Screens
 {
-    public class GameplayScreen : Screen
+    public class GameplayScreen : Screen, IGameEventHandler<StageClear>
     {
         private SystemsManager _systemsManager;
         private ConfigurationService _configurationService;
-        private EventManager _eventManager;
 
         public GameplayScreen(ScreenDependencies dependencies) 
             : base(dependencies)
@@ -31,10 +30,9 @@ namespace NoNameGame.Main.Screens
         {
             base.Init();
 
-            _eventManager = new EventManager();
+            GameEventManager.RegisterHandler(this);
             _configurationService = new ConfigurationService();
 
-            SetupEvents();
             SetupSystems();
             SetupStage();
         }
@@ -43,7 +41,6 @@ namespace NoNameGame.Main.Screens
         {
             if (isActive)
             {
-                _eventManager.Dispatch();
                 _systemsManager.UpdateSystems(gameTime);
             }
         }
@@ -82,16 +79,16 @@ namespace NoNameGame.Main.Screens
         private void SetupSystems()
         {
             _systemsManager = new SystemsManager();
-            _systemsManager.Push(new PlayerInputHandlingSystem(InputService, _configurationService, _eventManager));
-            _systemsManager.Push(new PlayerCommandHandlingSystem(new MovePlayerCommandHandler(_eventManager, new EntityRepository())));
+            _systemsManager.Push(new PlayerInputHandlingSystem(InputService, _configurationService));
+            _systemsManager.Push(new PlayerCommandHandlingSystem(new MovePlayerCommandHandler(new EntityRepository())));
             _systemsManager.Push(new SpriteDrawingSystem(ContentManager, SpriteBatch));
             _systemsManager.Push(new AnimationSystem(_configurationService.GetFps()));
             _systemsManager.Push(new MoveToScreenPositionSystem());
-            _systemsManager.Push(new TileEventsSystem(_eventManager, new PoofFactory(ContentManager)));
+            _systemsManager.Push(new TileEventsSystem(new PoofFactory(ContentManager)));
 
             var fsmSystem = new FsmSystem();
             fsmSystem.RegisterHandler(new PlayerIdleHandler(InputService));
-            fsmSystem.RegisterHandler(new PlayerMovingHandler(InputService, _eventManager));
+            fsmSystem.RegisterHandler(new PlayerMovingHandler(InputService));
             fsmSystem.RegisterHandler(new PlayerDeadHandler());
             fsmSystem.RegisterHandler(new TileDestroyedHandler());
             _systemsManager.Push(fsmSystem);
@@ -105,9 +102,9 @@ namespace NoNameGame.Main.Screens
             _systemsManager.Peek<TileEventsSystem>().SetActive(true);
         }
         
-        private void SetupEvents()
+        public void Handle(StageClear message)
         {
-            _eventManager.On<StageClear>(x => ScreenManager.Push<StageClearScreen>());
+            ScreenManager.Push<StageClearScreen>();
         }
     }
 }

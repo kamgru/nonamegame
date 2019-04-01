@@ -1,9 +1,4 @@
-﻿using NoNameGame.Core.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NoNameGame.ECS.Messaging;
 
 namespace NoNameGame.Gameplay.Events
 {
