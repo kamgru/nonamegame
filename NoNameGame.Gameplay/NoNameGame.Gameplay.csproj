@@ -53,7 +53,7 @@
     <Compile Include="Components\TileInfo.cs" />
     <Compile Include="Events\PlayerAbandonedTile.cs" />
     <Compile Include="Events\PlayerEnteredTile.cs" />
-    <Compile Include="Events\StageClear.cs" />
+    <Compile Include="Events\StageCleared.cs" />
     <Compile Include="Factories\BoardFactory.cs" />
     <Compile Include="Factories\PlayerFactory.cs" />
     <Compile Include="Factories\PoofFactory.cs" />

@@ -2,7 +2,7 @@
 
 namespace NoNameGame.Gameplay.Events
 {
-    public class StageClear : IGameEvent
+    public class StageCleared : IGameEvent
     {
     }
 }

@@ -75,7 +75,7 @@ namespace NoNameGame.Gameplay.Systems
 
                 if (tiles.Where(x => x.TileType == TileType.Normal).All(x => x.Destroyed))
                 {
-                    GameEventManager.Raise(new StageClear());
+                    GameEventManager.Raise(new StageCleared());
                 }
             }
         }

@@ -14,7 +14,7 @@ using NoNameGame.ECS.Messaging;
 
 namespace NoNameGame.Main.Screens
 {
-    public class GameplayScreen : Screen, IGameEventHandler<StageClear>
+    public class GameplayScreen : Screen, IGameEventHandler<StageCleared>
     {
         private SystemsManager _systemsManager;
         private ConfigurationService _configurationService;
@@ -100,7 +100,7 @@ namespace NoNameGame.Main.Screens
             _systemsManager.Peek<TileEventsSystem>().SetActive(true);
         }
         
-        public void Handle(StageClear message)
+        public void Handle(StageCleared message)
         {
             ScreenManager.Push<StageClearScreen>();
         }
