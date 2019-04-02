@@ -80,7 +80,7 @@ namespace NoNameGame.Main.Screens
         {
             _systemsManager = new SystemsManager();
             _systemsManager.Push(new PlayerInputHandlingSystem(InputService, _configurationService));
-            _systemsManager.Push(new PlayerCommandHandlingSystem(new MovePlayerCommandHandler()));
+            _systemsManager.Push(new CommandHandlingSystem());
             _systemsManager.Push(new SpriteDrawingSystem(ContentManager, SpriteBatch));
             _systemsManager.Push(new AnimationSystem(_configurationService.GetFps()));
             _systemsManager.Push(new MoveToScreenPositionSystem());
@@ -94,7 +94,7 @@ namespace NoNameGame.Main.Screens
             _systemsManager.Push(fsmSystem);
 
             _systemsManager.Peek<PlayerInputHandlingSystem>().SetActive(true);
-            _systemsManager.Peek<PlayerCommandHandlingSystem>().SetActive(true);
+            _systemsManager.Peek<CommandHandlingSystem>().SetActive(true);
             _systemsManager.Peek<SpriteDrawingSystem>().SetActive(true);
             _systemsManager.Peek<AnimationSystem>().SetActive(true);
             _systemsManager.Peek<MoveToScreenPositionSystem>().SetActive(true);

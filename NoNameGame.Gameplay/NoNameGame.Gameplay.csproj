@@ -67,9 +67,8 @@
     <Compile Include="StateManagement\TileDestroyedHandler.cs" />
     <Compile Include="Systems\CommandHandling\ICommand.cs" />
     <Compile Include="Systems\CommandHandling\MovePlayerCommand.cs" />
-    <Compile Include="Systems\CommandHandling\MovePlayerCommandHandler.cs" />
     <Compile Include="Systems\MoveToScreenPositionSystem.cs" />
-    <Compile Include="Systems\PlayerCommandHandlingSystem.cs" />
+    <Compile Include="Systems\CommandHandlingSystem.cs" />
     <Compile Include="Systems\PlayerInputHandlingSystem.cs" />
     <Compile Include="Systems\TileEventsSystem.cs" />
     <Compile Include="Tile.cs" />

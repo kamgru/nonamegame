@@ -7,17 +7,14 @@ using NoNameGame.Gameplay.Systems.CommandHandling;
 
 namespace NoNameGame.Gameplay.Systems
 {
-    public class PlayerCommandHandlingSystem 
+    public class CommandHandlingSystem 
         : SystemBase, 
         IUpdatingSystem,
         IMessageListener<ComponentAdded<CommandQueue>>,
         IMessageListener<ComponentRemoved<CommandQueue>>
     {
-        private MovePlayerCommandHandler _movePlayerCommandHandler;
-
-        public PlayerCommandHandlingSystem(MovePlayerCommandHandler movePlayerCommandHandler)
+        public CommandHandlingSystem()
         {
-            _movePlayerCommandHandler = movePlayerCommandHandler;
             SystemMessageBroker.AddListener<ComponentAdded<CommandQueue>>(this);
             SystemMessageBroker.AddListener<ComponentRemoved<CommandQueue>>(this);
         }
@@ -39,10 +36,7 @@ namespace NoNameGame.Gameplay.Systems
                 var queue = entity.GetComponent<CommandQueue>();
                 while (queue.Dequeue() is ICommand command)
                 {
-                    if (command is MovePlayerCommand movePlayerCommand)
-                    {
-                        _movePlayerCommandHandler.Handle(movePlayerCommand);
-                    }
+                    command.Execute();
                 }
             }
         }
