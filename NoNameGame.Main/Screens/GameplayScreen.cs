@@ -10,8 +10,6 @@ using NoNameGame.Gameplay.Factories;
 using NoNameGame.Gameplay.Services;
 using NoNameGame.Gameplay.Components;
 using System.Collections.Generic;
-using NoNameGame.ECS.Entities;
-using NoNameGame.Gameplay.Systems.CommandHandling;
 using NoNameGame.ECS.Messaging;
 
 namespace NoNameGame.Main.Screens

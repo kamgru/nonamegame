@@ -1,11 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using NoNameGame.ECS.Api;
 using NoNameGame.ECS.Messaging;
-using NoNameGame.ECS.Systems;
-using NoNameGame.Gameplay.Components;
-using NoNameGame.Gameplay.Systems.CommandHandling;
+using NoNameGame.ECS.Components;
+using NoNameGame.ECS.Systems.CommandHandling;
 
-namespace NoNameGame.Gameplay.Systems
+namespace NoNameGame.ECS.Systems
 {
     public class CommandHandlingSystem 
         : SystemBase, 

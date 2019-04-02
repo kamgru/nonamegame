@@ -8,7 +8,8 @@ using NoNameGame.Gameplay.Components;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems;
 using NoNameGame.ECS.Entities;
-using NoNameGame.Gameplay.Systems.CommandHandling;
+using NoNameGame.ECS.Components;
+using NoNameGame.Gameplay.Commands;
 
 namespace NoNameGame.Gameplay.Systems
 {
@@ -68,7 +69,8 @@ namespace NoNameGame.Gameplay.Systems
             if (requestedDirections.Count() == 1)
             {
                 var direction = requestedDirections.First();
-                _playerEntity.GetComponent<CommandQueue>().Enqueue(new MovePlayerCommand(direction, _tileSize.ToVector2(), _playerEntity));
+                _playerEntity.GetComponent<CommandQueue>()
+                    .Enqueue(new MovePlayerCommand(direction, _tileSize.ToVector2(), _playerEntity));
             }
         }
     }

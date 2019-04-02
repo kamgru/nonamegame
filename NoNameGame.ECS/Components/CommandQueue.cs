@@ -1,8 +1,8 @@
 ﻿using NoNameGame.ECS.Components;
-using NoNameGame.Gameplay.Systems.CommandHandling;
+using NoNameGame.ECS.Systems.CommandHandling;
 using System.Collections.Generic;
 
-namespace NoNameGame.Gameplay.Components
+namespace NoNameGame.ECS.Components
 {
     public class CommandQueue : ComponentBase
     {

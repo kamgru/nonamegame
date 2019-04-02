@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Animation.cs" />
+    <Compile Include="Components\CommandQueue.cs" />
     <Compile Include="Entities\EntityRepository.cs" />
     <Compile Include="Messaging\ComponentAdded.cs" />
     <Compile Include="Messaging\ComponentRemoved.cs" />
@@ -62,6 +63,8 @@
     <Compile Include="Components\ComponentBase.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="StateHandling\EntityState.cs" />
+    <Compile Include="Systems\CommandHandlingSystem.cs" />
+    <Compile Include="Systems\CommandHandling\ICommand.cs" />
     <Compile Include="Systems\FsmSystem.cs" />
     <Compile Include="Api\IDrawingSystem.cs" />
     <Compile Include="Api\ISystem.cs" />

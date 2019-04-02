@@ -3,10 +3,11 @@ using NoNameGame.Data;
 using NoNameGame.ECS.Components;
 using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Messaging;
+using NoNameGame.ECS.Systems.CommandHandling;
 using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Events;
 
-namespace NoNameGame.Gameplay.Systems.CommandHandling
+namespace NoNameGame.Gameplay.Commands
 {
     public class MovePlayerCommand : ICommand
     {

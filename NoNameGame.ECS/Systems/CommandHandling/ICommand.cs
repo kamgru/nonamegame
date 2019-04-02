@@ -1,4 +1,4 @@
-﻿namespace NoNameGame.Gameplay.Systems.CommandHandling
+﻿namespace NoNameGame.ECS.Systems.CommandHandling
 {
     public interface ICommand
     {
