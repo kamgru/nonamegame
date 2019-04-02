@@ -80,7 +80,7 @@ namespace NoNameGame.Main.Screens
         {
             _systemsManager = new SystemsManager();
             _systemsManager.Push(new PlayerInputHandlingSystem(InputService, _configurationService));
-            _systemsManager.Push(new PlayerCommandHandlingSystem(new MovePlayerCommandHandler(new EntityRepository())));
+            _systemsManager.Push(new PlayerCommandHandlingSystem(new MovePlayerCommandHandler()));
             _systemsManager.Push(new SpriteDrawingSystem(ContentManager, SpriteBatch));
             _systemsManager.Push(new AnimationSystem(_configurationService.GetFps()));
             _systemsManager.Push(new MoveToScreenPositionSystem());

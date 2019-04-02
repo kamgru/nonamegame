@@ -14,14 +14,17 @@ namespace NoNameGame.Gameplay.Systems
         : SystemBase,
         IMessageListener<ComponentAdded<TileInfo>>,
         IGameEventHandler<PlayerAbandonedTile>,
-        IGameEventHandler<PlayerEnteredTile>
+        IGameEventHandler<PlayerEnteredTile>,
+        IMessageListener<ComponentAdded<Player>>
     {
         private readonly Entity _poof;
+        private Entity _player;
 
         public TileEventsSystem(
             PoofFactory poofFactory)
         {
             SystemMessageBroker.AddListener<ComponentAdded<TileInfo>>(this);
+            SystemMessageBroker.AddListener<ComponentAdded<Player>>(this);
             GameEventManager.RegisterHandler<PlayerAbandonedTile>(this);
             GameEventManager.RegisterHandler<PlayerEnteredTile>(this);
             _poof = poofFactory.CreatePoof();
@@ -42,12 +45,17 @@ namespace NoNameGame.Gameplay.Systems
 
         public void Handle(PlayerAbandonedTile gameEvent)
         {
-            if (gameEvent.TileInfo.TileType == TileType.Normal)
+            var tileInfo = Entities
+                .Where(x => x.GetComponent<TileInfo>().Position == _player.GetComponent<PositionOnBoard>().Previous)
+                .Select(x => x.GetComponent<TileInfo>())
+                .First();
+
+            if (tileInfo.TileType == TileType.Normal)
             {
-                gameEvent.TileInfo.Value--;
-                if (gameEvent.TileInfo.Value <= 0)
+                tileInfo.Value--;
+                if (tileInfo.Value <= 0)
                 {
-                    var state = gameEvent.TileInfo.Entity.GetComponent<State>();
+                    var state = tileInfo.Entity.GetComponent<State>();
                     if (state != null)
                     {
                         state.CurrentState = TileStates.Destroyed;
@@ -70,6 +78,11 @@ namespace NoNameGame.Gameplay.Systems
                     GameEventManager.Raise(new StageClear());
                 }
             }
+        }
+
+        public void Handle(ComponentAdded<Player> message)
+        {
+            _player = message.Entity;
         }
     }
 }
