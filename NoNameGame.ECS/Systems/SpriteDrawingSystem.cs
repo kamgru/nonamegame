@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NoNameGame.ECS.Messaging;
+using NoNameGame.ECS.Entities;
 
 namespace NoNameGame.ECS.Systems
 {
@@ -42,18 +43,22 @@ namespace NoNameGame.ECS.Systems
 
         public void Handle(ComponentAdded<Sprite> message)
         {
-            Entities.Add(message.Entity);
+            AddEntityInOrder(message.Entity);
         }
 
         public override void Handle(EntityCreated message)
         {
             if (message.Entity.HasComponent<Sprite>())
             {
-                Entities.Add(message.Entity);
-                Entities = Entities.OrderBy(
-                        entity => entity.GetComponent<Sprite>().ZIndex)
-                    .ToList();
+                AddEntityInOrder(message.Entity);
             }
+        }
+
+        private void AddEntityInOrder(Entity entity)
+        {
+            Entities.Add(entity);
+            Entities = Entities.OrderBy(item => item.GetComponent<Sprite>().ZIndex)
+                .ToList();
         }
     }
 }
