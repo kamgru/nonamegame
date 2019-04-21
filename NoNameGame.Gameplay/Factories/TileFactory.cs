@@ -8,6 +8,8 @@ using NoNameGame.ECS;
 using NoNameGame.Core.Services;
 using NoNameGame.Gameplay.Components;
 using NoNameGame.ECS.Entities;
+using NoNameGame.Gameplay.Entities;
+using NoNameGame.ECS.Messaging;
 
 namespace NoNameGame.Gameplay.Factories
 {
@@ -22,9 +24,9 @@ namespace NoNameGame.Gameplay.Factories
             _size = configurationService.GetTileSizeInPixels();
         }
 
-        public Entity CreateTile(Tile data)
+        public Tile CreateTile(TileData data)
         {
-            var tile = new Entity();
+            var tile = new Tile();
             var position = new Point(data.X, data.Y);
 
             tile.Transform.Position = (position * _size).ToVector2();
@@ -59,6 +61,8 @@ namespace NoNameGame.Gameplay.Factories
             });
 
             tile.Name = $"tile {position.X} : {position.Y}";
+
+            SystemMessageBroker.Send(new EntityCreated(tile));
 
             return tile;
         }

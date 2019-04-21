@@ -5,19 +5,13 @@ using System.Collections.Generic;
 
 namespace NoNameGame.ECS.Systems
 {
-    public abstract class SystemBase 
-        : ISystem,
-        IMessageListener<EntityCreated>,
-        IMessageListener<EntityDestroyed>
+    public abstract class SystemBase : ISystem, IMessageListener<EntityDestroyed>
     {
         protected bool Active;
-        protected ICollection<Entity> Entities;
 
         protected SystemBase()
         {
-            Entities = new List<Entity>();
-            SystemMessageBroker.AddListener<EntityCreated>(this);
-            SystemMessageBroker.AddListener<EntityDestroyed>(this);
+            SystemMessageBroker.AddListener(this);
         }
 
         public virtual void SetActive(bool value)
@@ -30,13 +24,6 @@ namespace NoNameGame.ECS.Systems
             return Active;
         }
 
-        public virtual void Handle(EntityCreated message)
-        {
-        }
-
-        public virtual void Handle(EntityDestroyed message)
-        {
-            Entities.Remove(message.Entity);
-        }
+        public abstract void Handle(EntityDestroyed message);
     }
 }

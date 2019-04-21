@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using Microsoft.Xna.Framework;
 using NoNameGame.ECS.Entities;
+using NoNameGame.ECS.Messaging;
 using NoNameGame.Gameplay.Components;
+using NoNameGame.Gameplay.Entities;
 
 namespace NoNameGame.Gameplay.Factories
 {
@@ -14,9 +16,9 @@ namespace NoNameGame.Gameplay.Factories
             _tileFactory = tileFactory;
         }
 
-        public Entity CreateBoard(Board data)
+        public Board CreateBoard(BoardData data)
         {
-            var board = new Entity();
+            var board = new Board();
 
             var tiles = data.Tiles
                 .Select(tileData => 
@@ -37,6 +39,8 @@ namespace NoNameGame.Gameplay.Factories
             });
 
             board.Name = "Board";
+
+            SystemMessageBroker.Send(new EntityCreated(board));
 
             return board;
         }

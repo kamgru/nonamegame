@@ -44,13 +44,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Board.cs" />
+    <Compile Include="BoardData.cs" />
     <Compile Include="Components\BoardInfo.cs" />
     <Compile Include="Components\MoveSpeed.cs" />
-    <Compile Include="Components\Player.cs" />
     <Compile Include="Components\PositionOnBoard.cs" />
     <Compile Include="Components\TargetScreenPosition.cs" />
     <Compile Include="Components\TileInfo.cs" />
+    <Compile Include="Entities\Board.cs" />
+    <Compile Include="Entities\Player.cs" />
+    <Compile Include="Entities\Poof.cs" />
+    <Compile Include="Entities\Tile.cs" />
     <Compile Include="Events\PlayerAbandonedTile.cs" />
     <Compile Include="Events\PlayerEnteredTile.cs" />
     <Compile Include="Events\StageCleared.cs" />
@@ -68,7 +71,7 @@
     <Compile Include="Systems\MoveToScreenPositionSystem.cs" />
     <Compile Include="Systems\PlayerInputHandlingSystem.cs" />
     <Compile Include="Systems\TileEventsSystem.cs" />
-    <Compile Include="Tile.cs" />
+    <Compile Include="TileData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NoNameGame.Core\NoNameGame.Core.csproj">

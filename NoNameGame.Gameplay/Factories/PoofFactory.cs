@@ -4,6 +4,8 @@ using NoNameGame.ECS.Components;
 using NoNameGame.ECS;
 using Microsoft.Xna.Framework.Graphics;
 using NoNameGame.ECS.Entities;
+using NoNameGame.Gameplay.Entities;
+using NoNameGame.ECS.Messaging;
 
 namespace NoNameGame.Gameplay.Factories
 {
@@ -16,9 +18,9 @@ namespace NoNameGame.Gameplay.Factories
             _contentManager = contentManager;
         }
 
-        public Entity CreatePoof()
+        public Poof CreatePoof()
         {
-            var poof = new Entity();
+            var poof = new Poof();
             poof.Transform.Position = Vector2.Zero;
             poof.AddComponent(new Animator
             {
@@ -37,6 +39,8 @@ namespace NoNameGame.Gameplay.Factories
                 Texture2D = _contentManager.Load<Texture2D>("blank"),
                 ZIndex = 1000
             });
+
+            SystemMessageBroker.Send(new EntityCreated(poof));
 
             return poof;
         }

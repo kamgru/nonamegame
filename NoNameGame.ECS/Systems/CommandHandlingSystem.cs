@@ -3,15 +3,19 @@ using NoNameGame.ECS.Api;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Components;
 using NoNameGame.ECS.Systems.CommandHandling;
+using System.Collections.Generic;
+using NoNameGame.ECS.Entities;
 
 namespace NoNameGame.ECS.Systems
 {
-    public class CommandHandlingSystem 
+    public class CommandHandlingSystem
         : SystemBase, 
         IUpdatingSystem,
         IMessageListener<ComponentAdded<CommandQueue>>,
         IMessageListener<ComponentRemoved<CommandQueue>>
     {
+        private readonly List<Entity> _entities = new List<Entity>();
+
         public CommandHandlingSystem()
         {
             SystemMessageBroker.AddListener<ComponentAdded<CommandQueue>>(this);
@@ -20,17 +24,25 @@ namespace NoNameGame.ECS.Systems
 
         public void Handle(ComponentAdded<CommandQueue> message)
         {
-            Entities.Add(message.Entity);
+            _entities.Add(message.Entity);
         }
 
         public void Handle(ComponentRemoved<CommandQueue> message)
         {
-            Entities.Remove(message.Entity);
+            _entities.Remove(message.Entity);
+        }
+
+        public override void Handle(EntityDestroyed message)
+        {
+            if (message.Entity.HasComponent<CommandQueue>())
+            {
+                _entities.Remove(message.Entity);
+            }
         }
 
         public void Update(GameTime gameTime)
         {
-            foreach (var entity in Entities)
+            foreach (var entity in _entities)
             {
                 var queue = entity.GetComponent<CommandQueue>();
                 while (queue.Dequeue() is ICommand command)

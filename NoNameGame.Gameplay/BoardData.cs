@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace NoNameGame.Gameplay
 {
-    public class Board
+    public class BoardData
     {
-        public IReadOnlyCollection<Tile> Tiles { get; set; }
+        public IReadOnlyCollection<TileData> Tiles { get; set; }
     }
 }

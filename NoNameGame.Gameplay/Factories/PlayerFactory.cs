@@ -7,6 +7,8 @@ using NoNameGame.ECS.Components;
 using NoNameGame.ECS;
 using NoNameGame.Gameplay.Components;
 using NoNameGame.ECS.Entities;
+using NoNameGame.Gameplay.Entities;
+using NoNameGame.ECS.Messaging;
 
 namespace NoNameGame.Gameplay.Factories
 {
@@ -19,9 +21,9 @@ namespace NoNameGame.Gameplay.Factories
             _contentManager = contentManager;
         }
 
-        public Entity CreatePlayer()
+        public Player CreatePlayer()
         {
-            var player = new Entity();
+            var player = new Player();
 
             var texture = _contentManager.Load<Texture2D>("red_ball");
 
@@ -29,7 +31,6 @@ namespace NoNameGame.Gameplay.Factories
             player.AddComponent(new MoveSpeed { Speed = 3f });
             player.AddComponent(new PositionOnBoard());
             player.AddComponent(new TargetScreenPosition());
-            player.AddComponent(new Player());
             player.AddComponent(new CommandQueue());
 
             player.AddComponent(new State
@@ -51,6 +52,8 @@ namespace NoNameGame.Gameplay.Factories
             });
 
             player.Name = "Player";
+
+            SystemMessageBroker.Send(new EntityCreated(player));
 
             return player;
         }

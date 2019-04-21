@@ -3,11 +3,8 @@ using NoNameGame.ECS.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Entities;
 
@@ -16,21 +13,24 @@ namespace NoNameGame.ECS.Systems
     public class SpriteDrawingSystem 
         : SystemBase, 
         IDrawingSystem, 
-        IMessageListener<ComponentAdded<Sprite>>
+        IMessageListener<ComponentAdded<Sprite>>,
+        IMessageListener<ComponentRemoved<Sprite>>
     {
         private readonly SpriteBatch _spriteBatch;
         private readonly SpriteFont _debugFont;
+        private List<Entity> _entities = new List<Entity>();
 
         public SpriteDrawingSystem(ContentManager contentManager, SpriteBatch spriteBatch)
         {
             _spriteBatch = spriteBatch;
             _debugFont = contentManager.Load<SpriteFont>("default");
             SystemMessageBroker.AddListener<ComponentAdded<Sprite>>(this);
+            SystemMessageBroker.AddListener<ComponentRemoved<Sprite>>(this);
         }
 
         public void Draw()
         {
-            foreach (var entity in Entities)
+            foreach (var entity in _entities)
             {
                 var sprite = entity.GetComponent<Sprite>();
                 _spriteBatch.Draw(
@@ -46,18 +46,23 @@ namespace NoNameGame.ECS.Systems
             AddEntityInOrder(message.Entity);
         }
 
-        public override void Handle(EntityCreated message)
+        public void Handle(ComponentRemoved<Sprite> message)
+        {
+            _entities.Remove(message.Entity);
+        }
+
+        public override void Handle(EntityDestroyed message)
         {
             if (message.Entity.HasComponent<Sprite>())
             {
-                AddEntityInOrder(message.Entity);
+                _entities.Remove(message.Entity);
             }
         }
 
         private void AddEntityInOrder(Entity entity)
         {
-            Entities.Add(entity);
-            Entities = Entities.OrderBy(item => item.GetComponent<Sprite>().ZIndex)
+            _entities.Add(entity);
+            _entities = _entities.OrderBy(item => item.GetComponent<Sprite>().ZIndex)
                 .ToList();
         }
     }

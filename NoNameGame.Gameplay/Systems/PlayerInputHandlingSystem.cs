@@ -10,14 +10,16 @@ using NoNameGame.ECS.Systems;
 using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Components;
 using NoNameGame.Gameplay.Commands;
+using NoNameGame.Gameplay.Entities;
 
 namespace NoNameGame.Gameplay.Systems
 {
     public class PlayerInputHandlingSystem 
         : SystemBase, 
         IUpdatingSystem,
-        IMessageListener<ComponentAdded<Player>>,
-        IMessageListener<ComponentAdded<TileInfo>>
+        IMessageListener<ComponentAdded<TileInfo>>,
+        IMessageListener<EntityCreated>,
+        IMessageListener<EntityDestroyed>
     {
         private readonly Dictionary<Intent, Vector2> _directionMap = new Dictionary<Intent, Vector2>
         {
@@ -38,7 +40,7 @@ namespace NoNameGame.Gameplay.Systems
         {
             _inputService = inputService;
             _tileSize = configurationService.GetTileSizeInPixels();
-            SystemMessageBroker.AddListener<ComponentAdded<Player>>(this);
+            SystemMessageBroker.AddListener<EntityCreated>(this);
             SystemMessageBroker.AddListener<ComponentAdded<TileInfo>>(this);
         }
 
@@ -47,16 +49,19 @@ namespace NoNameGame.Gameplay.Systems
             _tileEntities.Add(message.Entity);
         }
 
-        public void Handle(ComponentAdded<Player> message)
-        {
-            _playerEntity = message.Entity;
-        }
-
         public override void Handle(EntityDestroyed message)
         {
             if (message.Entity.HasComponent<TileInfo>())
             {
                 _tileEntities.Remove(message.Entity);
+            }
+        }
+
+        public void Handle(EntityCreated message)
+        {
+            if (message.Entity is Player)
+            {
+                _playerEntity = message.Entity;
             }
         }
 

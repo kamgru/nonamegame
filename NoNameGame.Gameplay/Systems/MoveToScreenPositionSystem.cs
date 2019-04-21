@@ -3,6 +3,8 @@ using NoNameGame.Gameplay.Components;
 using Microsoft.Xna.Framework;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems;
+using System.Collections.Generic;
+using NoNameGame.ECS.Entities;
 
 namespace NoNameGame.Gameplay.Systems
 {
@@ -12,6 +14,8 @@ namespace NoNameGame.Gameplay.Systems
         IMessageListener<ComponentAdded<TargetScreenPosition>>,
         IMessageListener<ComponentAdded<MoveSpeed>>
     {
+        private readonly List<Entity> _entities = new List<Entity>();
+
         public MoveToScreenPositionSystem()
         {
             SystemMessageBroker.AddListener<ComponentAdded<TargetScreenPosition>>(this);
@@ -22,7 +26,7 @@ namespace NoNameGame.Gameplay.Systems
         {
             if (message.Entity.HasComponent<TargetScreenPosition>())
             {
-                Entities.Add(message.Entity);
+                _entities.Add(message.Entity);
             }
         }
 
@@ -30,22 +34,21 @@ namespace NoNameGame.Gameplay.Systems
         {
             if (message.Entity.HasComponent<MoveSpeed>())
             {
-                Entities.Add(message.Entity);
+                _entities.Add(message.Entity);
             }
         }
 
-        public override void Handle(EntityCreated message)
+        public override void Handle(EntityDestroyed message)
         {
-            if (message.Entity.HasComponent<MoveSpeed>()
-                && message.Entity.HasComponent<TargetScreenPosition>())
+            if (message.Entity.HasComponent<MoveSpeed>() || message.Entity.HasComponent<TargetScreenPosition>())
             {
-                Entities.Add(message.Entity);
+                _entities.Remove(message.Entity);
             }
         }
 
         public void Update(GameTime gameTime)
         {
-            foreach (var entity in Entities)
+            foreach (var entity in _entities)
             {
                 var moveTo = entity.GetComponent<TargetScreenPosition>();
 

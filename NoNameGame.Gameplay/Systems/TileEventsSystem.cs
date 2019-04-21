@@ -5,47 +5,48 @@ using NoNameGame.Gameplay.Events;
 using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Factories;
 using NoNameGame.ECS.Messaging;
-using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Systems;
+using NoNameGame.Gameplay.Entities;
+using System.Collections.Generic;
 
 namespace NoNameGame.Gameplay.Systems
 {
     public class TileEventsSystem 
         : SystemBase,
-        IMessageListener<ComponentAdded<TileInfo>>,
+        IMessageListener<EntityCreated>,
         IGameEventHandler<PlayerAbandonedTile>,
-        IGameEventHandler<PlayerEnteredTile>,
-        IMessageListener<ComponentAdded<Player>>
+        IGameEventHandler<PlayerEnteredTile>
     {
-        private readonly Entity _poof;
-        private Entity _player;
+        private Poof _poof;
+        private Player _player;
+        private List<Tile> _tiles = new List<Tile>();
 
         public TileEventsSystem(
             PoofFactory poofFactory)
         {
-            SystemMessageBroker.AddListener<ComponentAdded<TileInfo>>(this);
-            SystemMessageBroker.AddListener<ComponentAdded<Player>>(this);
             GameEventManager.RegisterHandler<PlayerAbandonedTile>(this);
+            SystemMessageBroker.AddListener<EntityCreated>(this);
             GameEventManager.RegisterHandler<PlayerEnteredTile>(this);
             _poof = poofFactory.CreatePoof();
         }
 
-        public void Handle(ComponentAdded<TileInfo> message)
+        public void Handle(EntityCreated message)
         {
-            Entities.Add(message.Entity);
-        }
-
-        public override void Handle(EntityCreated message)
-        {
-            if (message.Entity.HasComponent<TileInfo>())
+            switch (message.Entity)
             {
-                Entities.Add(message.Entity);
+                case Tile tile:
+                    _tiles.Add(tile);
+                    break;
+
+                case Player player:
+                    _player = player;
+                    break;
             }
         }
 
         public void Handle(PlayerAbandonedTile gameEvent)
         {
-            var tileInfo = Entities
+            var tileInfo = _tiles
                 .Where(x => x.GetComponent<TileInfo>().Position == _player.GetComponent<PositionOnBoard>().Previous)
                 .Select(x => x.GetComponent<TileInfo>())
                 .First();
@@ -71,7 +72,7 @@ namespace NoNameGame.Gameplay.Systems
 
             if (gameEvent.TileInfo.TileType == TileType.End)
             {
-                var tiles = Entities.Select(x => x.GetComponent<TileInfo>());
+                var tiles = _tiles.Select(x => x.GetComponent<TileInfo>());
 
                 if (tiles.Where(x => x.TileType == TileType.Normal).All(x => x.Destroyed))
                 {
@@ -80,9 +81,22 @@ namespace NoNameGame.Gameplay.Systems
             }
         }
 
-        public void Handle(ComponentAdded<Player> message)
+        public override void Handle(EntityDestroyed message)
         {
-            _player = message.Entity;
+            switch (message.Entity)
+            {
+                case Tile tile:
+                    _tiles.Remove(tile);
+                    break;
+
+                case Player _:
+                    _player = null;
+                    break;
+
+                case Poof _:
+                    _poof = null;
+                    break;
+            }
         }
     }
 }

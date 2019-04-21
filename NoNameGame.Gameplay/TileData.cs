@@ -2,7 +2,7 @@
 
 namespace NoNameGame.Gameplay
 {
-    public class Tile
+    public class TileData
     {
         public int X { get; set; }
         public int Y { get; set; }

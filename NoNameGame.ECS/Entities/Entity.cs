@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 namespace NoNameGame.ECS.Entities
 {
-    public class Entity
+    public abstract class Entity
     {
-        private readonly List<ComponentBase> _components = new List<ComponentBase>();
-        private ScreenPosition _transform;
+        protected readonly List<ComponentBase> _components = new List<ComponentBase>();
+        protected ScreenPosition _transform;
 
         public string Name { get; set; }
-        public bool Destroyed { get; private set; }
+        public bool Destroyed { get; protected set; }
 
         public ScreenPosition Transform
         {
@@ -23,11 +23,6 @@ namespace NoNameGame.ECS.Entities
                 }
                 return _transform;
             }
-        }
-
-        public Entity()
-        {
-            SystemMessageBroker.Send(new EntityCreated(this));
         }
 
         public bool HasComponent<TComponent>() where TComponent : ComponentBase
