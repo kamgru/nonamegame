@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using NoNameGame.ECS.Api;
 using NoNameGame.ECS.Components;
 using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Messaging;
-using NoNameGame.ECS.StateHandling;
+using NoNameGame.ECS.Systems.StateHandling;
 
 namespace NoNameGame.ECS.Systems
 {

@@ -1,7 +1,4 @@
-﻿using NoNameGame.ECS.Api;
-using NoNameGame.ECS.Entities;
-using NoNameGame.ECS.Messaging;
-using System.Collections.Generic;
+﻿using NoNameGame.ECS.Messaging;
 
 namespace NoNameGame.ECS.Systems
 {

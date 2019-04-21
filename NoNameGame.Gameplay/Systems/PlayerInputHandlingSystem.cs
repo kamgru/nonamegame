@@ -2,7 +2,6 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using NoNameGame.Data;
-using NoNameGame.ECS.Api;
 using NoNameGame.Core.Services;
 using NoNameGame.Gameplay.Components;
 using NoNameGame.ECS.Messaging;

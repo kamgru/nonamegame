@@ -6,8 +6,8 @@ using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Events;
 using NoNameGame.ECS.Messaging;
 using System.Collections.Generic;
-using NoNameGame.ECS.StateHandling;
 using NoNameGame.ECS.Entities;
+using NoNameGame.ECS.Systems.StateHandling;
 
 namespace NoNameGame.Gameplay.StateManagement
 {

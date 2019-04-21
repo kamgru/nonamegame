@@ -1,4 +1,4 @@
-﻿namespace NoNameGame.ECS.StateHandling
+﻿namespace NoNameGame.ECS.Systems.StateHandling
 {
     public abstract class StateHandlerBase
     {

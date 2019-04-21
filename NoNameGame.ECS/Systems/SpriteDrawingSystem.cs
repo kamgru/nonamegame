@@ -1,5 +1,4 @@
-﻿using NoNameGame.ECS.Api;
-using NoNameGame.ECS.Components;
+﻿using NoNameGame.ECS.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;

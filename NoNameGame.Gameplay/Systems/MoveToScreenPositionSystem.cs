@@ -1,5 +1,4 @@
-﻿using NoNameGame.ECS.Api;
-using NoNameGame.Gameplay.Components;
+﻿using NoNameGame.Gameplay.Components;
 using Microsoft.Xna.Framework;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems;

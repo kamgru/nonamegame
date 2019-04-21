@@ -1,5 +1,4 @@
-﻿using NoNameGame.ECS.Api;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +45,7 @@ namespace NoNameGame.ECS.Systems
                 return (TSystem)_basicSystems[typeof(TSystem)];
             }
 
-            return default(TSystem);
+            return default;
         }
 
         public void UpdateSystems(GameTime gameTime)

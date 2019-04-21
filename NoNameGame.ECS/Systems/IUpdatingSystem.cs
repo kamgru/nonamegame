@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace NoNameGame.ECS.Api
+namespace NoNameGame.ECS.Systems
 {
     public interface IUpdatingSystem : ISystem
     {

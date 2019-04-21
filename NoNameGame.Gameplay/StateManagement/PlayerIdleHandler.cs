@@ -1,6 +1,6 @@
 ﻿using NoNameGame.Core.Services;
 using NoNameGame.Data;
-using NoNameGame.ECS.StateHandling;
+using NoNameGame.ECS.Systems.StateHandling;
 
 namespace NoNameGame.Gameplay.StateManagement
 {

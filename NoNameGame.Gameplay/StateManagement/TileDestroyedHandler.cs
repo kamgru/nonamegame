@@ -1,7 +1,7 @@
 ﻿using NoNameGame.Data;
 using NoNameGame.ECS.Components;
 using NoNameGame.ECS.Entities;
-using NoNameGame.ECS.StateHandling;
+using NoNameGame.ECS.Systems.StateHandling;
 using NoNameGame.Gameplay.Components;
 
 namespace NoNameGame.Gameplay.StateManagement
