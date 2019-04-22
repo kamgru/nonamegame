@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using NoNameGame.Data;
 using NoNameGame.ECS.Components;
 using NoNameGame.Gameplay.Events;
 using NoNameGame.Gameplay.Components;

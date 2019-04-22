@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using NoNameGame.Data;
 using NoNameGame.ECS.Components;
 using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Messaging;

@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoNameGame.Main", "NoNameGame.Main\NoNameGame.Main.csproj", "{2772E1A3-D3D4-4B0C-9D8F-C4A8DFE91DEA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoNameGame.Core", "NoNameGame.Core\NoNameGame.Core.csproj", "{DE69A2B5-76AB-4376-B0B7-4CE0837DE0A3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoNameGame.Data", "NoNameGame.Data\NoNameGame.Data.csproj", "{87028B69-26E4-4622-A85C-C842FB5853CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoNameGame.ECS", "NoNameGame.ECS\NoNameGame.ECS.csproj", "{DB4E4B0D-AC7A-472C-BCE9-56D88277E37F}"
 EndProject
@@ -36,14 +34,6 @@ Global
 		{DE69A2B5-76AB-4376-B0B7-4CE0837DE0A3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DE69A2B5-76AB-4376-B0B7-4CE0837DE0A3}.Release|x86.ActiveCfg = Release|Any CPU
 		{DE69A2B5-76AB-4376-B0B7-4CE0837DE0A3}.Release|x86.Build.0 = Release|Any CPU
-		{87028B69-26E4-4622-A85C-C842FB5853CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{87028B69-26E4-4622-A85C-C842FB5853CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{87028B69-26E4-4622-A85C-C842FB5853CD}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{87028B69-26E4-4622-A85C-C842FB5853CD}.Debug|x86.Build.0 = Debug|Any CPU
-		{87028B69-26E4-4622-A85C-C842FB5853CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{87028B69-26E4-4622-A85C-C842FB5853CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{87028B69-26E4-4622-A85C-C842FB5853CD}.Release|x86.ActiveCfg = Release|Any CPU
-		{87028B69-26E4-4622-A85C-C842FB5853CD}.Release|x86.Build.0 = Release|Any CPU
 		{DB4E4B0D-AC7A-472C-BCE9-56D88277E37F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DB4E4B0D-AC7A-472C-BCE9-56D88277E37F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB4E4B0D-AC7A-472C-BCE9-56D88277E37F}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -63,5 +53,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6D58156A-E318-46AA-A220-CCDA3E98D59D}
 	EndGlobalSection
 EndGlobal

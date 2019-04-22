@@ -1,13 +1,10 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
-using NoNameGame.Data;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using NoNameGame.ECS.Components;
-using NoNameGame.ECS;
 using NoNameGame.Core.Services;
 using NoNameGame.Gameplay.Components;
-using NoNameGame.ECS.Entities;
 using NoNameGame.Gameplay.Entities;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.Gameplay.Data;

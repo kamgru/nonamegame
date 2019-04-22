@@ -1,5 +1,4 @@
-﻿using NoNameGame.Data;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using NoNameGame.ECS.Components;
 using NoNameGame.Gameplay.Data;
 

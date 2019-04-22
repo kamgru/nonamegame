@@ -1,5 +1,4 @@
-﻿using NoNameGame.Data;
-using NoNameGame.ECS.Entities;
+﻿using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Systems.StateHandling;
 using NoNameGame.Gameplay.Data;
 

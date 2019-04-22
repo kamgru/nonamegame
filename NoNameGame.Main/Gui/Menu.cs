@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NoNameGame.Data;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using NoNameGame.Core.Services;
+using NoNameGame.Core.Input;
+using NoNameGame.Gameplay.Data;
 
 namespace NoNameGame.Main.Gui
 {
     public class Menu
     {
-        private readonly InputService _inputService;
+        private IntentProvider _intentProvider;
         private int _currentIndex;
         private readonly IList<MenuItem> _menuItems;
         private readonly SpriteFont _defaultFont;
@@ -21,9 +18,9 @@ namespace NoNameGame.Main.Gui
 
         public Vector2 Position { get; set; }
 
-        public Menu(InputService inputService, SpriteBatch spriteBatch, SpriteFont font) 
+        public Menu(IntentProvider intentProvider, SpriteBatch spriteBatch, SpriteFont font) 
         {
-            _inputService = inputService;
+            _intentProvider = intentProvider;
             _spriteBatch = spriteBatch;
             _defaultFont = font;
             _menuItems = new List<MenuItem>();
@@ -34,18 +31,18 @@ namespace NoNameGame.Main.Gui
 
         public void Update(GameTime gameTime)
         {
-            var intents = _inputService.ConsumeIntents(new[] {Intent.MoveUp, Intent.MoveDown, Intent.Confirm});
+            var intents = _intentProvider.GetIntents();
 
-            if (intents.Contains(Intent.Confirm))
+            if (intents.Any(x => x is ConfirmIntent))
             {
                 _menuItems[_currentIndex].Select();
             }
 
-            if (intents.Contains(Intent.MoveUp))
+            if (intents.Any(x => x is MoveUpIntent))
             {
                 _currentIndex -= (int)Vector2.UnitY.Y;
             }
-            if (intents.Contains(Intent.MoveDown))
+            if (intents.Any(x => x is MoveDownIntent))
             {
                 _currentIndex += (int)Vector2.UnitY.Y;
             }

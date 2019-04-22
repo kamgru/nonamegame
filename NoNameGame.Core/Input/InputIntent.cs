@@ -4,8 +4,7 @@ namespace NoNameGame.Core.Input
 {
     public class InputIntent
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public IIntent Intent { get; set; }
         public Keys Key { get; set; }
     }
 }

@@ -50,6 +50,7 @@
     <Compile Include="Components\TargetScreenPosition.cs" />
     <Compile Include="Components\TileInfo.cs" />
     <Compile Include="Data\AnimationDictionary.cs" />
+    <Compile Include="Data\Input.cs" />
     <Compile Include="Data\PlayerStates.cs" />
     <Compile Include="Data\TileStates.cs" />
     <Compile Include="Data\TileType.cs" />
@@ -80,10 +81,6 @@
     <ProjectReference Include="..\NoNameGame.Core\NoNameGame.Core.csproj">
       <Project>{de69a2b5-76ab-4376-b0b7-4ce0837de0a3}</Project>
       <Name>NoNameGame.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NoNameGame.Data\NoNameGame.Data.csproj">
-      <Project>{87028b69-26e4-4622-a85c-c842fb5853cd}</Project>
-      <Name>NoNameGame.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\NoNameGame.ECS\NoNameGame.ECS.csproj">
       <Project>{db4e4b0d-ac7a-472c-bce9-56d88277e37f}</Project>

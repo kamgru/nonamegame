@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using NoNameGame.Data;
 using NoNameGame.Core.Screens;
 using NoNameGame.Core.Services;
+using NoNameGame.Gameplay.Data;
 
 namespace NoNameGame.Main.Screens
 {
@@ -43,7 +39,7 @@ namespace NoNameGame.Main.Screens
 
         public override void Update(GameTime gameTime, bool isActive)
         {
-            if (InputService.ConsumeIntents(new[] { Intent.Confirm }).Any())
+            if (IntentProvider.GetIntents().Any(x => x is ConfirmIntent))
             {
                 Session.Set("stageId", Session.Get<int>("stageId") + 1);
 

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using NoNameGame.Core.Input;
 
 namespace NoNameGame.Core.Screens
 {
@@ -9,9 +10,10 @@ namespace NoNameGame.Core.Screens
     {
         protected readonly ContentManager ContentManager;
         protected readonly ScreenManager ScreenManager;
-        protected readonly InputService InputService;
         protected readonly SpriteBatch SpriteBatch;
         protected readonly Session Session;
+        protected readonly IInputMapProvider InputMapProvider;
+        protected readonly IntentProvider IntentProvider;
 
         public bool IsInitialized { get; protected set; }
         public ScreenMode ScreenMode { get; set; }
@@ -20,9 +22,10 @@ namespace NoNameGame.Core.Screens
         {
             ContentManager = dependencies.ContentManager;
             ScreenManager = dependencies.ScreenManager;
-            InputService = dependencies.InputService;
             SpriteBatch = dependencies.SpriteBatch;
             Session = dependencies.Session;
+            InputMapProvider = dependencies.InputMapProvider;
+            IntentProvider = dependencies.IntentProvider;
         }
 
         public virtual void Init()

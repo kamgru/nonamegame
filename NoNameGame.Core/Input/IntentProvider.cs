@@ -6,21 +6,22 @@ using System.Threading.Tasks;
 
 namespace NoNameGame.Core.Input
 {
-    public class IntentMapper
+    public class IntentProvider
     {
-        private readonly ContextManager _contextManager;
         private readonly InputProvider _inputProvider;
-
-        public IntentMapper(ContextManager contextManager, InputProvider inputProvider)
+        private readonly IInputMapProvider _inputMapProvider;
+        public IntentProvider(InputProvider inputProvider, IInputMapProvider inputMapProvider)
         {
-            _contextManager = contextManager;
             _inputProvider = inputProvider;
+            _inputMapProvider = inputMapProvider;
         }
 
-        public IReadOnlyCollection<InputIntent> ConsumeIntents()
+        public IEnumerable<IIntent> GetIntents()
         {
             var pressedKeys = _inputProvider.GetPressedKeys();
-            var intents = _contextManager.GetActiveContexts().SelectMany(context => context.Intents);
+
+            var intents = _inputMapProvider.GetActiveContexts()
+                .SelectMany(context => context.InputIntentMap);
 
             var mappedIntents = new List<InputIntent>();
 
@@ -36,7 +37,7 @@ namespace NoNameGame.Core.Input
                 }
             }
 
-            return mappedIntents;
+            return mappedIntents.Select(x => x.Intent);
         }
     }
 }

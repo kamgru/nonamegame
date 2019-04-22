@@ -1,7 +1,5 @@
-﻿using NoNameGame.Data;
-using System.Linq;
+﻿using System.Linq;
 using NoNameGame.ECS.Components;
-using NoNameGame.Core.Services;
 using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Events;
 using NoNameGame.ECS.Messaging;
@@ -9,6 +7,7 @@ using System.Collections.Generic;
 using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Systems.StateHandling;
 using NoNameGame.Gameplay.Data;
+using NoNameGame.Core.Input;
 
 namespace NoNameGame.Gameplay.StateManagement
 {
@@ -17,13 +16,13 @@ namespace NoNameGame.Gameplay.StateManagement
         IMessageListener<EntityCreated>,
         IMessageListener<EntityDestroyed>
     {
-        private readonly InputService _inputService;
+        private readonly IInputMapProvider _inputMapProvider;
         private readonly ICollection<Entity> _entities;
 
-        public PlayerMovingHandler(InputService inputService)
+        public PlayerMovingHandler(IInputMapProvider inputMapProvider)
             : base(PlayerStates.Moving)
         {
-            _inputService = inputService;
+            _inputMapProvider = inputMapProvider;
             _entities = new List<Entity>();
             SystemMessageBroker.AddListener<EntityCreated>(this);
             SystemMessageBroker.AddListener<EntityDestroyed>(this);
@@ -33,7 +32,7 @@ namespace NoNameGame.Gameplay.StateManagement
         {
             if (entityState.State.InTransition)
             {
-                _inputService.SetContextActive((int)Context.Gameplay, false);
+                _inputMapProvider.GetContextById(Contexts.Gameplay)?.Deactivate();
                 entityState.Entity.GetComponent<Animator>().Play("walk");
                 entityState.State.InTransition = false;
             }

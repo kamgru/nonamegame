@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NoNameGame.Core.Input;
 
 namespace NoNameGame.Core.Screens
 {
@@ -13,8 +14,9 @@ namespace NoNameGame.Core.Screens
     {
         public ContentManager ContentManager { get; set; }
         public ScreenManager ScreenManager { get; set; }
-        public InputService InputService { get; set; }
         public SpriteBatch SpriteBatch { get; set; }
         public Session Session { get; set; }
+        public IInputMapProvider InputMapProvider { get; set; }
+        public IntentProvider IntentProvider { get; set; }
     }
 }

@@ -11,6 +11,7 @@ using NoNameGame.Gameplay.Services;
 using NoNameGame.Gameplay.Components;
 using System.Collections.Generic;
 using NoNameGame.ECS.Messaging;
+using NoNameGame.Core.Input;
 
 namespace NoNameGame.Main.Screens
 {
@@ -71,13 +72,12 @@ namespace NoNameGame.Main.Screens
             player.Transform.SetParent(board.Transform);
 
             board.Transform.Position = new Vector2((ScreenManager.Game.GraphicsDevice.Viewport.Width - size.X) / 2, (ScreenManager.Game.GraphicsDevice.Viewport.Height - size.Y) / 2);
-            
         }
 
         private void SetupSystems()
         {
             _systemsManager = new SystemsManager();
-            _systemsManager.Push(new PlayerInputHandlingSystem(InputService, _configurationService));
+            _systemsManager.Push(new PlayerInputHandlingSystem(IntentProvider, _configurationService));
             _systemsManager.Push(new CommandHandlingSystem());
             _systemsManager.Push(new SpriteDrawingSystem(ContentManager, SpriteBatch));
             _systemsManager.Push(new AnimationSystem(_configurationService.GetFps()));
@@ -85,8 +85,8 @@ namespace NoNameGame.Main.Screens
             _systemsManager.Push(new TileEventsSystem(new PoofFactory(ContentManager)));
 
             var fsmSystem = new FsmSystem();
-            fsmSystem.RegisterHandler(new PlayerIdleHandler(InputService, ContentManager));
-            fsmSystem.RegisterHandler(new PlayerMovingHandler(InputService));
+            fsmSystem.RegisterHandler(new PlayerIdleHandler(ContentManager, InputMapProvider));
+            fsmSystem.RegisterHandler(new PlayerMovingHandler(InputMapProvider));
             fsmSystem.RegisterHandler(new PlayerDeadHandler());
             fsmSystem.RegisterHandler(new TileDestroyedHandler());
             _systemsManager.Push(fsmSystem);

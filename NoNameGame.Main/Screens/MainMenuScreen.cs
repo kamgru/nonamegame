@@ -1,10 +1,9 @@
-﻿using System.Linq;
-using NoNameGame.Data;
-using NoNameGame.Main.Gui;
+﻿using NoNameGame.Main.Gui;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using NoNameGame.Core.Screens;
+using NoNameGame.Gameplay.Data;
 
 namespace NoNameGame.Main.Screens
 {
@@ -22,9 +21,9 @@ namespace NoNameGame.Main.Screens
         public override void Init()
         {
             _menuFont = ContentManager.Load<SpriteFont>("default");
-            InputService.SetContextActive(0, true);
+            InputMapProvider.GetContextById(Contexts.Menu)?.Activate();
 
-            _menu = new Menu(InputService, SpriteBatch, _menuFont);
+            _menu = new Menu(IntentProvider, SpriteBatch, _menuFont);
 
             var viewport = ScreenManager.Game.GraphicsDevice.Viewport;
             _menu.Position= new Vector2(viewport.Width / 2, viewport.Height / 2);

@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using NoNameGame.Core.Services;
-using NoNameGame.Data;
+using NoNameGame.Core.Input;
 using NoNameGame.ECS.Components;
 using NoNameGame.ECS.Systems.StateHandling;
 using NoNameGame.Gameplay.Data;
@@ -11,14 +10,14 @@ namespace NoNameGame.Gameplay.StateManagement
 {
     public class PlayerIdleHandler : StateHandlerBase
     {
-        private readonly InputService _inputService;
         private readonly ContentManager _contentManager;
+        private readonly IInputMapProvider _inputMapProvider;
 
-        public PlayerIdleHandler(InputService inputService, ContentManager contentManager) 
+        public PlayerIdleHandler( ContentManager contentManager, IInputMapProvider inputMapProvider) 
             : base(PlayerStates.Idle)
         {
-            _inputService = inputService;
             _contentManager = contentManager;
+            _inputMapProvider = inputMapProvider;
         }
 
         public override void Handle(EntityState entity)
@@ -30,7 +29,7 @@ namespace NoNameGame.Gameplay.StateManagement
                 sprite.Texture2D = texture;
                 sprite.Rectangle = new Rectangle(0, 0, 32, 32);
 
-                _inputService.SetContextActive((int)Context.Gameplay, true);
+                _inputMapProvider.GetContextById(Contexts.Gameplay)?.Activate();
                 entity.State.InTransition = false;
             }
         }
