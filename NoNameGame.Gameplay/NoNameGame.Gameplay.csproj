@@ -49,6 +49,10 @@
     <Compile Include="Components\PositionOnBoard.cs" />
     <Compile Include="Components\TargetScreenPosition.cs" />
     <Compile Include="Components\TileInfo.cs" />
+    <Compile Include="Data\AnimationDictionary.cs" />
+    <Compile Include="Data\PlayerStates.cs" />
+    <Compile Include="Data\TileStates.cs" />
+    <Compile Include="Data\TileType.cs" />
     <Compile Include="Entities\Board.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Entities\Poof.cs" />

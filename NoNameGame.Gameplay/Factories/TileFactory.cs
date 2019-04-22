@@ -10,6 +10,7 @@ using NoNameGame.Gameplay.Components;
 using NoNameGame.ECS.Entities;
 using NoNameGame.Gameplay.Entities;
 using NoNameGame.ECS.Messaging;
+using NoNameGame.Gameplay.Data;
 
 namespace NoNameGame.Gameplay.Factories
 {

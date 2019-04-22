@@ -5,6 +5,7 @@ using NoNameGame.Core.Services;
 using NoNameGame.Data;
 using NoNameGame.ECS.Components;
 using NoNameGame.ECS.Systems.StateHandling;
+using NoNameGame.Gameplay.Data;
 
 namespace NoNameGame.Gameplay.StateManagement
 {

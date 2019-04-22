@@ -8,6 +8,7 @@ using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems;
 using NoNameGame.Gameplay.Entities;
 using System.Collections.Generic;
+using NoNameGame.Gameplay.Data;
 
 namespace NoNameGame.Gameplay.Systems
 {

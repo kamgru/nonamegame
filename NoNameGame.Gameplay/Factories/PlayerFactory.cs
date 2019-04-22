@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using NoNameGame.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,6 +6,7 @@ using NoNameGame.ECS.Components;
 using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Entities;
 using NoNameGame.ECS.Messaging;
+using NoNameGame.Gameplay.Data;
 
 namespace NoNameGame.Gameplay.Factories
 {

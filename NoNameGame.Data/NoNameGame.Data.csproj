@@ -40,12 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnimationDictionary.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Intent.cs" />
-    <Compile Include="PlayerStates.cs" />
-    <Compile Include="TileStates.cs" />
-    <Compile Include="TileType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

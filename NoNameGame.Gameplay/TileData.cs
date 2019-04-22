@@ -1,4 +1,5 @@
 ﻿using NoNameGame.Data;
+using NoNameGame.Gameplay.Data;
 
 namespace NoNameGame.Gameplay
 {

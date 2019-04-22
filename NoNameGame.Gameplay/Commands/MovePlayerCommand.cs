@@ -5,6 +5,7 @@ using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems.CommandHandling;
 using NoNameGame.Gameplay.Components;
+using NoNameGame.Gameplay.Data;
 using NoNameGame.Gameplay.Events;
 
 namespace NoNameGame.Gameplay.Commands

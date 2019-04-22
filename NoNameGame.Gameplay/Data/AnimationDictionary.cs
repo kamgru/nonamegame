@@ -1,4 +1,4 @@
-﻿namespace NoNameGame.Data
+﻿namespace NoNameGame.Gameplay.Data
 {
     public static class AnimationDictionary
     {
