@@ -11,12 +11,14 @@ namespace NoNameGame.Gameplay.Data
         public static readonly string Menu = "menu";
     }
 
-    public class MoveLeftIntent : IIntent { }
-    public class MoveRightIntent : IIntent { }
-    public class MoveUpIntent : IIntent { }
-    public class MoveDownIntent : IIntent { }
+    public class MovePlayerLeftIntent : IIntent { }
+    public class MovePlayerRightIntent : IIntent { }
+    public class MovePlayerUpIntent : IIntent { }
+    public class MovePlayerDownIntent : IIntent { }
     public class ConfirmIntent : IIntent { }
     public class CancelIntent : IIntent { }
+    public class MenuUpIntent : IIntent { }
+    public class MenuDownIntent : IIntent { }
 
     public class InputMapProvider : IInputMapProvider
     {
@@ -34,12 +36,12 @@ namespace NoNameGame.Gameplay.Data
                     },
                     new InputIntent
                     {
-                        Intent = new MoveUpIntent(),
+                        Intent = new MenuUpIntent(),
                         Key = Keys.Up
                     },
                     new InputIntent
                     {
-                        Intent = new MoveDownIntent(),
+                        Intent = new MenuDownIntent(),
                         Key = Keys.Down
                     }
                 }
@@ -51,22 +53,22 @@ namespace NoNameGame.Gameplay.Data
                 {
                     new InputIntent
                     {
-                        Intent = new MoveUpIntent(),
+                        Intent = new MovePlayerUpIntent(),
                         Key = Keys.Up
                     },
                     new InputIntent
                     {
-                        Intent = new MoveDownIntent(),
+                        Intent = new MovePlayerDownIntent(),
                         Key = Keys.Down
                     },
                     new InputIntent
                     {
-                        Intent = new MoveLeftIntent(),
+                        Intent = new MovePlayerLeftIntent(),
                         Key = Keys.Left
                     },
                     new InputIntent
                     {
-                        Intent = new MoveRightIntent(),
+                        Intent = new MovePlayerRightIntent(),
                         Key = Keys.Right
                     },
                     new InputIntent

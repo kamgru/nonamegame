@@ -29,6 +29,7 @@ namespace NoNameGame.Main.Screens
             _blank = ContentManager.Load<Texture2D>("blank");
             _viewport = ScreenManager.Game.GraphicsDevice.Viewport;
             _position = new Vector2((_viewport.Width - _defaultFont.MeasureString(Text).X) / 2, _viewport.Height / 2);
+            InputMapProvider.GetContextById(Contexts.Menu).Activate();
         }
 
         public override void Draw(GameTime gameTime)
@@ -41,6 +42,7 @@ namespace NoNameGame.Main.Screens
         {
             if (IntentProvider.GetIntents().Any(x => x is ConfirmIntent))
             {
+                InputMapProvider.GetContextById(Contexts.Menu).Deactivate();
                 Session.Set("stageId", Session.Get<int>("stageId") + 1);
 
                 var gameplay = ScreenManager.Peek<GameplayScreen>();

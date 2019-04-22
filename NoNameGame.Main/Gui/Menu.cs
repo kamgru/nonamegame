@@ -38,11 +38,12 @@ namespace NoNameGame.Main.Gui
                 _menuItems[_currentIndex].Select();
             }
 
-            if (intents.Any(x => x is MoveUpIntent))
+            if (intents.Any(x => x is MenuUpIntent))
             {
                 _currentIndex -= (int)Vector2.UnitY.Y;
             }
-            if (intents.Any(x => x is MoveDownIntent))
+
+            if (intents.Any(x => x is MenuDownIntent))
             {
                 _currentIndex += (int)Vector2.UnitY.Y;
             }

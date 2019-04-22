@@ -79,10 +79,10 @@ namespace NoNameGame.Gameplay.Systems
         {
             switch (intent)
             {
-                case MoveLeftIntent _: return new Vector2(-1, 0);
-                case MoveRightIntent _: return new Vector2(1, 0);
-                case MoveUpIntent _: return new Vector2(0, -1);
-                case MoveDownIntent _: return new Vector2(0, 1);
+                case MovePlayerLeftIntent _: return new Vector2(-1, 0);
+                case MovePlayerRightIntent _: return new Vector2(1, 0);
+                case MovePlayerUpIntent _: return new Vector2(0, -1);
+                case MovePlayerDownIntent _: return new Vector2(0, 1);
                 default: return Vector2.Zero;
             }
         }

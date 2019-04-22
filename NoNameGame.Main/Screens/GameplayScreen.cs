@@ -12,6 +12,7 @@ using NoNameGame.Gameplay.Components;
 using System.Collections.Generic;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Input;
+using NoNameGame.Gameplay.Data;
 
 namespace NoNameGame.Main.Screens
 {
@@ -34,6 +35,8 @@ namespace NoNameGame.Main.Screens
 
             SetupSystems();
             SetupStage();
+
+            InputMapProvider.GetContextById(Contexts.Gameplay).Activate();
         }
 
         public override void Update(GameTime gameTime, bool isActive)
@@ -102,6 +105,7 @@ namespace NoNameGame.Main.Screens
         
         public void Handle(StageCleared message)
         {
+            InputMapProvider.GetContextById(Contexts.Gameplay).Deactivate();
             ScreenManager.Push<StageClearScreen>();
         }
     }
