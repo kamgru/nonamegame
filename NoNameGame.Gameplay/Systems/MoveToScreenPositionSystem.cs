@@ -4,6 +4,8 @@ using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems;
 using System.Collections.Generic;
 using NoNameGame.ECS.Entities;
+using System;
+using System.Linq;
 
 namespace NoNameGame.Gameplay.Systems
 {
@@ -11,35 +13,29 @@ namespace NoNameGame.Gameplay.Systems
         : SystemBase, 
         IUpdatingSystem,
         IMessageListener<ComponentAdded<TargetScreenPosition>>,
-        IMessageListener<ComponentAdded<MoveSpeed>>
+        IMessageListener<ComponentRemoved<TargetScreenPosition>>
     {
         private readonly List<Entity> _entities = new List<Entity>();
 
         public MoveToScreenPositionSystem()
         {
             SystemMessageBroker.AddListener<ComponentAdded<TargetScreenPosition>>(this);
-            SystemMessageBroker.AddListener<ComponentAdded<MoveSpeed>>(this);
+            SystemMessageBroker.AddListener<ComponentRemoved<TargetScreenPosition>>(this);
         }
 
-        public void Handle(ComponentAdded<MoveSpeed> message)
+        public void Handle(ComponentRemoved<TargetScreenPosition> message)
         {
-            if (message.Entity.HasComponent<TargetScreenPosition>())
-            {
-                _entities.Add(message.Entity);
-            }
+            _entities.Remove(message.Entity);
         }
 
         public void Handle(ComponentAdded<TargetScreenPosition> message)
         {
-            if (message.Entity.HasComponent<MoveSpeed>())
-            {
-                _entities.Add(message.Entity);
-            }
+           _entities.Add(message.Entity);
         }
 
         public override void Handle(EntityDestroyed message)
         {
-            if (message.Entity.HasComponent<MoveSpeed>() || message.Entity.HasComponent<TargetScreenPosition>())
+            if (message.Entity.HasComponent<TargetScreenPosition>())
             {
                 _entities.Remove(message.Entity);
             }
@@ -49,30 +45,31 @@ namespace NoNameGame.Gameplay.Systems
         {
             foreach (var entity in _entities)
             {
-                var moveTo = entity.GetComponent<TargetScreenPosition>();
+                var component = entity.GetComponent<TargetScreenPosition>();
 
-                var transform = entity.Transform;
+                component.Elapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-                if ((transform.Position - moveTo.Position).LengthSquared() > 0.01f)
-                {
-                    var speed = entity.GetComponent<MoveSpeed>().Speed;
-
-                    var direction = moveTo.Position - transform.Position;
-                    direction.Normalize();
-
-                    var distancePlanned = (direction * speed).LengthSquared();
-                    var distanceLeft = (transform.Position - moveTo.Position).LengthSquared();
-
-                    if (distancePlanned >= distanceLeft)
-                    {
-                        transform.Position = moveTo.Position;
-                    }
-                    else
-                    {
-                        transform.Position += direction * speed;
-                    }
-                }                
+                entity.Transform.Position = component.Elapsed >= component.Duration
+                    ? component.Target
+                    : CalculatePosition(component);
             }
+        }
+
+        private Vector2 CalculatePosition(TargetScreenPosition component)
+        {
+            var elapsed = component.Elapsed / (component.Duration / 2f);
+
+            var newx = EaseInOut(elapsed, component.Start.X, component.Target.X - component.Start.X);
+            var newy = EaseInOut(elapsed, component.Start.Y, component.Target.Y - component.Start.Y);
+
+            return new Vector2(newx, newy);
+        }
+
+        private float EaseInOut(float elapsed, float start, float change)
+        {
+            return elapsed < 1
+                ? change / 2 * elapsed * elapsed + start
+                : -change / 2 * ((--elapsed) * (elapsed - 2) - 1) + start;
         }
     }
 }

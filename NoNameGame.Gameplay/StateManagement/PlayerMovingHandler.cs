@@ -38,7 +38,7 @@ namespace NoNameGame.Gameplay.StateManagement
             }
             else
             {
-                if (entityState.Entity.Transform.Position == entityState.Entity.GetComponent<TargetScreenPosition>().Position)
+                if (entityState.Entity.Transform.Position == entityState.Entity.GetComponent<TargetScreenPosition>().Target)
                 {
                     var currentPosition = entityState.Entity.GetComponent<PositionOnBoard>().Current;
                     var currentTile = _entities.Where(x => x.HasComponent<TileInfo>())
@@ -52,6 +52,7 @@ namespace NoNameGame.Gameplay.StateManagement
                     else
                     {
                         entityState.State.CurrentState = PlayerStates.Idle;
+                        entityState.Entity.RemoveComponent(entityState.Entity.GetComponent<TargetScreenPosition>());
 
                         GameEventManager.Raise(new PlayerEnteredTile
                         {

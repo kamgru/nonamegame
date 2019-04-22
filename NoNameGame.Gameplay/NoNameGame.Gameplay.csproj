@@ -46,7 +46,6 @@
   <ItemGroup>
     <Compile Include="BoardData.cs" />
     <Compile Include="Components\BoardInfo.cs" />
-    <Compile Include="Components\MoveSpeed.cs" />
     <Compile Include="Components\PositionOnBoard.cs" />
     <Compile Include="Components\TargetScreenPosition.cs" />
     <Compile Include="Components\TileInfo.cs" />

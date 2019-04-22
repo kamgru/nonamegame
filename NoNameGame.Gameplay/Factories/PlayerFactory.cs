@@ -4,9 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using NoNameGame.ECS.Components;
-using NoNameGame.ECS;
 using NoNameGame.Gameplay.Components;
-using NoNameGame.ECS.Entities;
 using NoNameGame.Gameplay.Entities;
 using NoNameGame.ECS.Messaging;
 
@@ -28,9 +26,7 @@ namespace NoNameGame.Gameplay.Factories
             var texture = _contentManager.Load<Texture2D>("red_ball");
 
             player.AddComponent(new Sprite { Texture2D = texture, ZIndex = 2000 });
-            player.AddComponent(new MoveSpeed { Speed = 3f });
             player.AddComponent(new PositionOnBoard());
-            player.AddComponent(new TargetScreenPosition());
             player.AddComponent(new CommandQueue());
 
             player.AddComponent(new State

@@ -28,7 +28,17 @@ namespace NoNameGame.Gameplay.Commands
         public void Execute()
         {
             _player.GetComponent<PositionOnBoard>().Translate(_direction.ToPoint());
-            _player.GetComponent<TargetScreenPosition>().Position += _direction * _distance;
+
+            var target = new TargetScreenPosition
+            {
+                Duration = 300f,
+                Start = _player.Transform.Position
+            };
+
+            target.Target = target.Start + _direction * _distance;
+
+            _player.AddComponent(target);
+
             _player.GetComponent<State>().CurrentState = PlayerStates.Moving;
 
             GameEventManager.Raise(new PlayerAbandonedTile());

@@ -71,7 +71,7 @@ namespace NoNameGame.Main.Screens
             player.Transform.SetParent(board.Transform);
 
             board.Transform.Position = new Vector2((ScreenManager.Game.GraphicsDevice.Viewport.Width - size.X) / 2, (ScreenManager.Game.GraphicsDevice.Viewport.Height - size.Y) / 2);
-            player.GetComponent<TargetScreenPosition>().Position = player.Transform.Position;
+            
         }
 
         private void SetupSystems()
