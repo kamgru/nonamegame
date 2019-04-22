@@ -23,9 +23,9 @@ namespace NoNameGame.Gameplay.Factories
         {
             var player = new Player();
 
-            var texture = _contentManager.Load<Texture2D>("red_ball");
+            var texture = _contentManager.Load<Texture2D>("ball_jump_purple");
 
-            player.AddComponent(new Sprite { Texture2D = texture, ZIndex = 2000 });
+            player.AddComponent(new Sprite { Texture2D = texture, ZIndex = 2000, Rectangle = new Rectangle(0, 0, 32, 32) });
             player.AddComponent(new PositionOnBoard());
             player.AddComponent(new CommandQueue());
 
@@ -38,7 +38,7 @@ namespace NoNameGame.Gameplay.Factories
             {
                 Animations = new List<Animation>
                 {
-                    new Animation(_contentManager.Load<Texture2D>("ballses"), new Point(32, 32))
+                    new Animation(_contentManager.Load<Texture2D>("ball_jump_purple"), new Point(32, 32))
                     {
                         Looped = false,
                         Name = AnimationDictionary.PlayerMove,

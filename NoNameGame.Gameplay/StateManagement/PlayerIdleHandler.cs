@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using NoNameGame.Core.Services;
 using NoNameGame.Data;
@@ -23,10 +24,10 @@ namespace NoNameGame.Gameplay.StateManagement
         {
             if (entity.State.InTransition)
             {
-                var texture = _contentManager.Load<Texture2D>("red_ball");
+                var texture = _contentManager.Load<Texture2D>("ball_jump_purple");
                 var sprite = entity.Entity.GetComponent<Sprite>();
                 sprite.Texture2D = texture;
-                sprite.Rectangle = null;
+                sprite.Rectangle = new Rectangle(0, 0, 32, 32);
 
                 _inputService.SetContextActive((int)Context.Gameplay, true);
                 entity.State.InTransition = false;
