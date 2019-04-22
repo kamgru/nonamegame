@@ -16,7 +16,7 @@ namespace NoNameGame.Gameplay.Commands
         private Entity _player;
 
         public MovePlayerCommand(
-            Vector2 direction, 
+            Vector2 direction,
             Vector2 distance,
             Entity player)
         {

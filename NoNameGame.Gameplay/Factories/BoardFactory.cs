@@ -1,9 +1,8 @@
-﻿using System.Linq;
-using Microsoft.Xna.Framework;
-using NoNameGame.ECS.Entities;
+﻿using Microsoft.Xna.Framework;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Entities;
+using System.Linq;
 
 namespace NoNameGame.Gameplay.Factories
 {
@@ -11,7 +10,7 @@ namespace NoNameGame.Gameplay.Factories
     {
         private readonly TileFactory _tileFactory;
 
-        public BoardFactory(TileFactory tileFactory) 
+        public BoardFactory(TileFactory tileFactory)
         {
             _tileFactory = tileFactory;
         }
@@ -21,7 +20,7 @@ namespace NoNameGame.Gameplay.Factories
             var board = new Board();
 
             var tiles = data.Tiles
-                .Select(tileData => 
+                .Select(tileData =>
                 {
                     var tile = _tileFactory.CreateTile(tileData);
                     tile.Transform.SetParent(board.Transform);

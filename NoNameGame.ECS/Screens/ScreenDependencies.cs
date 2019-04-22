@@ -1,6 +1,6 @@
-﻿using NoNameGame.Core.Services;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using NoNameGame.Core.Services;
 using NoNameGame.ECS.Input;
 
 namespace NoNameGame.Core.Screens

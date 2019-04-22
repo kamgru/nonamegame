@@ -1,21 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using NoNameGame.Core.Services;
-using NoNameGame.Gameplay.Components;
+using NoNameGame.ECS.Components;
+using NoNameGame.ECS.Entities;
+using NoNameGame.ECS.Input;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems;
-using NoNameGame.ECS.Entities;
-using NoNameGame.ECS.Components;
 using NoNameGame.Gameplay.Commands;
-using NoNameGame.Gameplay.Entities;
-using NoNameGame.ECS.Input;
+using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Data;
+using NoNameGame.Gameplay.Entities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NoNameGame.Gameplay.Systems
 {
-    public class PlayerInputHandlingSystem 
-        : SystemBase, 
+    public class PlayerInputHandlingSystem
+        : SystemBase,
         IUpdatingSystem,
         IMessageListener<ComponentAdded<TileInfo>>,
         IMessageListener<EntityCreated>,
@@ -28,7 +28,7 @@ namespace NoNameGame.Gameplay.Systems
 
         public PlayerInputHandlingSystem(
             IntentProvider intentProvider,
-            ConfigurationService configurationService) 
+            ConfigurationService configurationService)
         {
             _intentProvider = intentProvider;
             _tileSize = configurationService.GetTileSizeInPixels();

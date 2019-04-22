@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using NoNameGame.ECS.Components;
-using NoNameGame.Gameplay.Components;
-using NoNameGame.Gameplay.Entities;
 using NoNameGame.ECS.Messaging;
+using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Data;
+using NoNameGame.Gameplay.Entities;
+using System.Collections.Generic;
 
 namespace NoNameGame.Gameplay.Factories
 {

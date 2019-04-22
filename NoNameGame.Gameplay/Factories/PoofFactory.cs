@@ -1,11 +1,9 @@
-﻿using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework;
-using NoNameGame.ECS.Components;
-using NoNameGame.ECS;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using NoNameGame.ECS.Entities;
-using NoNameGame.Gameplay.Entities;
+using NoNameGame.ECS.Components;
 using NoNameGame.ECS.Messaging;
+using NoNameGame.Gameplay.Entities;
 
 namespace NoNameGame.Gameplay.Factories
 {
@@ -13,7 +11,7 @@ namespace NoNameGame.Gameplay.Factories
     {
         private readonly ContentManager _contentManager;
 
-        public PoofFactory(ContentManager contentManager) 
+        public PoofFactory(ContentManager contentManager)
         {
             _contentManager = contentManager;
         }

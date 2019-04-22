@@ -1,17 +1,17 @@
-﻿using System.Linq;
-using NoNameGame.ECS.Components;
-using NoNameGame.Gameplay.Components;
-using NoNameGame.Gameplay.Events;
-using NoNameGame.ECS.Messaging;
-using System.Collections.Generic;
+﻿using NoNameGame.ECS.Components;
 using NoNameGame.ECS.Entities;
-using NoNameGame.ECS.Systems.StateHandling;
-using NoNameGame.Gameplay.Data;
 using NoNameGame.ECS.Input;
+using NoNameGame.ECS.Messaging;
+using NoNameGame.ECS.Systems.StateHandling;
+using NoNameGame.Gameplay.Components;
+using NoNameGame.Gameplay.Data;
+using NoNameGame.Gameplay.Events;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NoNameGame.Gameplay.StateManagement
 {
-    public class PlayerMovingHandler 
+    public class PlayerMovingHandler
         : StateHandlerBase,
         IMessageListener<EntityCreated>,
         IMessageListener<EntityDestroyed>

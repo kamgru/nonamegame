@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using NoNameGame.Core.Screens;
 using NoNameGame.Core.Services;
 using NoNameGame.Gameplay.Data;
+using System.Linq;
 
 namespace NoNameGame.Main.Screens
 {
@@ -16,7 +16,7 @@ namespace NoNameGame.Main.Screens
         private Vector2 _position;
         private Texture2D _blank;
 
-        public StageClearScreen(ScreenDependencies dependencies) 
+        public StageClearScreen(ScreenDependencies dependencies)
             : base(dependencies)
         {
             ScreenMode = ScreenMode.Overlay;

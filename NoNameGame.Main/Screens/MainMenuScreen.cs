@@ -1,9 +1,9 @@
-﻿using NoNameGame.Main.Gui;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using NoNameGame.Core.Screens;
 using NoNameGame.Gameplay.Data;
+using NoNameGame.Main.Gui;
 
 namespace NoNameGame.Main.Screens
 {
@@ -26,9 +26,9 @@ namespace NoNameGame.Main.Screens
             _menu = new Menu(IntentProvider, SpriteBatch, _menuFont);
 
             var viewport = ScreenManager.Game.GraphicsDevice.Viewport;
-            _menu.Position= new Vector2(viewport.Width / 2, viewport.Height / 2);
+            _menu.Position = new Vector2(viewport.Width / 2, viewport.Height / 2);
 
-            var start = new MenuItem {Text = "Start"};
+            var start = new MenuItem { Text = "Start" };
 
             start.OnSelected += (sender, args) =>
             {
@@ -36,7 +36,7 @@ namespace NoNameGame.Main.Screens
                 ScreenManager.Push<GameplayScreen>();
             };
 
-            var quit = new MenuItem {Text = "Quit"};
+            var quit = new MenuItem { Text = "Quit" };
             quit.OnSelected += (sender, args) =>
             {
                 ScreenManager.Game.Exit();
@@ -58,7 +58,7 @@ namespace NoNameGame.Main.Screens
 
         public override void Draw(GameTime gameTime)
         {
-            SpriteBatch.DrawString(_menuFont, "THE GAME", Vector2.Zero,  Color.Black);
+            SpriteBatch.DrawString(_menuFont, "THE GAME", Vector2.Zero, Color.Black);
             _menu.Draw(gameTime);
         }
     }

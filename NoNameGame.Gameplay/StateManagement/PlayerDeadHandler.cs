@@ -7,7 +7,7 @@ namespace NoNameGame.Gameplay.StateManagement
     public class PlayerDeadHandler : StateHandlerBase
     {
         public PlayerDeadHandler()
-            :base(PlayerStates.Dead)
+            : base(PlayerStates.Dead)
         {
         }
 

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using NoNameGame.ECS.Input;
 using NoNameGame.ECS.Components;
+using NoNameGame.ECS.Input;
 using NoNameGame.ECS.Systems.StateHandling;
 using NoNameGame.Gameplay.Data;
 
@@ -13,7 +13,7 @@ namespace NoNameGame.Gameplay.StateManagement
         private readonly ContentManager _contentManager;
         private readonly IInputMapProvider _inputMapProvider;
 
-        public PlayerIdleHandler( ContentManager contentManager, IInputMapProvider inputMapProvider) 
+        public PlayerIdleHandler(ContentManager contentManager, IInputMapProvider inputMapProvider)
             : base(PlayerStates.Idle)
         {
             _contentManager = contentManager;

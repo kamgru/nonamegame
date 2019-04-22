@@ -1,14 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
-using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Components;
+using NoNameGame.ECS.Entities;
+using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems.CommandHandling;
 using System.Collections.Generic;
-using NoNameGame.ECS.Entities;
 
 namespace NoNameGame.ECS.Systems
 {
     public class CommandHandlingSystem
-        : SystemBase, 
+        : SystemBase,
         IUpdatingSystem,
         IMessageListener<ComponentAdded<CommandQueue>>,
         IMessageListener<ComponentRemoved<CommandQueue>>

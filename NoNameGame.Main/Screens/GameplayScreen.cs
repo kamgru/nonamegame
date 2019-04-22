@@ -1,18 +1,17 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using NoNameGame.ECS.Systems;
+﻿using Microsoft.Xna.Framework;
 using NoNameGame.Core.Screens;
 using NoNameGame.Core.Services;
+using NoNameGame.ECS.Messaging;
+using NoNameGame.ECS.Systems;
+using NoNameGame.Gameplay.Components;
+using NoNameGame.Gameplay.Data;
 using NoNameGame.Gameplay.Events;
-using NoNameGame.Gameplay.Systems;
-using NoNameGame.Gameplay.StateManagement;
 using NoNameGame.Gameplay.Factories;
 using NoNameGame.Gameplay.Services;
-using NoNameGame.Gameplay.Components;
+using NoNameGame.Gameplay.StateManagement;
+using NoNameGame.Gameplay.Systems;
+using System;
 using System.Collections.Generic;
-using NoNameGame.ECS.Messaging;
-using NoNameGame.ECS.Input;
-using NoNameGame.Gameplay.Data;
 
 namespace NoNameGame.Main.Screens
 {
@@ -21,7 +20,7 @@ namespace NoNameGame.Main.Screens
         private SystemsManager _systemsManager;
         private ConfigurationService _configurationService;
 
-        public GameplayScreen(ScreenDependencies dependencies) 
+        public GameplayScreen(ScreenDependencies dependencies)
             : base(dependencies)
         {
         }
@@ -102,7 +101,7 @@ namespace NoNameGame.Main.Screens
             _systemsManager.Peek<FsmSystem>().SetActive(true);
             _systemsManager.Peek<TileEventsSystem>().SetActive(true);
         }
-        
+
         public void Handle(StageCleared message)
         {
             InputMapProvider.GetContextById(Contexts.Gameplay).Deactivate();

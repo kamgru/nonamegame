@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using NoNameGame.ECS.Components;
 using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems.StateHandling;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NoNameGame.ECS.Systems
 {
-    public class FsmSystem 
-        : SystemBase, 
+    public class FsmSystem
+        : SystemBase,
         IUpdatingSystem,
         IMessageListener<ComponentAdded<State>>
     {
@@ -43,7 +43,7 @@ namespace NoNameGame.ECS.Systems
         public void Update(GameTime gameTime)
         {
             var groups = _entities
-                .Select(x => new EntityState { Entity = x, State = x.GetComponent<State>()})
+                .Select(x => new EntityState { Entity = x, State = x.GetComponent<State>() })
                 .GroupBy(x => x.State.CurrentState)
                 .ToList();
 
@@ -57,7 +57,7 @@ namespace NoNameGame.ECS.Systems
                     }
                 }
             }
-            
+
         }
     }
 }

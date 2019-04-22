@@ -8,8 +8,8 @@ namespace NoNameGame.Main.Gui
 
         public event EventHandler OnSelected;
 
-        public void Select() 
+        public void Select()
             => OnSelected?.Invoke(this, EventArgs.Empty);
-            
+
     }
 }

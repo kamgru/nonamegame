@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using NoNameGame.ECS.Input;
 using NoNameGame.Gameplay.Data;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NoNameGame.Main.Gui
 {
@@ -18,7 +18,7 @@ namespace NoNameGame.Main.Gui
 
         public Vector2 Position { get; set; }
 
-        public Menu(IntentProvider intentProvider, SpriteBatch spriteBatch, SpriteFont font) 
+        public Menu(IntentProvider intentProvider, SpriteBatch spriteBatch, SpriteFont font)
         {
             _intentProvider = intentProvider;
             _spriteBatch = spriteBatch;

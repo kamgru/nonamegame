@@ -1,17 +1,17 @@
-﻿using NoNameGame.ECS.Components;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using NoNameGame.ECS.Components;
+using NoNameGame.ECS.Entities;
+using NoNameGame.ECS.Messaging;
 using System.Collections.Generic;
 using System.Linq;
-using NoNameGame.ECS.Messaging;
-using NoNameGame.ECS.Entities;
 
 namespace NoNameGame.ECS.Systems
 {
-    public class SpriteDrawingSystem 
-        : SystemBase, 
-        IDrawingSystem, 
+    public class SpriteDrawingSystem
+        : SystemBase,
+        IDrawingSystem,
         IMessageListener<ComponentAdded<Sprite>>,
         IMessageListener<ComponentRemoved<Sprite>>
     {
@@ -33,9 +33,9 @@ namespace NoNameGame.ECS.Systems
             {
                 var sprite = entity.GetComponent<Sprite>();
                 _spriteBatch.Draw(
-                    sprite.Texture2D, 
-                    entity.GetComponent<ScreenPosition>().Position, 
-                    sprite.Rectangle, 
+                    sprite.Texture2D,
+                    entity.GetComponent<ScreenPosition>().Position,
+                    sprite.Rectangle,
                     Color.White);
             }
         }

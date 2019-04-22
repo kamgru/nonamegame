@@ -19,7 +19,7 @@ namespace NoNameGame.ECS.Messaging
             }
         }
 
-        public static void AddListener<TMessage>(IMessageListener<TMessage> listener) where TMessage : IMessage 
+        public static void AddListener<TMessage>(IMessageListener<TMessage> listener) where TMessage : IMessage
         {
             if (!messageListeners.ContainsKey(typeof(TMessage)))
             {

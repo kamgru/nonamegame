@@ -8,7 +8,7 @@ namespace NoNameGame.Gameplay.StateManagement
 {
     public class TileDestroyedHandler : StateHandlerBase
     {
-        public TileDestroyedHandler() 
+        public TileDestroyedHandler()
             : base(TileStates.Destroyed)
         {
         }

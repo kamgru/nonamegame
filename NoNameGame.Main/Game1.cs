@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using NoNameGame.Main.Screens;
-using NoNameGame.Core.Services;
 using NoNameGame.Core.Screens;
-using NoNameGame.Gameplay.Data;
+using NoNameGame.Core.Services;
 using NoNameGame.ECS.Input;
+using NoNameGame.Gameplay.Data;
+using NoNameGame.Main.Screens;
 
 namespace NoNameGame.Main
 {

@@ -1,7 +1,4 @@
-﻿using NoNameGame.ECS.Components;
-using NoNameGame.ECS.Entities;
-using NoNameGame.ECS.Messaging;
-using NoNameGame.Gameplay.Components;
+﻿using NoNameGame.ECS.Messaging;
 
 namespace NoNameGame.Gameplay.Events
 {

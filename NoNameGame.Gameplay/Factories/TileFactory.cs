@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using NoNameGame.ECS.Components;
 using NoNameGame.Core.Services;
-using NoNameGame.Gameplay.Components;
-using NoNameGame.Gameplay.Entities;
+using NoNameGame.ECS.Components;
 using NoNameGame.ECS.Messaging;
+using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Data;
+using NoNameGame.Gameplay.Entities;
+using System.Collections.Generic;
 
 namespace NoNameGame.Gameplay.Factories
 {
@@ -16,7 +16,7 @@ namespace NoNameGame.Gameplay.Factories
         private readonly ContentManager _contentManager;
         private readonly Point _size;
 
-        public TileFactory(ContentManager contentManager, ConfigurationService configurationService) 
+        public TileFactory(ContentManager contentManager, ConfigurationService configurationService)
         {
             _contentManager = contentManager;
             _size = configurationService.GetTileSizeInPixels();

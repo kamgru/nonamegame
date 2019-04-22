@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NoNameGame.Core.Services
 {
@@ -29,7 +26,7 @@ namespace NoNameGame.Core.Services
             var entry = _entries[key];
             if (entry.Type == typeof(T))
             {
-                return (T) entry.Value;
+                return (T)entry.Value;
             }
 
             throw new ArgumentException(key);

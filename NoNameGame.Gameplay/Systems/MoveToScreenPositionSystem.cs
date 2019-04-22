@@ -1,16 +1,14 @@
-﻿using NoNameGame.Gameplay.Components;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems;
+using NoNameGame.Gameplay.Components;
 using System.Collections.Generic;
-using NoNameGame.ECS.Entities;
-using System;
-using System.Linq;
 
 namespace NoNameGame.Gameplay.Systems
 {
-    public class MoveToScreenPositionSystem 
-        : SystemBase, 
+    public class MoveToScreenPositionSystem
+        : SystemBase,
         IUpdatingSystem,
         IMessageListener<ComponentAdded<TargetScreenPosition>>,
         IMessageListener<ComponentRemoved<TargetScreenPosition>>
@@ -30,7 +28,7 @@ namespace NoNameGame.Gameplay.Systems
 
         public void Handle(ComponentAdded<TargetScreenPosition> message)
         {
-           _entities.Add(message.Entity);
+            _entities.Add(message.Entity);
         }
 
         public override void Handle(EntityDestroyed message)

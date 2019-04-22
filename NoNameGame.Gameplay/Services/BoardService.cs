@@ -6,7 +6,7 @@ namespace NoNameGame.Gameplay.Services
 {
     public class BoardService
     {
-        private readonly IEnumerable<BoardData> _boards = new []
+        private readonly IEnumerable<BoardData> _boards = new[]
         {
             new BoardData
             {

@@ -1,17 +1,17 @@
-﻿using System.Linq;
-using NoNameGame.ECS.Components;
-using NoNameGame.Gameplay.Events;
-using NoNameGame.Gameplay.Components;
-using NoNameGame.Gameplay.Factories;
+﻿using NoNameGame.ECS.Components;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems;
-using NoNameGame.Gameplay.Entities;
-using System.Collections.Generic;
+using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Data;
+using NoNameGame.Gameplay.Entities;
+using NoNameGame.Gameplay.Events;
+using NoNameGame.Gameplay.Factories;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NoNameGame.Gameplay.Systems
 {
-    public class TileEventsSystem 
+    public class TileEventsSystem
         : SystemBase,
         IMessageListener<EntityCreated>,
         IGameEventHandler<PlayerAbandonedTile>,

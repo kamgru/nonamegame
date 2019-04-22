@@ -1,14 +1,14 @@
-﻿using NoNameGame.ECS.Components;
-using Microsoft.Xna.Framework;
-using System.Linq;
+﻿using Microsoft.Xna.Framework;
+using NoNameGame.ECS.Components;
+using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Messaging;
 using System.Collections.Generic;
-using NoNameGame.ECS.Entities;
+using System.Linq;
 
 namespace NoNameGame.ECS.Systems
 {
     public class AnimationSystem
-        : SystemBase, 
+        : SystemBase,
         IUpdatingSystem,
         IMessageListener<ComponentAdded<Animator>>
     {
@@ -60,8 +60,8 @@ namespace NoNameGame.ECS.Systems
 
                         if (!animation.Looped)
                         {
-                            animator.Stop();                    
-                            continue;                            
+                            animator.Stop();
+                            continue;
                         }
                     }
                     animation.Elapsed = gameTime.ElapsedGameTime.Milliseconds;
