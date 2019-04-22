@@ -1,5 +1,8 @@
-﻿using NoNameGame.Core.Services;
+﻿using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using NoNameGame.Core.Services;
 using NoNameGame.Data;
+using NoNameGame.ECS.Components;
 using NoNameGame.ECS.Systems.StateHandling;
 
 namespace NoNameGame.Gameplay.StateManagement
@@ -7,17 +10,24 @@ namespace NoNameGame.Gameplay.StateManagement
     public class PlayerIdleHandler : StateHandlerBase
     {
         private readonly InputService _inputService;
+        private readonly ContentManager _contentManager;
 
-        public PlayerIdleHandler(InputService inputService) 
+        public PlayerIdleHandler(InputService inputService, ContentManager contentManager) 
             : base(PlayerStates.Idle)
         {
             _inputService = inputService;
+            _contentManager = contentManager;
         }
 
         public override void Handle(EntityState entity)
         {
             if (entity.State.InTransition)
             {
+                var texture = _contentManager.Load<Texture2D>("red_ball");
+                var sprite = entity.Entity.GetComponent<Sprite>();
+                sprite.Texture2D = texture;
+                sprite.Rectangle = null;
+
                 _inputService.SetContextActive((int)Context.Gameplay, true);
                 entity.State.InTransition = false;
             }

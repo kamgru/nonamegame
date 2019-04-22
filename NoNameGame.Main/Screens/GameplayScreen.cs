@@ -85,7 +85,7 @@ namespace NoNameGame.Main.Screens
             _systemsManager.Push(new TileEventsSystem(new PoofFactory(ContentManager)));
 
             var fsmSystem = new FsmSystem();
-            fsmSystem.RegisterHandler(new PlayerIdleHandler(InputService));
+            fsmSystem.RegisterHandler(new PlayerIdleHandler(InputService, ContentManager));
             fsmSystem.RegisterHandler(new PlayerMovingHandler(InputService));
             fsmSystem.RegisterHandler(new PlayerDeadHandler());
             fsmSystem.RegisterHandler(new TileDestroyedHandler());
