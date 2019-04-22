@@ -48,6 +48,12 @@
     <Compile Include="Components\Animation.cs" />
     <Compile Include="Components\CommandQueue.cs" />
     <Compile Include="Entities\EntityRepository.cs" />
+    <Compile Include="Input\IInputMapProvider.cs" />
+    <Compile Include="Input\IIntent.cs" />
+    <Compile Include="Input\InputContext.cs" />
+    <Compile Include="Input\InputIntent.cs" />
+    <Compile Include="Input\InputProvider.cs" />
+    <Compile Include="Input\IntentProvider.cs" />
     <Compile Include="Messaging\ComponentAdded.cs" />
     <Compile Include="Messaging\ComponentRemoved.cs" />
     <Compile Include="Messaging\EntityCreated.cs" />
@@ -58,6 +64,12 @@
     <Compile Include="Messaging\IMessage.cs" />
     <Compile Include="Messaging\IMessageListener.cs" />
     <Compile Include="Messaging\SystemMessageBroker.cs" />
+    <Compile Include="Screens\Screen.cs" />
+    <Compile Include="Screens\ScreenDependencies.cs" />
+    <Compile Include="Screens\ScreenManager.cs" />
+    <Compile Include="Screens\ScreenMode.cs" />
+    <Compile Include="Services\ConfigurationService.cs" />
+    <Compile Include="Services\Session.cs" />
     <Compile Include="Systems\AnimationSystem.cs" />
     <Compile Include="Components\Animator.cs" />
     <Compile Include="Components\ComponentBase.cs" />

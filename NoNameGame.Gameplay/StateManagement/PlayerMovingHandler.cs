@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Systems.StateHandling;
 using NoNameGame.Gameplay.Data;
-using NoNameGame.Core.Input;
+using NoNameGame.ECS.Input;
 
 namespace NoNameGame.Gameplay.StateManagement
 {

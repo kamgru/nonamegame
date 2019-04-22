@@ -11,7 +11,7 @@ using NoNameGame.Gameplay.Services;
 using NoNameGame.Gameplay.Components;
 using System.Collections.Generic;
 using NoNameGame.ECS.Messaging;
-using NoNameGame.Core.Input;
+using NoNameGame.ECS.Input;
 
 namespace NoNameGame.Main.Screens
 {

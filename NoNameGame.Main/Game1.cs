@@ -4,8 +4,8 @@ using Microsoft.Xna.Framework.Input;
 using NoNameGame.Main.Screens;
 using NoNameGame.Core.Services;
 using NoNameGame.Core.Screens;
-using NoNameGame.Core.Input;
 using NoNameGame.Gameplay.Data;
+using NoNameGame.ECS.Input;
 
 namespace NoNameGame.Main
 {

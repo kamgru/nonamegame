@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using NoNameGame.Core.Input;
+using NoNameGame.ECS.Input;
 
 namespace NoNameGame.Core.Screens
 {

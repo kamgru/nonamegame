@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using NoNameGame.Core.Input;
+using NoNameGame.ECS.Input;
 using NoNameGame.ECS.Components;
 using NoNameGame.ECS.Systems.StateHandling;
 using NoNameGame.Gameplay.Data;

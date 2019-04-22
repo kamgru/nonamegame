@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using NoNameGame.Core.Input;
-using System;
+using NoNameGame.ECS.Input;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NoNameGame.Gameplay.Data
 {

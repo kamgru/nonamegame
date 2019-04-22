@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NoNameGame.Core.Input
+namespace NoNameGame.ECS.Input
 {
     public interface IInputMapProvider
     {

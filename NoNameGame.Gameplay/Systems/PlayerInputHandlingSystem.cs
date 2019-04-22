@@ -9,7 +9,7 @@ using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Components;
 using NoNameGame.Gameplay.Commands;
 using NoNameGame.Gameplay.Entities;
-using NoNameGame.Core.Input;
+using NoNameGame.ECS.Input;
 using NoNameGame.Gameplay.Data;
 
 namespace NoNameGame.Gameplay.Systems

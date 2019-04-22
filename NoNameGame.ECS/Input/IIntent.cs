@@ -1,4 +1,4 @@
-﻿namespace NoNameGame.Core.Input
+﻿namespace NoNameGame.ECS.Input
 {
     public interface IIntent { }
 }

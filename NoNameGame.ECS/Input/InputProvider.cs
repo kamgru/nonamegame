@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NoNameGame.Core.Input
+namespace NoNameGame.ECS.Input
 {
     public class InputProvider
     {

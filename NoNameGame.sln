@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoNameGame.Main", "NoNameGame.Main\NoNameGame.Main.csproj", "{2772E1A3-D3D4-4B0C-9D8F-C4A8DFE91DEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoNameGame.Core", "NoNameGame.Core\NoNameGame.Core.csproj", "{DE69A2B5-76AB-4376-B0B7-4CE0837DE0A3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoNameGame.ECS", "NoNameGame.ECS\NoNameGame.ECS.csproj", "{DB4E4B0D-AC7A-472C-BCE9-56D88277E37F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoNameGame.Gameplay", "NoNameGame.Gameplay\NoNameGame.Gameplay.csproj", "{EB4598BD-01B7-4795-9850-6D888537F81A}"
@@ -26,14 +24,6 @@ Global
 		{2772E1A3-D3D4-4B0C-9D8F-C4A8DFE91DEA}.Release|Any CPU.ActiveCfg = Release|x86
 		{2772E1A3-D3D4-4B0C-9D8F-C4A8DFE91DEA}.Release|x86.ActiveCfg = Release|x86
 		{2772E1A3-D3D4-4B0C-9D8F-C4A8DFE91DEA}.Release|x86.Build.0 = Release|x86
-		{DE69A2B5-76AB-4376-B0B7-4CE0837DE0A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DE69A2B5-76AB-4376-B0B7-4CE0837DE0A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DE69A2B5-76AB-4376-B0B7-4CE0837DE0A3}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{DE69A2B5-76AB-4376-B0B7-4CE0837DE0A3}.Debug|x86.Build.0 = Debug|Any CPU
-		{DE69A2B5-76AB-4376-B0B7-4CE0837DE0A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DE69A2B5-76AB-4376-B0B7-4CE0837DE0A3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DE69A2B5-76AB-4376-B0B7-4CE0837DE0A3}.Release|x86.ActiveCfg = Release|Any CPU
-		{DE69A2B5-76AB-4376-B0B7-4CE0837DE0A3}.Release|x86.Build.0 = Release|Any CPU
 		{DB4E4B0D-AC7A-472C-BCE9-56D88277E37F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DB4E4B0D-AC7A-472C-BCE9-56D88277E37F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB4E4B0D-AC7A-472C-BCE9-56D88277E37F}.Debug|x86.ActiveCfg = Debug|Any CPU
