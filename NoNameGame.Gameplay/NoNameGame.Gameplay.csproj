@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BoardData.cs" />
+    <Compile Include="Data\BoardData.cs" />
     <Compile Include="Components\BoardInfo.cs" />
     <Compile Include="Components\PositionOnBoard.cs" />
     <Compile Include="Components\TargetScreenPosition.cs" />
@@ -78,7 +78,7 @@
     <Compile Include="Systems\MoveToScreenPositionSystem.cs" />
     <Compile Include="Systems\PlayerInputHandlingSystem.cs" />
     <Compile Include="Systems\TileEventsSystem.cs" />
-    <Compile Include="TileData.cs" />
+    <Compile Include="Data\TileData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NoNameGame.ECS\NoNameGame.ECS.csproj">

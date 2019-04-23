@@ -1,6 +1,4 @@
-﻿using NoNameGame.Gameplay.Data;
-
-namespace NoNameGame.Gameplay
+﻿namespace NoNameGame.Gameplay.Data
 {
     public class TileData
     {

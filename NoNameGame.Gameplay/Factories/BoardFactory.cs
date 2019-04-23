@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.Gameplay.Components;
+using NoNameGame.Gameplay.Data;
 using NoNameGame.Gameplay.Entities;
 using System.Linq;
 

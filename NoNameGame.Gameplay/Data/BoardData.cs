@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NoNameGame.Gameplay
+namespace NoNameGame.Gameplay.Data
 {
     public class BoardData
     {
