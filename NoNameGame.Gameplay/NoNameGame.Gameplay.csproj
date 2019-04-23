@@ -74,6 +74,7 @@
     <Compile Include="StateManagement\PlayerIdleHandler.cs" />
     <Compile Include="StateManagement\PlayerMovingHandler.cs" />
     <Compile Include="StateManagement\TileDestroyedHandler.cs" />
+    <Compile Include="StateManagement\TileTouchedHandler.cs" />
     <Compile Include="Systems\MoveToScreenPositionSystem.cs" />
     <Compile Include="Systems\PlayerInputHandlingSystem.cs" />
     <Compile Include="Systems\TileEventsSystem.cs" />

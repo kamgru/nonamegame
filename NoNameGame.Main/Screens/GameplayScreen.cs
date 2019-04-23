@@ -88,6 +88,7 @@ namespace NoNameGame.Main.Screens
             fsmSystem.RegisterHandler(new PlayerMovingHandler(InputMapProvider));
             fsmSystem.RegisterHandler(new PlayerDeadHandler());
             fsmSystem.RegisterHandler(new TileDestroyedHandler());
+            fsmSystem.RegisterHandler(new TileTouchedHandler());
             _systemsManager.Push(fsmSystem);
 
             _systemsManager.Peek<PlayerInputHandlingSystem>().SetActive(true);

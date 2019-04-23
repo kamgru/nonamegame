@@ -54,7 +54,7 @@ namespace NoNameGame.Gameplay.Factories
 
             tile.AddComponent(new State
             {
-                CurrentState = TileStates.Idle
+                CurrentState = TileStates.Pristine
             });
 
             tile.Name = $"tile {position.X} : {position.Y}";

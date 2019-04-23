@@ -2,8 +2,8 @@
 {
     public static class TileStates
     {
-        public const string Abandoned = "tile_abandoned";
-        public const string Destroyed = "tile_destroyed";
-        public const string Idle = "tile_idle";
+        public static readonly string Pristine = "tile_pristine";
+        public static readonly string Touched = "tile_touched";
+        public static readonly string Destroyed = "tile_destroyed";
     }
 }

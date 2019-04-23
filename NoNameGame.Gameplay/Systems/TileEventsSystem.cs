@@ -61,14 +61,11 @@ namespace NoNameGame.Gameplay.Systems
             if (_clearableTypes.Contains(tileInfo.TileType))
             {
                 tileInfo.Value--;
-                if (tileInfo.Value <= 0)
-                {
-                    var state = tileInfo.Entity.GetComponent<State>();
-                    if (state != null)
-                    {
-                        state.CurrentState = TileStates.Destroyed;
-                    }
-                }
+
+                var state = tileInfo.Entity.GetComponent<State>();
+                state.CurrentState = tileInfo.Value <= 0
+                    ? TileStates.Destroyed
+                    : TileStates.Touched;
             }
         }
 
