@@ -19,6 +19,8 @@ namespace NoNameGame.Gameplay.Systems
         private Poof _poof;
         private Player _player;
         private List<Tile> _tiles = new List<Tile>();
+        private End _end;
+
         private IEnumerable<TileType> _clearableTypes = new []
         {
             TileType.Single,
@@ -48,6 +50,10 @@ namespace NoNameGame.Gameplay.Systems
                 case Poof poof:
                     _poof = poof;
                     break;
+
+                case End end:
+                    _end = end;
+                    break;
             }
         }
 
@@ -66,6 +72,13 @@ namespace NoNameGame.Gameplay.Systems
                 state.CurrentState = tileInfo.Value <= 0
                     ? TileStates.Destroyed
                     : TileStates.Touched;
+
+                var tiles = _tiles.Select(x => x.GetComponent<TileInfo>());
+
+                if (tiles.Where(x => _clearableTypes.Contains(x.TileType)).All(x => x.Entity.GetComponent<State>().CurrentState == TileStates.Destroyed))
+                {
+                    _end.State.CurrentState = EndStates.Open;
+                }
             }
         }
 
@@ -74,11 +87,9 @@ namespace NoNameGame.Gameplay.Systems
             _poof.Transform.Position = gameEvent.TileEntity.Transform.Position;
             _poof.GetComponent<Animator>().Play("poof");
 
-            if (gameEvent.TileInfo.TileType == TileType.End)
+            if (gameEvent.PositionOnBoard.Current == _end.PositionOnBoard.Current)
             {
-                var tiles = _tiles.Select(x => x.GetComponent<TileInfo>());
-
-                if (tiles.Where(x => _clearableTypes.Contains(x.TileType)).All(x => x.Destroyed))
+                if (_end.State.CurrentState == EndStates.Open)
                 {
                     GameEventManager.Raise(new StageCleared());
                 }
@@ -107,6 +118,7 @@ namespace NoNameGame.Gameplay.Systems
         {
             _player = null;
             _poof = null;
+            _end = null;
             _tiles.Clear();
         }
     }

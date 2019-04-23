@@ -10,8 +10,6 @@ using NoNameGame.Gameplay.Factories;
 using NoNameGame.Gameplay.Services;
 using NoNameGame.Gameplay.StateManagement;
 using NoNameGame.Gameplay.Systems;
-using System;
-using System.Collections.Generic;
 
 namespace NoNameGame.Main.Screens
 {
@@ -58,7 +56,7 @@ namespace NoNameGame.Main.Screens
         {
             Session.TryGet(SessionKeys.CurrentStageId, out int stageId);
 
-            var board = new BoardFactory(new TileFactory(ContentManager, _configurationService))
+            var board = new BoardFactory(new TileFactory(ContentManager, _configurationService), new EndFactory(ContentManager), _configurationService)
                 .CreateBoard(new BoardService().GetBoard(stageId));
 
             var tileSize = _configurationService.GetTileSizeInPixels();
@@ -89,6 +87,7 @@ namespace NoNameGame.Main.Screens
             fsmSystem.RegisterHandler(new PlayerDeadHandler());
             fsmSystem.RegisterHandler(new TileDestroyedHandler());
             fsmSystem.RegisterHandler(new TileTouchedHandler());
+            fsmSystem.RegisterHandler(new EndOpenHandler());
             _systemsManager.Push(fsmSystem);
 
             _systemsManager.Peek<PlayerInputHandlingSystem>().SetActive(true);

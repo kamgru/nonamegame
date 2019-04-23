@@ -50,6 +50,7 @@
     <Compile Include="Components\TargetScreenPosition.cs" />
     <Compile Include="Components\TileInfo.cs" />
     <Compile Include="Data\AnimationDictionary.cs" />
+    <Compile Include="Data\EndStates.cs" />
     <Compile Include="Data\Input.cs" />
     <Compile Include="Data\PlayerStates.cs" />
     <Compile Include="Data\SessionKeys.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Data\TileStates.cs" />
     <Compile Include="Data\TileType.cs" />
     <Compile Include="Entities\Board.cs" />
+    <Compile Include="Entities\End.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Entities\Poof.cs" />
     <Compile Include="Entities\Tile.cs" />
@@ -64,12 +66,14 @@
     <Compile Include="Events\PlayerEnteredTile.cs" />
     <Compile Include="Events\StageCleared.cs" />
     <Compile Include="Factories\BoardFactory.cs" />
+    <Compile Include="Factories\EndFactory.cs" />
     <Compile Include="Factories\PlayerFactory.cs" />
     <Compile Include="Factories\PoofFactory.cs" />
     <Compile Include="Factories\TileFactory.cs" />
     <Compile Include="Commands\MovePlayerCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BoardService.cs" />
+    <Compile Include="StateManagement\EndOpenHandler.cs" />
     <Compile Include="StateManagement\PlayerDeadHandler.cs" />
     <Compile Include="StateManagement\PlayerIdleHandler.cs" />
     <Compile Include="StateManagement\PlayerMovingHandler.cs" />

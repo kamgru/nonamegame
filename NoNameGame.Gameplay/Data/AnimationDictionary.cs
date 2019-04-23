@@ -2,7 +2,8 @@
 {
     public static class AnimationDictionary
     {
-        public const string PlayerMove = "walk";
-        public const string TileDestroy = "ice_breaking";
+        public static readonly string PlayerMove = "animation_player_move";
+        public static readonly string TileDestroy = "animation_tile_destroy";
+        public static readonly string EndOpen = "animation_end_open";
     }
 }

@@ -1,4 +1,5 @@
-﻿using NoNameGame.Gameplay.Data;
+﻿using Microsoft.Xna.Framework;
+using NoNameGame.Gameplay.Data;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,7 +13,7 @@ namespace NoNameGame.Gameplay.Services
             {
                 Tiles = new[]
                 {
-                    new TileData { Value = 1, X = 0, Y = 0, TileType = TileType.Start },
+                    new TileData { Value = 1, X = 0, Y = 0, TileType = TileType.Indestructible },
                     new TileData { Value = 1, X = 1, Y = 0, TileType = TileType.Single },
                     new TileData { Value = 1, X = 2, Y = 0, TileType = TileType.Single },
                     new TileData { Value = 1, X = 3, Y = 0, TileType = TileType.Single },
@@ -21,20 +22,24 @@ namespace NoNameGame.Gameplay.Services
                     new TileData { Value = 1, X = 2, Y = 1, TileType = TileType.Single },
                     new TileData { Value = 2, X = 3, Y = 1, TileType = TileType.Double },
                     new TileData { Value = 1, X = 4, Y = 1, TileType = TileType.Single },
-                    new TileData { Value = 1, X = 3, Y = 2, TileType = TileType.End },
-
-                }
-            },new BoardData
+                    new TileData { Value = 1, X = 3, Y = 2, TileType = TileType.Indestructible },
+                },
+                Start = new Point(0, 0),
+                End = new Point(3, 2)
+            },
+            new BoardData
             {
                 Tiles = new []
                 {
-                    new TileData { Value = 1, X = 0, Y = 0, TileType = TileType.Start},
+                    new TileData { Value = 1, X = 0, Y = 0, TileType = TileType.Indestructible},
                     new TileData { Value = 1, X = 1, Y = 0, TileType = TileType.Single},
                     new TileData { Value = 1, X = 2, Y = 0, TileType = TileType.Single},
                     new TileData { Value = 1, X = 3, Y = 0, TileType = TileType.Single},
                     new TileData { Value = 3, X = 4, Y = 0, TileType = TileType.Triple},
-                    new TileData { Value = 1, X = 5, Y = 0, TileType = TileType.End},
-                }
+                    new TileData { Value = 1, X = 5, Y = 0, TileType = TileType.Indestructible},
+                },
+                Start = new Point(0, 0),
+                End = new Point(5, 0)
             },
         };
 

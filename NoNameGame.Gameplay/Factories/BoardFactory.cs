@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using NoNameGame.Core.Services;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Data;
@@ -10,10 +11,14 @@ namespace NoNameGame.Gameplay.Factories
     public class BoardFactory
     {
         private readonly TileFactory _tileFactory;
+        private readonly EndFactory _endFactory;
+        private readonly ConfigurationService _configurationService;
 
-        public BoardFactory(TileFactory tileFactory)
+        public BoardFactory(TileFactory tileFactory, EndFactory endFactory, ConfigurationService configurationService)
         {
             _tileFactory = tileFactory;
+            _endFactory = endFactory;
+            _configurationService = configurationService;
         }
 
         public Board CreateBoard(BoardData data)
@@ -39,6 +44,12 @@ namespace NoNameGame.Gameplay.Factories
             });
 
             board.Name = "Board";
+
+            var end = _endFactory.CreateEnd();
+            end.PositionOnBoard.Current = data.End;
+
+            end.Transform.Position = (data.End * _configurationService.GetTileSizeInPixels()).ToVector2();
+            end.Transform.SetParent(board.Transform);
 
             SystemMessageBroker.Send(new EntityCreated(board));
 

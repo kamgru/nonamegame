@@ -10,5 +10,6 @@ namespace NoNameGame.Gameplay.Data
     {
         public static readonly string PlayerSheet = "ball_sheet";
         public static readonly string TilesSheet = "tiles_sheet";
+        public static readonly string EndSheet = "end_sheet";
     }
 }

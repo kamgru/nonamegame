@@ -2,6 +2,9 @@
 {
     public enum TileType
     {
-        Single, Double, Triple, Start, End
+        Single,
+        Double,
+        Triple,
+        Indestructible
     }
 }

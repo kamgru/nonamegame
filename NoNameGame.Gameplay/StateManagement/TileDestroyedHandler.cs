@@ -18,7 +18,6 @@ namespace NoNameGame.Gameplay.StateManagement
             if (entityState.State.InTransition)
             {
                 entityState.Entity.GetComponent<Animator>().Play(AnimationDictionary.TileDestroy);
-                entityState.Entity.GetComponent<TileInfo>().Destroyed = true;
                 entityState.State.InTransition = false;
             }
             else if (!entityState.Entity.GetComponent<Animator>().IsPlaying)

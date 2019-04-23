@@ -8,7 +8,6 @@ namespace NoNameGame.Gameplay.Components
     {
         public int Value { get; set; }
         public Point Position { get; set; }
-        public bool Destroyed { get; set; }
         public TileType TileType { get; set; }
     }
 }

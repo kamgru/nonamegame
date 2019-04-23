@@ -33,7 +33,7 @@ namespace NoNameGame.Gameplay.StateManagement
             if (entityState.State.InTransition)
             {
                 _inputMapProvider.GetContextById(Contexts.Gameplay)?.Deactivate();
-                entityState.Entity.GetComponent<Animator>().Play("walk");
+                entityState.Entity.GetComponent<Animator>().Play(AnimationDictionary.PlayerMove);
                 entityState.State.InTransition = false;
             }
             else
@@ -45,7 +45,7 @@ namespace NoNameGame.Gameplay.StateManagement
                         .Select(x => new { TileInfo = x.GetComponent<TileInfo>(), Entity = x })
                         .FirstOrDefault(x => x.TileInfo.Position == currentPosition);
 
-                    if (currentTile == null || currentTile.TileInfo.Destroyed)
+                    if (currentTile == null || currentTile.Entity.GetComponent<State>().CurrentState == TileStates.Destroyed)
                     {
                         entityState.State.CurrentState = PlayerStates.Dead;
                     }
@@ -54,11 +54,8 @@ namespace NoNameGame.Gameplay.StateManagement
                         entityState.State.CurrentState = PlayerStates.Idle;
                         entityState.Entity.RemoveComponent(entityState.Entity.GetComponent<TargetScreenPosition>());
 
-                        GameEventManager.Raise(new PlayerEnteredTile
-                        {
-                            TileEntity = currentTile.Entity,
-                            TileInfo = currentTile.TileInfo
-                        });
+                        GameEventManager.Raise(
+                            new PlayerEnteredTile(currentTile.TileInfo, currentTile.Entity, entityState.Entity.GetComponent<PositionOnBoard>()));
                     }
                 }
             }
