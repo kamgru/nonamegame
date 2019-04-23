@@ -43,7 +43,9 @@ namespace NoNameGame.Main.Screens
             if (IntentProvider.GetIntents().Any(x => x is ConfirmIntent))
             {
                 InputMapProvider.GetContextById(Contexts.Menu).Deactivate();
-                Session.Set("stageId", Session.Get<int>("stageId") + 1);
+
+                Session.TryGet(SessionKeys.CurrentStageId, out int stageId);
+                Session.Set(SessionKeys.CurrentStageId, stageId + 1);
 
                 var gameplay = ScreenManager.Peek<GameplayScreen>();
                 gameplay.Init();

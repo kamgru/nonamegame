@@ -21,20 +21,15 @@ namespace NoNameGame.Core.Services
             });
         }
 
-        public T Get<T>(string key)
+        public bool TryGet<T>(string key, out T value)
         {
-            var entry = _entries[key];
-            if (entry.Type == typeof(T))
+            value = default;
+            if (_entries.TryGetValue(key, out Entry entry))
             {
-                return (T)entry.Value;
+                value = (T)entry.Value;
+                return true;
             }
-
-            throw new ArgumentException(key);
-        }
-
-        public bool Contains<T>(string key)
-        {
-            return _entries.ContainsKey(key) && _entries[key].Type == typeof(T);
+            return false;
         }
 
         private class Entry

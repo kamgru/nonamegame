@@ -53,15 +53,7 @@ namespace NoNameGame.Main.Screens
 
         private void SetupStage()
         {
-            var stageId = 0;
-            try
-            {
-                stageId = Session.Get<int>("stageId");
-            }
-            catch (Exception e) when (e is KeyNotFoundException || e is ArgumentException)
-            {
-                Session.Set("stageId", 0);
-            }
+            Session.TryGet(SessionKeys.CurrentStageId, out int stageId);
 
             var board = new BoardFactory(new TileFactory(ContentManager, _configurationService))
                 .CreateBoard(new BoardService().GetBoard(stageId));

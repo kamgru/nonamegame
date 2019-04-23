@@ -52,6 +52,7 @@
     <Compile Include="Data\AnimationDictionary.cs" />
     <Compile Include="Data\Input.cs" />
     <Compile Include="Data\PlayerStates.cs" />
+    <Compile Include="Data\SessionKeys.cs" />
     <Compile Include="Data\TileStates.cs" />
     <Compile Include="Data\TileType.cs" />
     <Compile Include="Entities\Board.cs" />
