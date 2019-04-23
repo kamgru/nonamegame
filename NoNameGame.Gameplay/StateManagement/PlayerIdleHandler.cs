@@ -24,7 +24,7 @@ namespace NoNameGame.Gameplay.StateManagement
         {
             if (entity.State.InTransition)
             {
-                var texture = _contentManager.Load<Texture2D>("ball_jump_purple");
+                var texture = _contentManager.Load<Texture2D>(SpriteSheetNames.PlayerSheet);
                 var sprite = entity.Entity.GetComponent<Sprite>();
                 sprite.Texture2D = texture;
                 sprite.Rectangle = new Rectangle(0, 0, 32, 32);

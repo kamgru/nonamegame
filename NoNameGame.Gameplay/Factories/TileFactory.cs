@@ -22,6 +22,28 @@ namespace NoNameGame.Gameplay.Factories
             _size = configurationService.GetTileSizeInPixels();
         }
 
+        private Sprite CreateSpriteForTileType(TileType tileType)
+        {
+            var texture = _contentManager.Load<Texture2D>(SpriteSheetNames.TilesSheet);
+            Rectangle rectangle = default;
+
+            switch (tileType)
+            {
+                case TileType.Normal:
+                    rectangle = new Rectangle(0, 0, 32, 32);
+                    break;
+                default:
+                    rectangle = new Rectangle(0, 96, 32, 32);
+                    break;
+            }
+
+            return new Sprite
+            {
+                Texture2D = texture,
+                Rectangle = rectangle
+            };
+        }
+
         public Tile CreateTile(TileData data)
         {
             var tile = new Tile();
@@ -29,10 +51,7 @@ namespace NoNameGame.Gameplay.Factories
 
             tile.Transform.Position = (position * _size).ToVector2();
 
-            tile.AddComponent(new Sprite
-            {
-                Texture2D = _contentManager.Load<Texture2D>(data.TextureName)
-            });
+            tile.AddComponent(CreateSpriteForTileType(data.TileType));
 
             tile.AddComponent(new TileInfo
             {
@@ -45,7 +64,15 @@ namespace NoNameGame.Gameplay.Factories
             {
                 Animations = new List<Animation>()
                 {
-                    new Animation(_contentManager.Load<Texture2D>(data.SheetName), new Point(32, 32))
+                    new Animation(_contentManager.Load<Texture2D>(SpriteSheetNames.TilesSheet), new Rectangle[] 
+                    {
+                        new Rectangle(0, 0, 32, 32),
+                        new Rectangle(32, 0, 32, 32),
+                        new Rectangle(64, 0, 32, 32),
+                        new Rectangle(96, 0, 32, 32),
+                        new Rectangle(128, 0, 32, 32),
+                        new Rectangle(160, 0, 32, 32),
+                    })
                     {
                         Name = AnimationDictionary.TileDestroy,
                         Speed = 0.5f

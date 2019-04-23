@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NoNameGame.ECS.Components
 {
@@ -30,6 +31,12 @@ namespace NoNameGame.ECS.Components
                     _rectangles.Add(new Rectangle(x * frameSize.X, y * frameSize.Y, frameSize.X, frameSize.Y));
                 }
             }
+        }
+
+        public Animation(Texture2D sheet, params Rectangle[] frames)
+        {
+            Texture2D = sheet;
+            _rectangles = frames.ToList();
         }
     }
 }
