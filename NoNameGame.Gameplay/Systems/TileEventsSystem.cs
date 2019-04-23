@@ -21,18 +21,56 @@ namespace NoNameGame.Gameplay.Systems
         private List<Tile> _tiles = new List<Tile>();
         private End _end;
 
-        private IEnumerable<TileType> _clearableTypes = new []
-        {
-            TileType.Single,
-            TileType.Double,
-            TileType.Triple,
-        };
-
         public TileEventsSystem()
         {
             GameEventManager.RegisterHandler<PlayerAbandonedTile>(this);
             SystemMessageBroker.AddListener<EntityCreated>(this);
             GameEventManager.RegisterHandler<PlayerEnteredTile>(this);
+        }
+
+        public override void Reset()
+        {
+            _player = null;
+            _poof = null;
+            _end = null;
+            _tiles.Clear();
+        }
+
+        public void Handle(PlayerAbandonedTile gameEvent)
+        {
+            var tile = _tiles
+                .Where(x => x.TileInfo.Position == _player.PositionOnBoard.Previous)
+                .Single();
+
+            if (tile.TileInfo.IsClearable)
+            {
+                tile.TileInfo.Value--;
+
+                tile.State.CurrentState = tile.TileInfo.Value <= 0
+                    ? TileStates.Destroyed
+                    : TileStates.Touched;
+
+                var tiles = _tiles.Where(x => x.TileInfo.IsClearable);
+
+                if (tiles.All(x => x.State.CurrentState == TileStates.Destroyed))
+                {
+                    _end.State.CurrentState = EndStates.Open;
+                }
+            }
+        }
+
+        public void Handle(PlayerEnteredTile gameEvent)
+        {
+            _poof.Transform.Position = gameEvent.Tile.Transform.Position;
+            _poof.GetComponent<Animator>().Play("poof");
+
+            if (_player.PositionOnBoard.Current == _end.PositionOnBoard.Current)
+            {
+                if (_end.State.CurrentState == EndStates.Open)
+                {
+                    GameEventManager.Raise(new StageCleared());
+                }
+            }
         }
 
         public void Handle(EntityCreated message)
@@ -57,43 +95,6 @@ namespace NoNameGame.Gameplay.Systems
             }
         }
 
-        public void Handle(PlayerAbandonedTile gameEvent)
-        {
-            var tile = _tiles
-                .Where(x => x.TileInfo.Position == _player.PositionOnBoard.Previous)
-                .Single();
-
-            if (_clearableTypes.Contains(tile.TileInfo.TileType))
-            {
-                tile.TileInfo.Value--;
-
-                tile.State.CurrentState = tile.TileInfo.Value <= 0
-                    ? TileStates.Destroyed
-                    : TileStates.Touched;
-
-                var tiles = _tiles.Where(x => _clearableTypes.Contains(x.TileInfo.TileType));
-
-                if (tiles.All(x => x.State.CurrentState == TileStates.Destroyed))
-                {
-                    _end.State.CurrentState = EndStates.Open;
-                }
-            }
-        }
-
-        public void Handle(PlayerEnteredTile gameEvent)
-        {
-            _poof.Transform.Position = gameEvent.Tile.Transform.Position;
-            _poof.GetComponent<Animator>().Play("poof");
-
-            if (_player.PositionOnBoard.Current == _end.PositionOnBoard.Current)
-            {
-                if (_end.State.CurrentState == EndStates.Open)
-                {
-                    GameEventManager.Raise(new StageCleared());
-                }
-            }
-        }
-
         public override void Handle(EntityDestroyed message)
         {
             switch (message.Entity)
@@ -110,14 +111,6 @@ namespace NoNameGame.Gameplay.Systems
                     _poof = null;
                     break;
             }
-        }
-
-        public override void Reset()
-        {
-            _player = null;
-            _poof = null;
-            _end = null;
-            _tiles.Clear();
         }
     }
 }
