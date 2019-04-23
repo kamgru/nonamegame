@@ -7,7 +7,6 @@ using NoNameGame.ECS.Messaging;
 using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Data;
 using NoNameGame.Gameplay.Entities;
-using System.Collections.Generic;
 
 namespace NoNameGame.Gameplay.Factories
 {
@@ -22,62 +21,29 @@ namespace NoNameGame.Gameplay.Factories
             _size = configurationService.GetTileSizeInPixels();
         }
 
-        private Sprite CreateSpriteForTileType(TileType tileType)
+        public Tile CreateTile(TileData data)
         {
-            var texture = _contentManager.Load<Texture2D>(SpriteSheetNames.TilesSheet);
-            Rectangle rectangle = default;
+            var tileSpriteSheet = _contentManager.Load<Texture2D>(SpriteSheetNames.TilesSheet);
 
-            switch (tileType)
+            Tile tile;
+            switch (data.TileType)
             {
                 case TileType.Normal:
-                    rectangle = new Rectangle(0, 0, 32, 32);
+                    tile = CreateNormalTile(tileSpriteSheet);
                     break;
                 default:
-                    rectangle = new Rectangle(0, 96, 32, 32);
+                    tile = CreateIndestructibleTile(tileSpriteSheet);
                     break;
             }
 
-            return new Sprite
-            {
-                Texture2D = texture,
-                Rectangle = rectangle
-            };
-        }
-
-        public Tile CreateTile(TileData data)
-        {
-            var tile = new Tile();
             var position = new Point(data.X, data.Y);
-
             tile.Transform.Position = (position * _size).ToVector2();
-
-            tile.AddComponent(CreateSpriteForTileType(data.TileType));
 
             tile.AddComponent(new TileInfo
             {
                 Value = data.Value,
                 Position = position,
                 TileType = data.TileType
-            });
-
-            tile.AddComponent(new Animator
-            {
-                Animations = new List<Animation>()
-                {
-                    new Animation(_contentManager.Load<Texture2D>(SpriteSheetNames.TilesSheet), new Rectangle[] 
-                    {
-                        new Rectangle(0, 0, 32, 32),
-                        new Rectangle(32, 0, 32, 32),
-                        new Rectangle(64, 0, 32, 32),
-                        new Rectangle(96, 0, 32, 32),
-                        new Rectangle(128, 0, 32, 32),
-                        new Rectangle(160, 0, 32, 32),
-                    })
-                    {
-                        Name = AnimationDictionary.TileDestroy,
-                        Speed = 0.5f
-                    }
-                }
             });
 
             tile.AddComponent(new State
@@ -88,6 +54,40 @@ namespace NoNameGame.Gameplay.Factories
             tile.Name = $"tile {position.X} : {position.Y}";
 
             SystemMessageBroker.Send(new EntityCreated(tile));
+
+            return tile;
+        }
+
+        private Tile CreateIndestructibleTile(Texture2D sheet)
+        {
+            var tile = new Tile();
+            var sprite = new Sprite { Texture2D = sheet, Rectangle = new Rectangle(0, 96, 32, 32) };
+            tile.AddComponent(sprite);
+
+            return tile;
+        }
+
+        private Tile CreateNormalTile(Texture2D sheet)
+        {
+            var tile = new Tile();
+            var sprite = new Sprite { Texture2D = sheet, Rectangle = new Rectangle(0, 0, 32, 32) };
+            tile.AddComponent(sprite);
+
+            var animation = new Animation(sheet, new Rectangle[]
+                    {
+                        new Rectangle(0, 0, 32, 32),
+                        new Rectangle(32, 0, 32, 32),
+                        new Rectangle(64, 0, 32, 32),
+                        new Rectangle(96, 0, 32, 32),
+                        new Rectangle(128, 0, 32, 32),
+                        new Rectangle(160, 0, 32, 32),
+                    })
+            {
+                Name = AnimationDictionary.TileDestroy,
+                Speed = 0.5f
+            };
+
+            tile.AddComponent(new Animator { Animations = new[] { animation } });
 
             return tile;
         }
