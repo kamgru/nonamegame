@@ -5,6 +5,7 @@ using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems.StateHandling;
 using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Data;
+using NoNameGame.Gameplay.Entities;
 using NoNameGame.Gameplay.Events;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,45 +18,44 @@ namespace NoNameGame.Gameplay.StateManagement
         IMessageListener<EntityDestroyed>
     {
         private readonly IInputMapProvider _inputMapProvider;
-        private readonly ICollection<Entity> _entities;
+        private readonly List<Tile> _tiles = new List<Tile>();
 
         public PlayerMovingHandler(IInputMapProvider inputMapProvider)
             : base(PlayerStates.Moving)
         {
             _inputMapProvider = inputMapProvider;
-            _entities = new List<Entity>();
             SystemMessageBroker.AddListener<EntityCreated>(this);
             SystemMessageBroker.AddListener<EntityDestroyed>(this);
         }
 
         public override void Handle(EntityState entityState)
         {
+            var player = entityState.Entity as Player;
+
             if (entityState.State.InTransition)
             {
                 _inputMapProvider.GetContextById(Contexts.Gameplay)?.Deactivate();
-                entityState.Entity.GetComponent<Animator>().Play(AnimationDictionary.PlayerMove);
-                entityState.State.InTransition = false;
+
+                player.Animator.Play(AnimationDictionary.PlayerMove);
+                player.State.InTransition = false;
             }
             else
             {
-                if (entityState.Entity.Transform.Position == entityState.Entity.GetComponent<TargetScreenPosition>().Target)
+                if (player.Transform.Position == player.GetComponent<TargetScreenPosition>().Target)
                 {
-                    var currentPosition = entityState.Entity.GetComponent<PositionOnBoard>().Current;
-                    var currentTile = _entities.Where(x => x.HasComponent<TileInfo>())
-                        .Select(x => new { TileInfo = x.GetComponent<TileInfo>(), Entity = x })
-                        .FirstOrDefault(x => x.TileInfo.Position == currentPosition);
+                    var currentPosition = player.PositionOnBoard.Current;
+                    var currentTile = _tiles.FirstOrDefault(x => x.TileInfo.Position == currentPosition);
 
-                    if (currentTile == null || currentTile.Entity.GetComponent<State>().CurrentState == TileStates.Destroyed)
+                    if (currentTile == null || currentTile.State.CurrentState == TileStates.Destroyed)
                     {
-                        entityState.State.CurrentState = PlayerStates.Dead;
+                        player.State.CurrentState = PlayerStates.Dead;
                     }
                     else
                     {
-                        entityState.State.CurrentState = PlayerStates.Idle;
-                        entityState.Entity.RemoveComponent(entityState.Entity.GetComponent<TargetScreenPosition>());
+                        player.State.CurrentState = PlayerStates.Idle;
+                        player.RemoveComponent(player.GetComponent<TargetScreenPosition>());
 
-                        GameEventManager.Raise(
-                            new PlayerEnteredTile(currentTile.TileInfo, currentTile.Entity, entityState.Entity.GetComponent<PositionOnBoard>()));
+                        GameEventManager.Raise(new PlayerEnteredTile(currentTile));
                     }
                 }
             }
@@ -63,12 +63,18 @@ namespace NoNameGame.Gameplay.StateManagement
 
         public void Handle(EntityCreated message)
         {
-            _entities.Add(message.Entity);
+            if (message.Entity is Tile tile)
+            {
+                _tiles.Add(tile);
+            }
         }
 
         public void Handle(EntityDestroyed message)
         {
-            _entities.Remove(message.Entity);
+            if (message.Entity is Tile tile)
+            {
+                _tiles.Remove(tile);
+            }
         }
     }
 }

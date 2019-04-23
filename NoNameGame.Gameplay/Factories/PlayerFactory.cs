@@ -25,16 +25,16 @@ namespace NoNameGame.Gameplay.Factories
 
             var texture = _contentManager.Load<Texture2D>(SpriteSheetNames.PlayerSheet);
 
-            player.AddComponent(new Sprite { Texture2D = texture, ZIndex = 2000, Rectangle = new Rectangle(0, 0, 32, 32) });
-            player.AddComponent(new PositionOnBoard());
-            player.AddComponent(new CommandQueue());
+            player.Sprite = player.AddComponent(new Sprite { Texture2D = texture, ZIndex = 2000, Rectangle = new Rectangle(0, 0, 32, 32) });
+            player.PositionOnBoard = player.AddComponent(new PositionOnBoard());
+            player.CommandQueue = player.AddComponent(new CommandQueue());
 
-            player.AddComponent(new State
+            player.State = player.AddComponent(new State
             {
                 CurrentState = PlayerStates.Idle
             });
 
-            player.AddComponent(new Animator
+            player.Animator = player.AddComponent(new Animator
             {
                 Animations = new List<Animation>
                 {

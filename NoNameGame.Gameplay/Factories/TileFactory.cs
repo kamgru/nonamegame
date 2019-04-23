@@ -45,14 +45,14 @@ namespace NoNameGame.Gameplay.Factories
             var position = new Point(data.X, data.Y);
             tile.Transform.Position = (position * _size).ToVector2();
 
-            tile.AddComponent(new TileInfo
+            tile.TileInfo = tile.AddComponent(new TileInfo
             {
                 Value = data.Value,
                 Position = position,
                 TileType = data.TileType
             });
 
-            tile.AddComponent(new State
+            tile.State = tile.AddComponent(new State
             {
                 CurrentState = TileStates.Pristine
             });
@@ -68,7 +68,7 @@ namespace NoNameGame.Gameplay.Factories
         {
             var tile = new Tile();
             var sprite = new Sprite { Texture2D = sheet, Rectangle = new Rectangle(0, 96, 32, 32) };
-            tile.AddComponent(sprite);
+            tile.Sprite = tile.AddComponent(sprite);
 
             return tile;
         }
@@ -77,7 +77,7 @@ namespace NoNameGame.Gameplay.Factories
         {
             var tile = new Tile();
             var sprite = new Sprite { Texture2D = sheet, Rectangle = new Rectangle(0, 0, 32, 32) };
-            tile.AddComponent(sprite);
+            tile.Sprite = tile.AddComponent(sprite);
 
             var animation = new Animation(sheet, new Rectangle[]
                     {
@@ -93,7 +93,7 @@ namespace NoNameGame.Gameplay.Factories
                 Speed = 0.5f
             };
 
-            tile.AddComponent(new Animator { Animations = new[] { animation } });
+            tile.Animator = tile.AddComponent(new Animator { Animations = new[] { animation } });
 
             return tile;
         }
@@ -102,7 +102,7 @@ namespace NoNameGame.Gameplay.Factories
         {
             var tile = new Tile();
             var sprite = new Sprite { Texture2D = sheet, Rectangle = new Rectangle(0, 32, 32, 32) };
-            tile.AddComponent(sprite);
+            tile.Sprite = tile.AddComponent(sprite);
 
             var animation = new Animation(sheet, new Rectangle[]
                     {
@@ -118,7 +118,7 @@ namespace NoNameGame.Gameplay.Factories
                 Speed = 0.5f
             };
 
-            tile.AddComponent(new Animator { Animations = new[] { animation } });
+            tile.Animator = tile.AddComponent(new Animator { Animations = new[] { animation } });
 
             return tile;
         }
@@ -127,7 +127,7 @@ namespace NoNameGame.Gameplay.Factories
         {
             var tile = new Tile();
             var sprite = new Sprite { Texture2D = sheet, Rectangle = new Rectangle(0, 64, 32, 32) };
-            tile.AddComponent(sprite);
+            tile.Sprite = tile.AddComponent(sprite);
 
             var animation = new Animation(sheet, new Rectangle[]
                     {
@@ -143,7 +143,7 @@ namespace NoNameGame.Gameplay.Factories
                 Speed = 0.5f
             };
 
-            tile.AddComponent(new Animator { Animations = new[] { animation } });
+            tile.Animator = tile.AddComponent(new Animator { Animations = new[] { animation } });
 
             return tile;
         }

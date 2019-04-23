@@ -1,20 +1,15 @@
-﻿using NoNameGame.ECS.Entities;
-using NoNameGame.ECS.Messaging;
-using NoNameGame.Gameplay.Components;
+﻿using NoNameGame.ECS.Messaging;
+using NoNameGame.Gameplay.Entities;
 
 namespace NoNameGame.Gameplay.Events
 {
     public class PlayerEnteredTile : IGameEvent
     {
-        public TileInfo TileInfo { get; }
-        public Entity TileEntity { get; }
-        public PositionOnBoard PositionOnBoard { get; }
+        public Tile Tile { get; }
 
-        public PlayerEnteredTile(TileInfo tileInfo, Entity tileEntity, PositionOnBoard positionOnBoard)
+        public PlayerEnteredTile(Tile tile)
         {
-            TileInfo = tileInfo;
-            TileEntity = tileEntity;
-            PositionOnBoard = positionOnBoard;
+            Tile = tile;
         }
     }
 }

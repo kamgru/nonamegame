@@ -59,23 +59,21 @@ namespace NoNameGame.Gameplay.Systems
 
         public void Handle(PlayerAbandonedTile gameEvent)
         {
-            var tileInfo = _tiles
-                .Where(x => x.GetComponent<TileInfo>().Position == _player.GetComponent<PositionOnBoard>().Previous)
-                .Select(x => x.GetComponent<TileInfo>())
-                .First();
+            var tile = _tiles
+                .Where(x => x.TileInfo.Position == _player.PositionOnBoard.Previous)
+                .Single();
 
-            if (_clearableTypes.Contains(tileInfo.TileType))
+            if (_clearableTypes.Contains(tile.TileInfo.TileType))
             {
-                tileInfo.Value--;
+                tile.TileInfo.Value--;
 
-                var state = tileInfo.Entity.GetComponent<State>();
-                state.CurrentState = tileInfo.Value <= 0
+                tile.State.CurrentState = tile.TileInfo.Value <= 0
                     ? TileStates.Destroyed
                     : TileStates.Touched;
 
-                var tiles = _tiles.Select(x => x.GetComponent<TileInfo>());
+                var tiles = _tiles.Where(x => _clearableTypes.Contains(x.TileInfo.TileType));
 
-                if (tiles.Where(x => _clearableTypes.Contains(x.TileType)).All(x => x.Entity.GetComponent<State>().CurrentState == TileStates.Destroyed))
+                if (tiles.All(x => x.State.CurrentState == TileStates.Destroyed))
                 {
                     _end.State.CurrentState = EndStates.Open;
                 }
@@ -84,10 +82,10 @@ namespace NoNameGame.Gameplay.Systems
 
         public void Handle(PlayerEnteredTile gameEvent)
         {
-            _poof.Transform.Position = gameEvent.TileEntity.Transform.Position;
+            _poof.Transform.Position = gameEvent.Tile.Transform.Position;
             _poof.GetComponent<Animator>().Play("poof");
 
-            if (gameEvent.PositionOnBoard.Current == _end.PositionOnBoard.Current)
+            if (_player.PositionOnBoard.Current == _end.PositionOnBoard.Current)
             {
                 if (_end.State.CurrentState == EndStates.Open)
                 {

@@ -3,6 +3,7 @@ using NoNameGame.ECS.Components;
 using NoNameGame.ECS.Systems.StateHandling;
 using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Data;
+using NoNameGame.Gameplay.Entities;
 
 namespace NoNameGame.Gameplay.StateManagement
 {
@@ -15,20 +16,18 @@ namespace NoNameGame.Gameplay.StateManagement
 
         public override void Handle(EntityState entityState)
         {
-            if (entityState.State.InTransition)
+            var tile = entityState.Entity as Tile;
+            if (tile.State.InTransition)
             {
-                var tileInfo = entityState.Entity.GetComponent<TileInfo>();
-                var sprite = entityState.Entity.GetComponent<Sprite>();
-                
-                if (tileInfo.TileType == TileType.Double)
+                if (tile.TileInfo.TileType == TileType.Double)
                 {
-                    sprite.Rectangle = new Rectangle(32, 32, 32, 32);
+                    tile.Sprite.Rectangle = new Rectangle(32, 32, 32, 32);
                     return;
                 }
                 
-                if (tileInfo.TileType == TileType.Triple)
+                if (tile.TileInfo.TileType == TileType.Triple)
                 {
-                    sprite.Rectangle = tileInfo.Value == 2
+                    tile.Sprite.Rectangle = tile.TileInfo.Value == 2
                         ? new Rectangle(32, 64, 32, 32)
                         : new Rectangle(64, 64, 32, 32);
                     return;

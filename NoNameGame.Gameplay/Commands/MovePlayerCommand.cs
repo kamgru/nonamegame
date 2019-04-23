@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using NoNameGame.ECS.Components;
-using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems.CommandHandling;
 using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Data;
+using NoNameGame.Gameplay.Entities;
 using NoNameGame.Gameplay.Events;
 
 namespace NoNameGame.Gameplay.Commands
@@ -13,12 +13,12 @@ namespace NoNameGame.Gameplay.Commands
     {
         private Vector2 _direction;
         private Vector2 _distance;
-        private Entity _player;
+        private Player _player;
 
         public MovePlayerCommand(
             Vector2 direction,
             Vector2 distance,
-            Entity player)
+            Player player)
         {
             _direction = direction;
             _distance = distance;
@@ -27,7 +27,7 @@ namespace NoNameGame.Gameplay.Commands
 
         public void Execute()
         {
-            _player.GetComponent<PositionOnBoard>().Translate(_direction.ToPoint());
+            _player.PositionOnBoard.Translate(_direction.ToPoint());
 
             var target = new TargetScreenPosition
             {
@@ -39,7 +39,7 @@ namespace NoNameGame.Gameplay.Commands
 
             _player.AddComponent(target);
 
-            _player.GetComponent<State>().CurrentState = PlayerStates.Moving;
+            _player.State.CurrentState = PlayerStates.Moving;
 
             GameEventManager.Raise(new PlayerAbandonedTile());
         }

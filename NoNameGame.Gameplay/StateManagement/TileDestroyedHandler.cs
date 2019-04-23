@@ -1,8 +1,8 @@
 ﻿using NoNameGame.ECS.Components;
 using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Systems.StateHandling;
-using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Data;
+using NoNameGame.Gameplay.Entities;
 
 namespace NoNameGame.Gameplay.StateManagement
 {
@@ -15,12 +15,13 @@ namespace NoNameGame.Gameplay.StateManagement
 
         public override void Handle(EntityState entityState)
         {
+            var tile = entityState.Entity as Tile;
             if (entityState.State.InTransition)
             {
-                entityState.Entity.GetComponent<Animator>().Play(AnimationDictionary.TileDestroy);
-                entityState.State.InTransition = false;
+                tile.Animator.Play(AnimationDictionary.TileDestroy);
+                tile.State.InTransition = false;
             }
-            else if (!entityState.Entity.GetComponent<Animator>().IsPlaying)
+            else if (!tile.Animator.IsPlaying)
             {
                 Entity.Destroy(entityState.Entity);
             }

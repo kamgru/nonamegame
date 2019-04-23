@@ -1,15 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using NoNameGame.Core.Services;
 using NoNameGame.ECS.Components;
-using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Input;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems;
 using NoNameGame.Gameplay.Commands;
-using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Data;
 using NoNameGame.Gameplay.Entities;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace NoNameGame.Gameplay.Systems
@@ -17,14 +14,12 @@ namespace NoNameGame.Gameplay.Systems
     public class PlayerInputHandlingSystem
         : SystemBase,
         IUpdatingSystem,
-        IMessageListener<ComponentAdded<TileInfo>>,
         IMessageListener<EntityCreated>,
         IMessageListener<EntityDestroyed>
     {
         private readonly IntentProvider _intentProvider;
         private readonly Point _tileSize;
-        private readonly List<Entity> _tileEntities = new List<Entity>();
-        private Entity _playerEntity;
+        private Player _player;
 
         public PlayerInputHandlingSystem(
             IntentProvider intentProvider,
@@ -33,34 +28,27 @@ namespace NoNameGame.Gameplay.Systems
             _intentProvider = intentProvider;
             _tileSize = configurationService.GetTileSizeInPixels();
             SystemMessageBroker.AddListener<EntityCreated>(this);
-            SystemMessageBroker.AddListener<ComponentAdded<TileInfo>>(this);
-        }
-
-        public void Handle(ComponentAdded<TileInfo> message)
-        {
-            _tileEntities.Add(message.Entity);
-        }
-
-        public override void Handle(EntityDestroyed message)
-        {
-            if (message.Entity.HasComponent<TileInfo>())
-            {
-                _tileEntities.Remove(message.Entity);
-            }
         }
 
         public void Handle(EntityCreated message)
         {
-            if (message.Entity is Player)
+            if (message.Entity is Player player)
             {
-                _playerEntity = message.Entity;
+                _player = player;
+            }
+        }
+
+        public override void Handle(EntityDestroyed message)
+        {
+            if (message.Entity is Player player)
+            {
+                _player = null;
             }
         }
 
         public override void Reset()
         {
-            _playerEntity = null;
-            _tileEntities.Clear();
+            _player = null;
         }
 
         public void Update(GameTime gameTime)
@@ -77,8 +65,8 @@ namespace NoNameGame.Gameplay.Systems
                 return;
             }
 
-            _playerEntity.GetComponent<CommandQueue>()
-                .Enqueue(new MovePlayerCommand(direction, _tileSize.ToVector2(), _playerEntity));
+            _player.GetComponent<CommandQueue>()
+                .Enqueue(new MovePlayerCommand(direction, _tileSize.ToVector2(), _player));
         }
 
         private Vector2 MapIntentToDirection(IIntent intent)
