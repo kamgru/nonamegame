@@ -28,8 +28,14 @@ namespace NoNameGame.Gameplay.Factories
             Tile tile;
             switch (data.TileType)
             {
-                case TileType.Normal:
+                case TileType.Single:
                     tile = CreateNormalTile(tileSpriteSheet);
+                    break;
+                case TileType.Double:
+                    tile = CreateDoubleTile(tileSpriteSheet);
+                    break;
+                case TileType.Triple:
+                    tile = CreateTripleTile(tileSpriteSheet);
                     break;
                 default:
                     tile = CreateIndestructibleTile(tileSpriteSheet);
@@ -81,6 +87,56 @@ namespace NoNameGame.Gameplay.Factories
                         new Rectangle(96, 0, 32, 32),
                         new Rectangle(128, 0, 32, 32),
                         new Rectangle(160, 0, 32, 32),
+                    })
+            {
+                Name = AnimationDictionary.TileDestroy,
+                Speed = 0.5f
+            };
+
+            tile.AddComponent(new Animator { Animations = new[] { animation } });
+
+            return tile;
+        }
+
+        private Tile CreateDoubleTile(Texture2D sheet)
+        {
+            var tile = new Tile();
+            var sprite = new Sprite { Texture2D = sheet, Rectangle = new Rectangle(0, 32, 32, 32) };
+            tile.AddComponent(sprite);
+
+            var animation = new Animation(sheet, new Rectangle[]
+                    {
+                        new Rectangle(64, 32, 32, 32),
+                        new Rectangle(96, 32, 32, 32),
+                        new Rectangle(128, 32, 32, 32),
+                        new Rectangle(160, 32, 32, 32),
+                        new Rectangle(192, 32, 32, 32),
+                        new Rectangle(224, 32, 32, 32),
+                    })
+            {
+                Name = AnimationDictionary.TileDestroy,
+                Speed = 0.5f
+            };
+
+            tile.AddComponent(new Animator { Animations = new[] { animation } });
+
+            return tile;
+        }
+
+        private Tile CreateTripleTile(Texture2D sheet)
+        {
+            var tile = new Tile();
+            var sprite = new Sprite { Texture2D = sheet, Rectangle = new Rectangle(0, 64, 32, 32) };
+            tile.AddComponent(sprite);
+
+            var animation = new Animation(sheet, new Rectangle[]
+                    {
+                        new Rectangle(96, 64, 32, 32),
+                        new Rectangle(128, 64, 32, 32),
+                        new Rectangle(160, 64, 32, 32),
+                        new Rectangle(192, 64, 32, 32),
+                        new Rectangle(224, 64, 32, 32),
+                        new Rectangle(256, 64, 32, 32),
                     })
             {
                 Name = AnimationDictionary.TileDestroy,

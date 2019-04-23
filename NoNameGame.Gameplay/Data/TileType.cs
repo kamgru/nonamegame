@@ -2,8 +2,6 @@
 {
     public enum TileType
     {
-        Normal = 1,
-        Start = 2,
-        End = 4
+        Single, Double, Triple, Start, End
     }
 }

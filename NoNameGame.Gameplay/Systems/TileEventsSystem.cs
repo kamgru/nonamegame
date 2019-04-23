@@ -20,6 +20,12 @@ namespace NoNameGame.Gameplay.Systems
         private Poof _poof;
         private Player _player;
         private List<Tile> _tiles = new List<Tile>();
+        private IEnumerable<TileType> _clearableTypes = new []
+        {
+            TileType.Single,
+            TileType.Double,
+            TileType.Triple,
+        };
 
         public TileEventsSystem(
             PoofFactory poofFactory)
@@ -51,7 +57,7 @@ namespace NoNameGame.Gameplay.Systems
                 .Select(x => x.GetComponent<TileInfo>())
                 .First();
 
-            if (tileInfo.TileType == TileType.Normal)
+            if (_clearableTypes.Contains(tileInfo.TileType))
             {
                 tileInfo.Value--;
                 if (tileInfo.Value <= 0)
@@ -74,7 +80,7 @@ namespace NoNameGame.Gameplay.Systems
             {
                 var tiles = _tiles.Select(x => x.GetComponent<TileInfo>());
 
-                if (tiles.Where(x => x.TileType == TileType.Normal).All(x => x.Destroyed))
+                if (tiles.Where(x => _clearableTypes.Contains(x.TileType)).All(x => x.Destroyed))
                 {
                     GameEventManager.Raise(new StageCleared());
                 }
