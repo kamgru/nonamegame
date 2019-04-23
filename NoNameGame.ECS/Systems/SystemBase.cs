@@ -22,5 +22,7 @@ namespace NoNameGame.ECS.Systems
         }
 
         public abstract void Handle(EntityDestroyed message);
+
+        public abstract void Reset();
     }
 }

@@ -48,7 +48,6 @@ namespace NoNameGame.Main.Screens
                 Session.Set(SessionKeys.CurrentStageId, stageId + 1);
 
                 var gameplay = ScreenManager.Peek<GameplayScreen>();
-                gameplay.Init();
                 ScreenManager.Push<GameplayScreen>();
             }
         }

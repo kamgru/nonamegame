@@ -39,6 +39,11 @@ namespace NoNameGame.Gameplay.Systems
             }
         }
 
+        public override void Reset()
+        {
+            _entities.Clear();
+        }
+
         public void Update(GameTime gameTime)
         {
             foreach (var entity in _entities)

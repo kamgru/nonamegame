@@ -29,13 +29,16 @@ namespace NoNameGame.Main.Screens
         {
             base.Init();
 
-            GameEventManager.RegisterHandler(this);
             _configurationService = new ConfigurationService();
+            GameEventManager.RegisterHandler(this);
+            InitSystems();
+        }
 
-            SetupSystems();
-            SetupStage();
-
+        public override void OnEnter()
+        {
+            _systemsManager.ResetSystems();
             InputMapProvider.GetContextById(Contexts.Gameplay).Activate();
+            SetupStage();
         }
 
         public override void Update(GameTime gameTime, bool isActive)
@@ -66,9 +69,11 @@ namespace NoNameGame.Main.Screens
             player.Transform.SetParent(board.Transform);
 
             board.Transform.Position = new Vector2((ScreenManager.Game.GraphicsDevice.Viewport.Width - size.X) / 2, (ScreenManager.Game.GraphicsDevice.Viewport.Height - size.Y) / 2);
+
+            new PoofFactory(ContentManager).CreatePoof();
         }
 
-        private void SetupSystems()
+        private void InitSystems()
         {
             _systemsManager = new SystemsManager();
             _systemsManager.Push(new PlayerInputHandlingSystem(IntentProvider, _configurationService));
@@ -76,7 +81,7 @@ namespace NoNameGame.Main.Screens
             _systemsManager.Push(new SpriteDrawingSystem(ContentManager, SpriteBatch));
             _systemsManager.Push(new AnimationSystem(_configurationService.GetFps()));
             _systemsManager.Push(new MoveToScreenPositionSystem());
-            _systemsManager.Push(new TileEventsSystem(new PoofFactory(ContentManager)));
+            _systemsManager.Push(new TileEventsSystem());
 
             var fsmSystem = new FsmSystem();
             fsmSystem.RegisterHandler(new PlayerIdleHandler(ContentManager, InputMapProvider));

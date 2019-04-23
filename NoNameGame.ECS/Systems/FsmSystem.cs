@@ -40,6 +40,11 @@ namespace NoNameGame.ECS.Systems
             _handlersDictionary.Add(handler.State, handler);
         }
 
+        public override void Reset()
+        {
+            _entities.Clear();
+        }
+
         public void Update(GameTime gameTime)
         {
             var groups = _entities

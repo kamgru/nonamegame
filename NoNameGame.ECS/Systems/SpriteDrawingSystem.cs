@@ -58,6 +58,11 @@ namespace NoNameGame.ECS.Systems
             }
         }
 
+        public override void Reset()
+        {
+            _entities.Clear();
+        }
+
         private void AddEntityInOrder(Entity entity)
         {
             _entities.Add(entity);

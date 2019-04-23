@@ -16,6 +16,12 @@ namespace NoNameGame.Core.Screens
 
         public void Push<TScreen>() where TScreen : Screen
         {
+            if (_screenStack.Count > 0)
+            {
+                var previousScreen = _screenStack.Peek();
+                previousScreen.OnExit();
+            }
+
             var screen = _screens.FirstOrDefault(x => x is TScreen);
 
             if (screen == null)
@@ -34,6 +40,8 @@ namespace NoNameGame.Core.Screens
             }
 
             _screenStack.Push(screen);
+
+            screen.OnEnter();
         }
 
         public TScreen Peek<TScreen>() where TScreen : Screen

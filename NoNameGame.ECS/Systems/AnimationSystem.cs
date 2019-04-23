@@ -35,6 +35,11 @@ namespace NoNameGame.ECS.Systems
             }
         }
 
+        public override void Reset()
+        {
+            _entities.Clear();
+        }
+
         public void Update(GameTime gameTime)
         {
             var animators = _entities.Select(x => x.GetComponent<Animator>());

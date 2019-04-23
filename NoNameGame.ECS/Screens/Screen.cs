@@ -35,5 +35,7 @@ namespace NoNameGame.Core.Screens
         public abstract void Update(GameTime gameTime, bool isActive);
         public abstract void Draw(GameTime gameTime);
 
+        public virtual void OnEnter() { }
+        public virtual void OnExit() { }
     }
 }

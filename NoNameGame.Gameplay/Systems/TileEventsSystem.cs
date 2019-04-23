@@ -5,7 +5,6 @@ using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Data;
 using NoNameGame.Gameplay.Entities;
 using NoNameGame.Gameplay.Events;
-using NoNameGame.Gameplay.Factories;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -27,13 +26,11 @@ namespace NoNameGame.Gameplay.Systems
             TileType.Triple,
         };
 
-        public TileEventsSystem(
-            PoofFactory poofFactory)
+        public TileEventsSystem()
         {
             GameEventManager.RegisterHandler<PlayerAbandonedTile>(this);
             SystemMessageBroker.AddListener<EntityCreated>(this);
             GameEventManager.RegisterHandler<PlayerEnteredTile>(this);
-            _poof = poofFactory.CreatePoof();
         }
 
         public void Handle(EntityCreated message)
@@ -46,6 +43,10 @@ namespace NoNameGame.Gameplay.Systems
 
                 case Player player:
                     _player = player;
+                    break;
+
+                case Poof poof:
+                    _poof = poof;
                     break;
             }
         }
@@ -103,6 +104,13 @@ namespace NoNameGame.Gameplay.Systems
                     _poof = null;
                     break;
             }
+        }
+
+        public override void Reset()
+        {
+            _player = null;
+            _poof = null;
+            _tiles.Clear();
         }
     }
 }

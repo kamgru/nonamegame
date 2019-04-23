@@ -63,5 +63,17 @@ namespace NoNameGame.ECS.Systems
                 system.Draw();
             }
         }
+
+        public void ResetSystems()
+        {
+            var allSystems = _basicSystems.Values
+                .Concat(_updatingSystems.Values)
+                .Concat(_drawingSystems.Values);
+
+            foreach (var system in allSystems)
+            {
+                system.Reset();
+            }
+        }
     }
 }

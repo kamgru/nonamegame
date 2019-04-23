@@ -57,6 +57,12 @@ namespace NoNameGame.Gameplay.Systems
             }
         }
 
+        public override void Reset()
+        {
+            _playerEntity = null;
+            _tileEntities.Clear();
+        }
+
         public void Update(GameTime gameTime)
         {
             var intents = _intentProvider.GetIntents();

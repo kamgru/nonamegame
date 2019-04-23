@@ -4,5 +4,6 @@
     {
         void SetActive(bool value);
         bool IsActive();
+        void Reset();
     }
 }
