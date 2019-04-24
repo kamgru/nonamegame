@@ -34,6 +34,9 @@
     <Reference Include="MonoGame.Framework, Version=3.7.1.189, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MonoGame.Framework.Portable.3.7.1.189\lib\portable-net45+win8+wpa81\MonoGame.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -55,6 +58,8 @@
     <Compile Include="Data\PlayerStates.cs" />
     <Compile Include="Data\SessionKeys.cs" />
     <Compile Include="Data\SpriteSheetNames.cs" />
+    <Compile Include="Data\StageData.cs" />
+    <Compile Include="Data\StageDataStorage.cs" />
     <Compile Include="Data\TileStates.cs" />
     <Compile Include="Data\TileType.cs" />
     <Compile Include="Entities\Board.cs" />
@@ -73,7 +78,6 @@
     <Compile Include="Factories\TileFactory.cs" />
     <Compile Include="Commands\MovePlayerCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\BoardService.cs" />
     <Compile Include="StateManagement\EndOpenHandler.cs" />
     <Compile Include="StateManagement\PlayerDeadHandler.cs" />
     <Compile Include="StateManagement\PlayerIdleHandler.cs" />
@@ -94,5 +98,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,15 +8,14 @@ using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Data;
 using NoNameGame.Gameplay.Events;
 using NoNameGame.Gameplay.Factories;
-using NoNameGame.Gameplay.Services;
 using NoNameGame.Gameplay.StateManagement;
 using NoNameGame.Gameplay.Systems;
 using System.Linq;
 
 namespace NoNameGame.Main.Screens
 {
-    public class GameplayScreen 
-        : Screen, 
+    public class GameplayScreen
+        : Screen,
         IGameEventHandler<StageCleared>,
         IGameEventHandler<PlayerDied>
     {
@@ -68,10 +67,16 @@ namespace NoNameGame.Main.Screens
 
         private void SetupStage()
         {
-            Session.TryGet(SessionKeys.CurrentStageId, out int stageId);
+            if (!Session.TryGet(SessionKeys.CurrentStageId, out int stageId))
+            {
+                stageId = 1;
+                Session.Set(SessionKeys.CurrentStageId, stageId);
+            }
+
+            var stage = new StageDataStorage().Load(stageId);
 
             var board = new BoardFactory(new TileFactory(ContentManager, _configurationService), new EndFactory(ContentManager), _configurationService)
-                .CreateBoard(new BoardService().GetBoard(stageId));
+                .CreateBoard(stage.Board);
 
             var tileSize = _configurationService.GetTileSizeInPixels();
             var size = board.GetComponent<BoardInfo>().Size * tileSize;
