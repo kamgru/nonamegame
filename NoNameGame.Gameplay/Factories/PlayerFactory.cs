@@ -58,6 +58,7 @@ namespace NoNameGame.Gameplay.Factories
                         new Rectangle(32, 32, 32, 32),
                         new Rectangle(64, 32, 32, 32),
                         new Rectangle(96, 32, 32, 32),
+                        new Rectangle(128, 32, 32, 32),
                     })
                     {
                         Name = AnimationDictionary.PlayerFall,
