@@ -50,7 +50,7 @@ namespace NoNameGame.Gameplay.Factories
                 {
                     Looped = true,
                     Name = AnimationDictionary.EndOpen,
-                    Speed = 1f
+                    Speed = 0.15f
                 }
             };
 
