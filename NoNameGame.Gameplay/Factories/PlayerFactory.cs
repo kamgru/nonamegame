@@ -51,6 +51,17 @@ namespace NoNameGame.Gameplay.Factories
                         Looped = false,
                         Name = AnimationDictionary.PlayerMove,
                         Speed = 0.5f
+                    },
+                    new Animation(texture, new[]
+                    {
+                        new Rectangle(0, 32, 32, 32),
+                        new Rectangle(32, 32, 32, 32),
+                        new Rectangle(64, 32, 32, 32),
+                        new Rectangle(96, 32, 32, 32),
+                    })
+                    {
+                        Name = AnimationDictionary.PlayerFall,
+                        Speed = 0.5f
                     }
                 }
             });
