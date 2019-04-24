@@ -31,5 +31,7 @@ namespace NoNameGame.ECS.Entities
         {
             return _entities.Where(x => x.HasComponent<TComponent>());
         }
+
+        public IReadOnlyCollection<Entity> GetAll() => _entities.AsReadOnly();
     }
 }

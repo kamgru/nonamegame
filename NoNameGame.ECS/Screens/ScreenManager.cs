@@ -18,30 +18,30 @@ namespace NoNameGame.Core.Screens
         {
             if (_screenStack.Count > 0)
             {
-                var previousScreen = _screenStack.Peek();
-                previousScreen.OnExit();
+                var currentScreen = _screenStack.Peek();
+                currentScreen.OnExit();
             }
 
-            var screen = _screens.FirstOrDefault(x => x is TScreen);
+            var newScreen = _screens.FirstOrDefault(x => x is TScreen);
 
-            if (screen == null)
+            if (newScreen == null)
             {
                 throw new InvalidOperationException($"Screen type {typeof(TScreen).ToString()} not registered");
             }
 
-            if (!screen.IsInitialized)
+            if (!newScreen.IsInitialized)
             {
-                screen.Init();
+                newScreen.Init();
             }
 
-            if (screen.ScreenMode == ScreenMode.Single)
+            if (newScreen.ScreenMode == ScreenMode.Single)
             {
                 _screenStack.Clear();
             }
 
-            _screenStack.Push(screen);
+            _screenStack.Push(newScreen);
 
-            screen.OnEnter();
+            newScreen.OnEnter();
         }
 
         public TScreen Peek<TScreen>() where TScreen : Screen

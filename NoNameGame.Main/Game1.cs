@@ -72,6 +72,7 @@ namespace NoNameGame.Main
             _screenManager.Register(new MainMenuScreen(screenDependencies));
             _screenManager.Register(new GameplayScreen(screenDependencies));
             _screenManager.Register(new StageClearScreen(screenDependencies));
+            _screenManager.Register(new GameOverScreen(screenDependencies));
 
             _screenManager.Push<MainMenuScreen>();
         }

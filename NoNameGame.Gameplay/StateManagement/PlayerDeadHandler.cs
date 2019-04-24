@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using NoNameGame.ECS.Entities;
+using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems.StateHandling;
 using NoNameGame.Gameplay.Data;
 using NoNameGame.Gameplay.Entities;
+using NoNameGame.Gameplay.Events;
 
 namespace NoNameGame.Gameplay.StateManagement
 {
@@ -30,6 +32,7 @@ namespace NoNameGame.Gameplay.StateManagement
                 }
 
                 Entity.Destroy(player);
+                GameEventManager.Raise(new PlayerDied());
             }
         }
 

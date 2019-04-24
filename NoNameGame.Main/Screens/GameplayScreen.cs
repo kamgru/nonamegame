@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using NoNameGame.Core.Screens;
 using NoNameGame.Core.Services;
+using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems;
 using NoNameGame.Gameplay.Components;
@@ -10,13 +11,18 @@ using NoNameGame.Gameplay.Factories;
 using NoNameGame.Gameplay.Services;
 using NoNameGame.Gameplay.StateManagement;
 using NoNameGame.Gameplay.Systems;
+using System.Linq;
 
 namespace NoNameGame.Main.Screens
 {
-    public class GameplayScreen : Screen, IGameEventHandler<StageCleared>
+    public class GameplayScreen 
+        : Screen, 
+        IGameEventHandler<StageCleared>,
+        IGameEventHandler<PlayerDied>
     {
         private SystemsManager _systemsManager;
         private ConfigurationService _configurationService;
+        private EntityRepository _entityRepository;
 
         public GameplayScreen(ScreenDependencies dependencies)
             : base(dependencies)
@@ -28,13 +34,21 @@ namespace NoNameGame.Main.Screens
             base.Init();
 
             _configurationService = new ConfigurationService();
-            GameEventManager.RegisterHandler(this);
+            _entityRepository = new EntityRepository();
+
+            GameEventManager.RegisterHandler<StageCleared>(this);
+            GameEventManager.RegisterHandler<PlayerDied>(this);
             InitSystems();
         }
 
         public override void OnEnter()
         {
             _systemsManager.ResetSystems();
+            foreach (var entity in _entityRepository.GetAll().ToList())
+            {
+                Entity.Destroy(entity);
+            }
+
             InputMapProvider.GetContextById(Contexts.Gameplay).Activate();
             SetupStage();
         }
@@ -103,6 +117,12 @@ namespace NoNameGame.Main.Screens
         {
             InputMapProvider.GetContextById(Contexts.Gameplay).Deactivate();
             ScreenManager.Push<StageClearScreen>();
+        }
+
+        public void Handle(PlayerDied message)
+        {
+            InputMapProvider.GetContextById(Contexts.Gameplay).Deactivate();
+            ScreenManager.Push<GameOverScreen>();
         }
     }
 }
