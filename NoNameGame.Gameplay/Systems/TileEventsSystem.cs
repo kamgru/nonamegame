@@ -68,6 +68,7 @@ namespace NoNameGame.Gameplay.Systems
             {
                 if (_end.State.CurrentState == EndStates.Open)
                 {
+                    _player.Animator.Play(AnimationDictionary.PlayerFall);
                     GameEventManager.Raise(new StageCleared());
                 }
             }
