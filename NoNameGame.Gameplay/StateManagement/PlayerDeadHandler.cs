@@ -1,4 +1,6 @@
-﻿using NoNameGame.ECS.Entities;
+﻿using Microsoft.Xna.Framework;
+using NoNameGame.ECS.Components;
+using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Systems.StateHandling;
 using NoNameGame.Gameplay.Data;
 
@@ -11,11 +13,12 @@ namespace NoNameGame.Gameplay.StateManagement
         {
         }
 
-        public override void Handle(EntityState entityState)
+        public override void UpdateState(Entity entity, GameTime gameTime)
         {
-            if (entityState.State.InTransition)
+            var state = entity.GetComponent<State>();
+            if (state.InTransition)
             {
-                Entity.Destroy(entityState.Entity);
+                Entity.Destroy(entity);
             }
         }
     }

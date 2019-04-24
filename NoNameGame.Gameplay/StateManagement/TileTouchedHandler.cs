@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using NoNameGame.ECS.Components;
+using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Systems.StateHandling;
-using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Data;
 using NoNameGame.Gameplay.Entities;
 
@@ -9,14 +8,14 @@ namespace NoNameGame.Gameplay.StateManagement
 {
     public class TileTouchedHandler : StateHandlerBase
     {
-        public TileTouchedHandler() 
+        public TileTouchedHandler()
             : base(TileStates.Touched)
         {
         }
 
-        public override void Handle(EntityState entityState)
+        public override void UpdateState(Entity entity, GameTime gameTime)
         {
-            var tile = entityState.Entity as Tile;
+            var tile = entity as Tile;
             if (tile.State.InTransition)
             {
                 if (tile.TileInfo.TileType == TileType.Double)
@@ -24,7 +23,7 @@ namespace NoNameGame.Gameplay.StateManagement
                     tile.Sprite.Rectangle = new Rectangle(32, 32, 32, 32);
                     return;
                 }
-                
+
                 if (tile.TileInfo.TileType == TileType.Triple)
                 {
                     tile.Sprite.Rectangle = tile.TileInfo.Value == 2

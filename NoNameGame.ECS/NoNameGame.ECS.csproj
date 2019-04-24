@@ -73,7 +73,6 @@
     <Compile Include="Components\Animator.cs" />
     <Compile Include="Components\ComponentBase.cs" />
     <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Systems\StateHandling\EntityState.cs" />
     <Compile Include="Systems\CommandHandlingSystem.cs" />
     <Compile Include="Systems\CommandHandling\ICommand.cs" />
     <Compile Include="Systems\FsmSystem.cs" />

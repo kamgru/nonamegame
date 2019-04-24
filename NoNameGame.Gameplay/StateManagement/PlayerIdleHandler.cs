@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Input;
 using NoNameGame.ECS.Systems.StateHandling;
 using NoNameGame.Gameplay.Data;
@@ -20,12 +21,12 @@ namespace NoNameGame.Gameplay.StateManagement
             _inputMapProvider = inputMapProvider;
         }
 
-        public override void Handle(EntityState entity)
+        public override void UpdateState(Entity entity, GameTime gameTime)
         {
-            if (entity.State.InTransition)
+            var player = entity as Player;
+            if (player.State.InTransition)
             {
                 var texture = _contentManager.Load<Texture2D>(SpriteSheetNames.PlayerSheet);
-                var player = entity.Entity as Player;
                 player.Sprite.Texture2D = texture;
                 player.Sprite.Rectangle = new Rectangle(0, 0, 32, 32);
 

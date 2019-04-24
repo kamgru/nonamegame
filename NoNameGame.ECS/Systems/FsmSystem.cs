@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using NoNameGame.ECS.Components;
-using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems.StateHandling;
 using System.Collections.Generic;
@@ -14,7 +13,7 @@ namespace NoNameGame.ECS.Systems
         IMessageListener<ComponentAdded<State>>
     {
         private readonly IDictionary<string, StateHandlerBase> _handlersDictionary;
-        private readonly HashSet<Entity> _entities = new HashSet<Entity>();
+        private readonly HashSet<State> _states = new HashSet<State>();
 
         public FsmSystem()
         {
@@ -24,15 +23,18 @@ namespace NoNameGame.ECS.Systems
 
         public void Handle(ComponentAdded<State> message)
         {
-            if (!_entities.Contains(message.Entity))
+            if (!_states.Contains(message.Component))
             {
-                _entities.Add(message.Entity);
+                _states.Add(message.Component);
             }
         }
 
         public override void Handle(EntityDestroyed message)
         {
-            _entities.Remove(message.Entity);
+            if (message.Entity.HasComponent<State>())
+            {
+                _states.Remove(message.Entity.GetComponent<State>());
+            }
         }
 
         public void RegisterHandler(StateHandlerBase handler)
@@ -42,27 +44,18 @@ namespace NoNameGame.ECS.Systems
 
         public override void Reset()
         {
-            _entities.Clear();
+            _states.Clear();
         }
 
         public void Update(GameTime gameTime)
         {
-            var groups = _entities
-                .Select(x => new EntityState { Entity = x, State = x.GetComponent<State>() })
-                .GroupBy(x => x.State.CurrentState)
-                .ToList();
-
-            foreach (var group in groups)
+            foreach (var state in _states.ToList())
             {
-                if (_handlersDictionary.ContainsKey(group.Key))
+                if (_handlersDictionary.TryGetValue(state.CurrentState, out StateHandlerBase handler))
                 {
-                    foreach (var entity in group)
-                    {
-                        _handlersDictionary[group.Key].Handle(entity);
-                    }
+                    handler.UpdateState(state.Entity, gameTime);
                 }
             }
-
         }
     }
 }

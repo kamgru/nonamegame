@@ -1,4 +1,4 @@
-﻿using NoNameGame.ECS.Components;
+﻿using Microsoft.Xna.Framework;
 using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Systems.StateHandling;
 using NoNameGame.Gameplay.Data;
@@ -13,17 +13,17 @@ namespace NoNameGame.Gameplay.StateManagement
         {
         }
 
-        public override void Handle(EntityState entityState)
+        public override void UpdateState(Entity entity, GameTime gameTime)
         {
-            var tile = entityState.Entity as Tile;
-            if (entityState.State.InTransition)
+            var tile = entity as Tile;
+            if (tile.State.InTransition)
             {
                 tile.Animator.Play(AnimationDictionary.TileDestroy);
                 tile.State.InTransition = false;
             }
             else if (!tile.Animator.IsPlaying)
             {
-                Entity.Destroy(entityState.Entity);
+                Entity.Destroy(tile);
             }
         }
     }

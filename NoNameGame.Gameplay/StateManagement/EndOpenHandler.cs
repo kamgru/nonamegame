@@ -1,4 +1,6 @@
-﻿using NoNameGame.ECS.Systems.StateHandling;
+﻿using Microsoft.Xna.Framework;
+using NoNameGame.ECS.Entities;
+using NoNameGame.ECS.Systems.StateHandling;
 using NoNameGame.Gameplay.Data;
 using NoNameGame.Gameplay.Entities;
 
@@ -11,11 +13,11 @@ namespace NoNameGame.Gameplay.StateManagement
         {
         }
 
-        public override void Handle(EntityState entityState)
+        public override void UpdateState(Entity entity, GameTime gameTime)
         {
-            if (entityState.State.InTransition)
+            var end = entity as End;
+            if (end.State.InTransition)
             {
-                var end = entityState.Entity as End;
                 end.Animator.Play(AnimationDictionary.EndOpen);
                 end.State.InTransition = false;
             }

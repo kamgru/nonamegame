@@ -1,4 +1,7 @@
-﻿namespace NoNameGame.ECS.Systems.StateHandling
+﻿using Microsoft.Xna.Framework;
+using NoNameGame.ECS.Entities;
+
+namespace NoNameGame.ECS.Systems.StateHandling
 {
     public abstract class StateHandlerBase
     {
@@ -9,6 +12,6 @@
             State = state;
         }
 
-        public abstract void Handle(EntityState entityState);
+        public abstract void UpdateState(Entity entity, GameTime gameTime);
     }
 }

@@ -1,4 +1,4 @@
-﻿using NoNameGame.ECS.Components;
+﻿using Microsoft.Xna.Framework;
 using NoNameGame.ECS.Entities;
 using NoNameGame.ECS.Input;
 using NoNameGame.ECS.Messaging;
@@ -28,11 +28,10 @@ namespace NoNameGame.Gameplay.StateManagement
             SystemMessageBroker.AddListener<EntityDestroyed>(this);
         }
 
-        public override void Handle(EntityState entityState)
+        public override void UpdateState(Entity entity, GameTime gameTime)
         {
-            var player = entityState.Entity as Player;
-
-            if (entityState.State.InTransition)
+            var player = entity as Player;
+            if (player.State.InTransition)
             {
                 _inputMapProvider.GetContextById(Contexts.Gameplay)?.Deactivate();
 
