@@ -44,10 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\RectangleExtensions.cs" />
     <Compile Include="Components\Animation.cs" />
     <Compile Include="Components\CommandQueue.cs" />
     <Compile Include="Entities\EntityRepository.cs" />
-    <Compile Include="Gui\ImGui.cs" />
+    <Compile Include="Ui\ControlIdGenerator.cs" />
+    <Compile Include="Ui\Gui.cs" />
     <Compile Include="Input\IInputMapProvider.cs" />
     <Compile Include="Input\IIntent.cs" />
     <Compile Include="Input\InputContext.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="Systems\StateHandling\StateHandlerBase.cs" />
     <Compile Include="Systems\SystemBase.cs" />
     <Compile Include="Systems\SystemsManager.cs" />
+    <Compile Include="Ui\UiState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

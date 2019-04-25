@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using NoNameGame.ECS.Entities;
-using NoNameGame.ECS.Gui;
+using NoNameGame.ECS.Ui;
 using NoNameGame.ECS.Input;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems.StateHandling;
@@ -31,7 +31,7 @@ namespace NoNameGame.Gameplay.StateManagement
 
         public override void UpdateState(Entity entity, GameTime gameTime)
         {
-            ImGui.Label(new Vector2(), "player moving", Color.Blue);
+            Gui.Label(new Vector2(), "player moving", Color.Blue);
             var player = entity as Player;
             if (player.State.InTransition)
             {

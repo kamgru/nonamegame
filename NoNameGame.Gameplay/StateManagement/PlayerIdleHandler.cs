@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using NoNameGame.ECS.Entities;
-using NoNameGame.ECS.Gui;
+using NoNameGame.ECS.Ui;
 using NoNameGame.ECS.Input;
 using NoNameGame.ECS.Systems.StateHandling;
 using NoNameGame.Gameplay.Data;
@@ -24,7 +24,7 @@ namespace NoNameGame.Gameplay.StateManagement
 
         public override void UpdateState(Entity entity, GameTime gameTime)
         {
-            ImGui.Label(new Vector2(), "player idle", Color.Green);
+            Gui.Label(new Vector2(), "player idle", Color.Green);
             var player = entity as Player;
             if (player.State.InTransition)
             {

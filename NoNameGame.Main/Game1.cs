@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using NoNameGame.Core.Screens;
 using NoNameGame.Core.Services;
 using NoNameGame.ECS.Input;
-using NoNameGame.ECS.Gui;
+using NoNameGame.ECS.Ui;
 using NoNameGame.Gameplay.Data;
 using NoNameGame.Main.Screens;
 
@@ -24,11 +24,12 @@ namespace NoNameGame.Main
         protected override void Initialize()
         {
             base.Initialize();
+            this.IsMouseVisible = true;
 
             Content.RootDirectory = "Content";
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            ImGui.Init(Content, _spriteBatch);
+            ECS.Ui.Gui.Init(Content, _spriteBatch);
             BootstrapScreens();
         }
 
@@ -39,9 +40,10 @@ namespace NoNameGame.Main
 
         protected override void Update(GameTime gameTime)
         {
-            ImGui.Update();
+            ECS.Ui.Gui.Begin();
             _screenManager.Update(gameTime);
             base.Update(gameTime);
+            ECS.Ui.Gui.End();
         }
 
         protected override void Draw(GameTime gameTime)
@@ -49,7 +51,7 @@ namespace NoNameGame.Main
             GraphicsDevice.Clear(Color.White);
             _spriteBatch.Begin();
             _screenManager.Draw(gameTime);
-            ImGui.Draw();
+            ECS.Ui.Gui.Draw();
             _spriteBatch.End();
             base.Draw(gameTime);
         }
