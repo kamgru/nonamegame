@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using NoNameGame.Core.Screens;
+using NoNameGame.ECS.Gui;
 using NoNameGame.Gameplay.Data;
 using NoNameGame.Main.Gui;
 
@@ -53,6 +54,12 @@ namespace NoNameGame.Main.Screens
             if (isActive)
             {
                 _menu.Update(gameTime);
+
+
+                if (ImGui.Button(new Vector2(10, 10), Vector2.Zero, "dupsko"))
+                {
+                    _menu.Position = new Vector2(_menu.Position.X + 10, _menu.Position.Y);
+                }
             }
         }
 

@@ -47,6 +47,7 @@
     <Compile Include="Components\Animation.cs" />
     <Compile Include="Components\CommandQueue.cs" />
     <Compile Include="Entities\EntityRepository.cs" />
+    <Compile Include="Gui\ImGui.cs" />
     <Compile Include="Input\IInputMapProvider.cs" />
     <Compile Include="Input\IIntent.cs" />
     <Compile Include="Input\InputContext.cs" />

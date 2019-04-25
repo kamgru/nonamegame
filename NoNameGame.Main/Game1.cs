@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using NoNameGame.Core.Screens;
 using NoNameGame.Core.Services;
 using NoNameGame.ECS.Input;
+using NoNameGame.ECS.Gui;
 using NoNameGame.Gameplay.Data;
 using NoNameGame.Main.Screens;
 
@@ -27,6 +28,7 @@ namespace NoNameGame.Main
             Content.RootDirectory = "Content";
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            ImGui.Init(Content, _spriteBatch);
             BootstrapScreens();
         }
 
@@ -37,10 +39,7 @@ namespace NoNameGame.Main
 
         protected override void Update(GameTime gameTime)
         {
-#if DEBUG
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-#endif
+            ImGui.Update();
             _screenManager.Update(gameTime);
             base.Update(gameTime);
         }
@@ -50,6 +49,7 @@ namespace NoNameGame.Main
             GraphicsDevice.Clear(Color.White);
             _spriteBatch.Begin();
             _screenManager.Draw(gameTime);
+            ImGui.Draw();
             _spriteBatch.End();
             base.Draw(gameTime);
         }

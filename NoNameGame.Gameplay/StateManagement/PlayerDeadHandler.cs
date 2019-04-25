@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using NoNameGame.ECS.Entities;
+using NoNameGame.ECS.Gui;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems.StateHandling;
 using NoNameGame.Gameplay.Data;
@@ -17,6 +18,7 @@ namespace NoNameGame.Gameplay.StateManagement
 
         public override void UpdateState(Entity entity, GameTime gameTime)
         {
+            ImGui.Label(new Vector2(), "player dead", Color.Red);
             var player = entity as Player;
 
             if (player.State.InTransition)
