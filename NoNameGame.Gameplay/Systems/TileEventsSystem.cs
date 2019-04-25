@@ -1,7 +1,6 @@
 ﻿using NoNameGame.ECS.Components;
 using NoNameGame.ECS.Messaging;
 using NoNameGame.ECS.Systems;
-using NoNameGame.Gameplay.Components;
 using NoNameGame.Gameplay.Data;
 using NoNameGame.Gameplay.Entities;
 using NoNameGame.Gameplay.Events;
@@ -18,7 +17,7 @@ namespace NoNameGame.Gameplay.Systems
     {
         private Poof _poof;
         private Player _player;
-        private List<Tile> _tiles = new List<Tile>();
+        private readonly List<Tile> _tiles = new List<Tile>();
         private End _end;
 
         public TileEventsSystem()
@@ -38,17 +37,16 @@ namespace NoNameGame.Gameplay.Systems
 
         public void Handle(PlayerAbandonedTile gameEvent)
         {
-            var tile = _tiles
-                .Where(x => x.TileInfo.Position == _player.PositionOnBoard.Previous)
-                .Single();
+            var tile = _tiles.Single(x => x.TileInfo.Position == _player.PositionOnBoard.Previous);
 
             if (tile.TileInfo.IsClearable)
             {
                 tile.TileInfo.Value--;
 
-                tile.State.CurrentState = tile.TileInfo.Value <= 0
-                    ? TileStates.Destroyed
-                    : TileStates.Touched;
+                if (tile.TileInfo.Value <= 0)
+                {
+                    tile.State.CurrentState = TileStates.Destroyed;
+                }
 
                 var tiles = _tiles.Where(x => x.TileInfo.IsClearable);
 
@@ -63,6 +61,9 @@ namespace NoNameGame.Gameplay.Systems
         {
             _poof.Transform.Position = gameEvent.Tile.Transform.Position;
             _poof.GetComponent<Animator>().Play("poof");
+
+            var tile = _tiles.Single(x => x.TileInfo.Position == _player.PositionOnBoard.Current);
+            tile.State.CurrentState = TileStates.Touched;
 
             if (_player.PositionOnBoard.Current == _end.PositionOnBoard.Current)
             {

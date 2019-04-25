@@ -19,8 +19,8 @@
       {
         "x": 1,
         "y": 0,
-        "value": 1,
-        "tileType": "Single"
+        "value": 5,
+        "tileType": "Unknown"
       },
       {
         "x": 2,

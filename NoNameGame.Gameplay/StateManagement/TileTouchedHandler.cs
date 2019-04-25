@@ -18,20 +18,40 @@ namespace NoNameGame.Gameplay.StateManagement
             var tile = entity as Tile;
             if (tile.State.InTransition)
             {
-                if (tile.TileInfo.TileType == TileType.Double)
+                switch (tile.TileInfo.TileType)
                 {
-                    tile.Sprite.Rectangle = new Rectangle(32, 32, 32, 32);
-                    return;
+                    case TileType.Double:
+                        UpdateDouble(tile);
+                        break;
+
+                    case TileType.Triple:
+                        UpdateTriple(tile);
+                        break;
+
+                    case TileType.Unknown:
+                        UpdateUnknown(tile);
+                        break;
                 }
 
-                if (tile.TileInfo.TileType == TileType.Triple)
-                {
-                    tile.Sprite.Rectangle = tile.TileInfo.Value == 2
+                tile.State.InTransition = false;
+            }
+        }
+
+        private void UpdateDouble(Tile tile)
+        {
+            tile.Sprite.Rectangle = new Rectangle(32, 32, 32, 32);
+        }
+
+        private void UpdateTriple(Tile tile)
+        {
+            tile.Sprite.Rectangle = tile.TileInfo.Value == 3
                         ? new Rectangle(32, 64, 32, 32)
                         : new Rectangle(64, 64, 32, 32);
-                    return;
-                }
-            }
+        }
+
+        private void UpdateUnknown(Tile tile)
+        {
+            tile.Animator.Play(AnimationDictionary.TileTouch);
         }
     }
 }

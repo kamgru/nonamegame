@@ -27,6 +27,7 @@ namespace NoNameGame.Gameplay.Components
             TileType.Single,
             TileType.Double,
             TileType.Triple,
+            TileType.Unknown
         };
     }
 }

@@ -37,6 +37,9 @@ namespace NoNameGame.Gameplay.Factories
                 case TileType.Triple:
                     tile = CreateTripleTile(tileSpriteSheet);
                     break;
+                case TileType.Unknown:
+                    tile = CreateUnknownTile(tileSpriteSheet);
+                    break;
                 default:
                     tile = CreateIndestructibleTile(tileSpriteSheet);
                     break;
@@ -130,20 +133,59 @@ namespace NoNameGame.Gameplay.Factories
             tile.Sprite = tile.AddComponent(sprite);
 
             var animation = new Animation(sheet, new Rectangle[]
-                    {
-                        new Rectangle(96, 64, 32, 32),
-                        new Rectangle(128, 64, 32, 32),
-                        new Rectangle(160, 64, 32, 32),
-                        new Rectangle(192, 64, 32, 32),
-                        new Rectangle(224, 64, 32, 32),
-                        new Rectangle(256, 64, 32, 32),
-                    })
+                {
+                    new Rectangle(96, 64, 32, 32),
+                    new Rectangle(128, 64, 32, 32),
+                    new Rectangle(160, 64, 32, 32),
+                    new Rectangle(192, 64, 32, 32),
+                    new Rectangle(224, 64, 32, 32),
+                    new Rectangle(256, 64, 32, 32),
+                })
             {
                 Name = AnimationDictionary.TileDestroy,
                 Speed = 0.5f
             };
 
             tile.Animator = tile.AddComponent(new Animator { Animations = new[] { animation } });
+
+            return tile;
+        }
+
+        private Tile CreateUnknownTile(Texture2D sheet)
+        {
+            var tile = new Tile();
+            var sprite = new Sprite { Texture2D = sheet, Rectangle = new Rectangle(0, 128, 32, 32) };
+            tile.Sprite = tile.AddComponent(sprite);
+
+            var destroyAnimation = new Animation(sheet, new[]
+                {
+                    new Rectangle(32, 128, 32, 32),
+                    new Rectangle(64, 128, 32, 32),
+                    new Rectangle(96, 128, 32, 32),
+                    new Rectangle(128, 128, 32, 32),
+                    new Rectangle(160, 128, 32, 32),
+                    new Rectangle(192, 128, 32, 32),
+                    new Rectangle(224, 128, 32, 32),
+                })
+            {
+                Name = AnimationDictionary.TileDestroy,
+                Speed = 0.5f
+            };
+
+            var touchAnimation = new Animation(sheet, new[]
+                {
+                   new Rectangle(0, 160, 32, 32),
+                   new Rectangle(0, 160, 32, 32),
+                   new Rectangle(0, 160, 32, 32),
+                   new Rectangle(0, 160, 32, 32),
+                   new Rectangle(32, 160, 32, 32),
+                })
+            {
+                Name = AnimationDictionary.TileTouch,
+                Speed = 0.3f
+            };
+
+            tile.Animator = tile.AddComponent(new Animator { Animations = new[] { destroyAnimation, touchAnimation } });
 
             return tile;
         }

@@ -5,6 +5,7 @@
         Single,
         Double,
         Triple,
+        Unknown,
         Indestructible
     }
 }
