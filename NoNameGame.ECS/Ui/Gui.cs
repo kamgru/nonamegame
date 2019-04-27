@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace NoNameGame.ECS.Ui
 {
@@ -12,11 +14,13 @@ namespace NoNameGame.ECS.Ui
         private static SpriteBatch _spriteBatch;
         private static SpriteFont _defaultFont;
         private static Texture2D _btnTexture;
-
-        private static readonly Stack<Action> _guiActions = new Stack<Action>();
+        private static Texture2D _blankTexture;
 
         private static ControlIdGenerator _idGenerator;
         private static UiState _uiState;
+
+        private static Color _grey = new Color(40, 40, 40, 160);
+        private static List<(int controlId, IEnumerable<Action> draws)> _draws = new List<(int, IEnumerable<Action>)>();
 
         public static void Init(ContentManager contentManager, SpriteBatch spriteBatch)
         {
@@ -24,21 +28,29 @@ namespace NoNameGame.ECS.Ui
             _spriteBatch = spriteBatch;
             _defaultFont = _contentManager.Load<SpriteFont>("default");
             _btnTexture = _contentManager.Load<Texture2D>("Gui\\btn_proxy");
+            _blankTexture = _contentManager.Load<Texture2D>("blank");
 
             _uiState = new UiState();
             _idGenerator = new ControlIdGenerator();
         }
 
+        public static int Slider(Rectangle destinationRectangle, int max, int value)
+        {
+            PushDraw(_idGenerator.GenerateId(), () => _spriteBatch.Draw(_blankTexture, destinationRectangle, _grey));
+
+            return 0;
+        }
+
         public static void Label(Vector2 position, string text, Color color = default)
         {
-            _guiActions.Push(() => _spriteBatch.DrawString(_defaultFont, text, position, color));
+            PushDraw(_idGenerator.GenerateId(), () => _spriteBatch.DrawString(_defaultFont, text, position, color));
         }
 
         public static bool Button(Rectangle destinationRectangle, string text)
         {
-            _guiActions.Push(() => _spriteBatch.DrawString(_defaultFont, text, destinationRectangle.TopLeft(), Color.White));
-
+            var draws = new List<Action>();
             var id = _idGenerator.GenerateId();
+
             if (_uiState.MouseOver(destinationRectangle))
             {
                 _uiState.HotItemId = id;
@@ -53,18 +65,21 @@ namespace NoNameGame.ECS.Ui
             {
                 if (_uiState.ActiveItemId == id)
                 {
-                    _guiActions.Push(() => _spriteBatch.Draw(_btnTexture, destinationRectangle, null, Color.Red));
+                    draws.Add(() => _spriteBatch.Draw(_btnTexture, destinationRectangle, null, Color.Red));
                 }
                 else
                 {
-                    _guiActions.Push(() => _spriteBatch.Draw(_btnTexture, destinationRectangle, null, Color.Yellow));
+                    draws.Add(() => _spriteBatch.Draw(_btnTexture, destinationRectangle, null, Color.Yellow));
                 }
             }
             else
             {
-                _guiActions.Push(() => _spriteBatch.Draw(_btnTexture, destinationRectangle, null, Color.White));
-
+                draws.Add(() => _spriteBatch.Draw(_btnTexture, destinationRectangle, null, Color.White));
             }
+
+            draws.Add(() => _spriteBatch.DrawString(_defaultFont, text, destinationRectangle.TopLeft(), Color.White));
+
+            PushDraw(id, draws.ToArray());
 
             if (!_uiState.LeftButtonDown
                 && _uiState.HotItemId == id
@@ -89,12 +104,28 @@ namespace NoNameGame.ECS.Ui
 
         public static void Draw()
         {
-            foreach (var action in _guiActions)
+            foreach (var d in _draws)
             {
-                action();
+                foreach (var a in d.draws)
+                {
+                    a();
+                }
             }
 
-            _guiActions.Clear();
+            _draws.Clear();
+        }
+
+
+
+        private static void PushDraw(int controlId, params Action[] draws)
+        {
+            if (_draws.Any(x => x.controlId == controlId))
+            {
+                return;
+            }
+
+            _draws.Add((controlId, draws));
+            
         }
     }
 }

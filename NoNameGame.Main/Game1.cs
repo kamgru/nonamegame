@@ -40,19 +40,26 @@ namespace NoNameGame.Main
 
         protected override void Update(GameTime gameTime)
         {
-            ECS.Ui.Gui.Begin();
+            Gui.Begin();
+
             _screenManager.Update(gameTime);
             base.Update(gameTime);
-            ECS.Ui.Gui.End();
+
+            Gui.End();
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.White);
+
             _spriteBatch.Begin();
+
             _screenManager.Draw(gameTime);
-            ECS.Ui.Gui.Draw();
+
+            Gui.Draw();
+
             _spriteBatch.End();
+
             base.Draw(gameTime);
         }
 

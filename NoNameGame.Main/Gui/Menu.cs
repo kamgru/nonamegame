@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NoNameGame.Main.Gui
+namespace NoNameGame.Main
 {
     public class Menu
     {
