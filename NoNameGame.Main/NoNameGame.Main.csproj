@@ -51,6 +51,7 @@
     <Compile Include="Gui\MenuItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screens\GuiTestScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />
     <Compile Include="Screens\StageClearScreen.cs" />
   </ItemGroup>
