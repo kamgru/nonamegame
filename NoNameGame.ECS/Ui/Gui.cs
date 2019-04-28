@@ -34,11 +34,48 @@ namespace NoNameGame.ECS.Ui
             _idGenerator = new ControlIdGenerator();
         }
 
-        public static int Slider(Rectangle destinationRectangle, int max, int value)
+        public static float Slider(Rectangle destinationRectangle, float sliderValue)
         {
-            PushDraw(_idGenerator.GenerateId(), () => _spriteBatch.Draw(_blankTexture, destinationRectangle, _grey));
+            var draws = new List<Action>();
+            var id = _idGenerator.GenerateId();
 
-            return 0;
+            var knobHeight = 8;
+
+            var yOffset = (int)(destinationRectangle.Height * sliderValue) - (knobHeight / 2);
+
+            if (_uiState.MouseOver(destinationRectangle))
+            {
+                _uiState.HotItemId = id;
+
+                if (_uiState.ActiveItemId == 0 && _uiState.LeftButtonDown)
+                {
+                    _uiState.ActiveItemId = id;
+                }
+            }
+
+            draws.Add(() => _spriteBatch.Draw(_blankTexture, destinationRectangle, _grey));
+
+            if (_uiState.ActiveItemId == id || _uiState.HotItemId == id)
+            {
+                draws.Add(() => _spriteBatch.Draw(_blankTexture, new Rectangle(destinationRectangle.X, destinationRectangle.Y + yOffset, 8, knobHeight), Color.Red));
+            }
+            else
+            {
+                draws.Add(() => _spriteBatch.Draw(_blankTexture, new Rectangle(destinationRectangle.X, destinationRectangle.Y + yOffset, 8, knobHeight), Color.Blue));
+            }
+
+            PushDraw(id, draws.ToArray());
+
+            if (_uiState.ActiveItemId == id)
+            {
+                int mousePosition = _uiState.MouseY - destinationRectangle.Y;
+                if (mousePosition < 0) mousePosition = 0;
+                if (mousePosition > destinationRectangle.Height) mousePosition = destinationRectangle.Height;
+
+                sliderValue = (float)mousePosition / destinationRectangle.Height;
+            }
+
+            return sliderValue;
         }
 
         public static void Label(Vector2 position, string text, Color color = default)
