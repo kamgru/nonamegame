@@ -90,10 +90,13 @@
     <Compile Include="Systems\StateHandling\StateHandlerBase.cs" />
     <Compile Include="Systems\SystemBase.cs" />
     <Compile Include="Systems\SystemsManager.cs" />
-    <Compile Include="Ui\UiState.cs" />
+    <Compile Include="Ui\State\KeyboardState.cs" />
+    <Compile Include="Ui\State\MouseState.cs" />
+    <Compile Include="Ui\State\GuiState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

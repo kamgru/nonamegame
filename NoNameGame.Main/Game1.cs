@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using NoNameGame.Core.Screens;
 using NoNameGame.Core.Services;
 using NoNameGame.ECS.Input;
@@ -16,6 +15,7 @@ namespace NoNameGame.Main
         private SpriteBatch _spriteBatch;
         private ScreenManager _screenManager;
 
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -24,12 +24,12 @@ namespace NoNameGame.Main
         protected override void Initialize()
         {
             base.Initialize();
-            this.IsMouseVisible = true;
+            IsMouseVisible = true;
 
             Content.RootDirectory = "Content";
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            ECS.Ui.Gui.Init(Content, _spriteBatch);
+            Gui.Init(Content, _spriteBatch, Window);
             BootstrapScreens();
         }
 
