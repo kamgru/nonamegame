@@ -1,103 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EB4598BD-01B7-4795-9850-6D888537F81A}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NoNameGame.Gameplay</RootNamespace>
-    <AssemblyName>NoNameGame.Gameplay</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="MonoGame.Framework, Version=3.7.1.189, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.Framework.Portable.3.7.1.189\lib\portable-net45+win8+wpa81\MonoGame.Framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Data\BoardData.cs" />
-    <Compile Include="Components\BoardInfo.cs" />
-    <Compile Include="Components\PositionOnBoard.cs" />
-    <Compile Include="Components\TargetScreenPosition.cs" />
-    <Compile Include="Components\TileInfo.cs" />
-    <Compile Include="Data\AnimationDictionary.cs" />
-    <Compile Include="Data\EndStates.cs" />
-    <Compile Include="Data\Input.cs" />
-    <Compile Include="Data\PlayerStates.cs" />
-    <Compile Include="Data\SessionKeys.cs" />
-    <Compile Include="Data\SpriteSheetNames.cs" />
-    <Compile Include="Data\StageData.cs" />
-    <Compile Include="Data\StageDataStorage.cs" />
-    <Compile Include="Data\TileStates.cs" />
-    <Compile Include="Data\TileType.cs" />
-    <Compile Include="Entities\Board.cs" />
-    <Compile Include="Entities\End.cs" />
-    <Compile Include="Entities\Player.cs" />
-    <Compile Include="Entities\Poof.cs" />
-    <Compile Include="Entities\Tile.cs" />
-    <Compile Include="Events\PlayerAbandonedTile.cs" />
-    <Compile Include="Events\PlayerDied.cs" />
-    <Compile Include="Events\PlayerEnteredTile.cs" />
-    <Compile Include="Events\StageCleared.cs" />
-    <Compile Include="Factories\BoardFactory.cs" />
-    <Compile Include="Factories\EndFactory.cs" />
-    <Compile Include="Factories\PlayerFactory.cs" />
-    <Compile Include="Factories\PoofFactory.cs" />
-    <Compile Include="Factories\TileFactory.cs" />
-    <Compile Include="Commands\MovePlayerCommand.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StateManagement\EndOpenHandler.cs" />
-    <Compile Include="StateManagement\PlayerDeadHandler.cs" />
-    <Compile Include="StateManagement\PlayerIdleHandler.cs" />
-    <Compile Include="StateManagement\PlayerMovingHandler.cs" />
-    <Compile Include="StateManagement\TileDestroyedHandler.cs" />
-    <Compile Include="StateManagement\TileTouchedHandler.cs" />
-    <Compile Include="Systems\MoveToScreenPositionSystem.cs" />
-    <Compile Include="Systems\PlayerInputHandlingSystem.cs" />
-    <Compile Include="Systems\TileEventsSystem.cs" />
-    <Compile Include="Data\TileData.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\NoNameGame.ECS\NoNameGame.ECS.csproj">
-      <Project>{db4e4b0d-ac7a-472c-bce9-56d88277e37f}</Project>
-      <Name>NoNameGame.ECS</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\NoNameGame.ECS\NoNameGame.ECS.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    </ItemGroup>
+
 </Project>

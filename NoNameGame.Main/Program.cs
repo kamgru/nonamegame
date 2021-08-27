@@ -1,16 +1,10 @@
 ﻿using System;
+using NoNameGame.Main;
 
-namespace NoNameGame.Main
+namespace NoNameGame
 {
-#if WINDOWS || LINUX
-    /// <summary>
-    /// The main class.
-    /// </summary>
     public static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
@@ -18,5 +12,4 @@ namespace NoNameGame.Main
                 game.Run();
         }
     }
-#endif
 }
